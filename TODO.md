@@ -8,6 +8,7 @@
 - how to ensure that alexa schema/utterances/slots are synced with app code?
 - consider maintaining integrity of in-progress games when script changes
 
+- consider introducing end-game villain almost immediately, to define a long-term goal / trajectory and get users interested immediately
 - consider settings "view"
 - consider navigation / exploration
   - does spacial awareness matter?
