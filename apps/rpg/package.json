@@ -10,8 +10,6 @@
     "bugsnag": "^1.8.0",
     "chai": "^3.5.0",
     "lodash": "^4.3.0",
-    "mocha": "^2.4.5",
-    "request-promise": "^2.0.0",
-    "xmldoc": "^0.5.1"
+    "mocha": "^2.4.5"
   }
 }
