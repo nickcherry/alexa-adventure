@@ -1,14 +1,14 @@
 {
-  "name": "alexa-rpg-server",
+  "name": "alexa-adventure-server",
   "version": "1.0.0",
-  "description": "Development server for Alexa RPG",
+  "description": "Development server for Alexa Adventure",
   "main": "serve.js",
   "scripts": {
     "build": "./build.sh",
-    "preinstall": "npm install --prefix apps/rpg apps/rpg",
+    "preinstall": "npm install --prefix apps/adventure apps/adventure",
     "start": "node serve",
-    "test": "./apps/rpg/node_modules/mocha/bin/_mocha ./apps/rpg/test",
-    "test-debug": "node --inspect --debug-brk ./apps/rpg/node_modules/mocha/bin/_mocha ./apps/rpg/test --timeout=0"
+    "test": "./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test",
+    "test-debug": "node --inspect --debug-brk ./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test --timeout=0"
   },
   "author": "Nick Cherry",
   "license": "ISC",

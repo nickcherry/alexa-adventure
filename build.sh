@@ -3,7 +3,7 @@
 SCRIPT_PATH=`realpath $0`
 ROOT=`dirname $SCRIPT_PATH`
 
-APP_DIR="$ROOT/apps/rpg/"
+APP_DIR="$ROOT/apps/adventure/"
 TARGET_FILE="$ROOT/build.zip"
 WHITELISTED_FILES="*.js *.json node_modules"
 

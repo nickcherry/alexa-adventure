@@ -12,7 +12,7 @@ module.change_code = 1;
 /***********************************************/
 
 const alexa = require('alexa-app');
-const app = new alexa.app('rpg');
+const app = new alexa.app('adventure');
 const bugsnag = require("bugsnag");
 
 const Config = require('./config');
