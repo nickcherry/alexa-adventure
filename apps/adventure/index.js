@@ -25,7 +25,7 @@ const Config = require('./config');
 bugsnag.register(Config.bugsnagApiKey);
 
 bugsnag.autoNotify({ context: 'launch' }, () => {
-  app.launch((req,res) => {
+  app.launch((req, res) => {
     res.say("Greeting, adventurer.");
   });
 });
