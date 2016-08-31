@@ -25,3 +25,4 @@
 - consider occasionally short time restraints to increase pressure
 - consider occasional interactions with / allusions to peers
 - consider internationalization
+- consider cards (supplementary visual content)
