@@ -20,4 +20,5 @@
   - dynamically generated content based on location?
 - consider riddles (with predictable utterances)
 - consider occasionally short time restraints to increase pressure
+- consider (occasional) interactions with / allusions to peers
 - how to ensure that alexa schema/utterances/slots are synced with app code?
