@@ -14,9 +14,9 @@ const fs = require('fs');
 const secrets = JSON.parse(fs.readFileSync(__dirname + '/secrets.json'));
 
 class Config {
-  // static get sampleKey() {
-  //   return secrets.sampleKey;
-  // }
+  static get bugsnagApiKey() {
+    return secrets.bugsnagApiKey;
+  }
 }
 
 module.exports = Config;
