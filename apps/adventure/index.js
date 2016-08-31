@@ -25,8 +25,8 @@ const Config = require('./config');
 bugsnag.register(Config.bugsnagApiKey);
 
 bugsnag.autoNotify({ context: 'launch' }, () => {
-  app.launch((request,response) => {
-    response.say("Greeting, adventurer.");
+  app.launch((req,res) => {
+    res.say("Greeting, adventurer.");
   });
 });
 
@@ -47,7 +47,11 @@ bugsnag.autoNotify({ context: 'intent#setName' }, () => {
     ]
   }, (req, res) => {
     const name = req.slot('NAME');
-    res.say(`And so it begins, ${ name }`);
+    if (name) {
+      res.say(`And so it begins, ${ name }`);
+    } else {
+      res.say('Come again?');
+    }
   });
 });
 
