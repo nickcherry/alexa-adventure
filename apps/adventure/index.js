@@ -20,7 +20,7 @@ module.change_code = 1;
 
 bugsnag.register(Config.bugsnagApiKey);
 
-fs.readdirSync('handlers').forEach((filename) => {
+fs.readdirSync('requests').forEach((filename) => {
   require(filename)(app);
 });
 
