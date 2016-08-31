@@ -7,7 +7,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Game = require('../engine/game');
+const Game = require('../../engine/game');
 
 
 /***********************************************/
