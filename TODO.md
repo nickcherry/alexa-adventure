@@ -5,8 +5,14 @@
 - dynamically load / configure intents based on app
 - figure out how to ask follow-up questions (e.g. Are you sure?)
 - extract new game, name inquiry, etc. to engine?
+- consider navigation / exploration
+  - does spacial awareness matter?
+  - pros and cons of each?
+  - robustness?
+- consider sound effects
 - consider commercials
-- consider config structure (*everything* should be configurable with json)
+- consider config structure
+  - *everything* should be configurable with json
 - consider requirements / locks
 - consider persistence
 - consider in-app purchases
