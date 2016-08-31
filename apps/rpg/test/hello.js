@@ -6,7 +6,6 @@
 
 const chai = require('chai');
 const expect = chai.expect;
-const fs = require('fs');
 
 
 /***********************************************/
@@ -22,7 +21,7 @@ chai.config.includeStack = true;
 
 describe('hello', () => {
   describe('world', () => {
-    it('should smile', () => {
+    it('should turn that frown upside-down', () => {
       const expected = ':)';
       const actual = require('lodash').reverse('):'.split('')).join('')
       expect(expected).to.eq(actual)
