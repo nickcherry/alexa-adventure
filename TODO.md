@@ -18,4 +18,6 @@
 - consider in-app purchases
 - consider plugins
   - dynamically generated content based on location?
+- consider riddles (with predictable utterances)
+- consider occasionally short time restraints to increase pressure
 - how to ensure that alexa schema/utterances/slots are synced with app code?
