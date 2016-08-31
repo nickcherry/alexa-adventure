@@ -1,3 +1,5 @@
+"use strict"
+
 module.exports = (app) => {
   app.intent('setName', {
     slots: {
