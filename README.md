@@ -16,7 +16,7 @@ All the app's sensitive data should reside in a `secrets.json`, where it will be
 cp app/rpg/secrets.template.json app/rpg/secrets.json
 ```
 
-Then substitute valid credentials in for the placeholders.
+Then substitute valid credentials in for the placeholders. See [`apps/rpg/config.js`](apps/rpg/config.js) for usage.
 
 
 ## Development Server
@@ -27,7 +27,7 @@ To start the [alexa-app-server](https://github.com/matt-kruse/alexa-app-server),
 npm start
 ```
 
-The alexa-app-server testing utility will be available at [http://localhost:8080/alexa/rpg](http://localhost:8080/alexa/rpg).
+The alexa-app-server testing utility will be available at [http://localhost:8080/alexa/rpg](http://localhost:8080/alexa/rpg). See [`serve.js`](serve.js) for more information.
 
 ## Deployment
 
