@@ -16,4 +16,6 @@
 - consider requirements / locks
 - consider persistence
 - consider in-app purchases
+- consider plugins
+  - dynamically generated content based on location?
 - how to ensure that alexa schema/utterances/slots are synced with app code?
