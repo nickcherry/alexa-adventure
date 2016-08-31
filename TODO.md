@@ -1,12 +1,14 @@
 # TODO
 
-- break up index.js - one file per request
+#- break up index.js - one file per request
 - add specs for index.js intents
 - dynamically load / configure intents based on app
 - figure out how to ask follow-up questions (e.g. Are you sure?)
 - extract new game, name inquiry, etc. to engine?
 - how to ensure that alexa schema/utterances/slots are synced with app code?
 - consider maintaining integrity of in-progress games when script changes
+- jslint
+- run test suite before allowing build
 
 - consider introducing end-game villain almost immediately, to define a long-term goal / trajectory and get users interested immediately
 - consider settings "view"
