@@ -7,6 +7,8 @@
 const chai = require('chai');
 const expect = chai.expect;
 
+const Game = require('../engine/game');
+
 
 /***********************************************/
 /* Config */
@@ -19,12 +21,12 @@ chai.config.includeStack = true;
 /* Tests */
 /***********************************************/
 
-describe('hello', () => {
-  describe('world', () => {
-    it('should turn that frown upside-down', () => {
-      const expected = ':)';
-      const actual = require('lodash').reverse('):'.split('')).join('')
-      expect(expected).to.eq(actual)
+describe('Game', () => {
+  describe('serialize', () => {
+    it('should return a deserializable string', () => {
+      const jsonString = new Game().serialize();
+      const deserialized = JSON.parse(jsonString);
+      expect(deserialized).to.be.an('object')
     });
   });
 });
