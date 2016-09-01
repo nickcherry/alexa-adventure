@@ -1,0 +1,63 @@
+{
+  "intents": [
+    {
+      "id": "newGame",
+      "slots": [],
+      "utterances": [
+        "start new game"
+      ],
+      "command": "new_game"
+    },
+    {
+      "id": "walk",
+      "slots": {
+        "DESTINATION": "DestinationType"
+      },
+      "utterances": [
+        "walk to {-|DESTINATION}"
+      ],
+      "command": "move",
+      "commandArgs": {
+        "speed": 1
+      }
+    },
+    {
+      "id": "run",
+      "slots": {
+        "DESTINATION": "DestinationType"
+      },
+      "utterances": [
+        "run to {-|DESTINATION}"
+      ],
+      "command": "move",
+      "commandArgs": {
+        "speed": 2
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "tutorialKey",
+      "name": "old dusty key"
+    },
+    {
+      "id": "flashlight",
+      "name": "flashlight"
+    }
+  ],
+  "maps": [
+    {
+      "id": "tutorialMap"
+    },
+    {
+      "id": "corridor",
+      "requirements": [
+        {
+          "type": "item",
+          "id": "tutorialKey",
+          "deniedText": "Good grief, it seems this door is locked!"
+        }
+      ]
+    }
+  ]
+}
