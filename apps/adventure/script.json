@@ -35,6 +35,12 @@
       }
     }
   ],
+  "characters": [
+    {
+      "id": "zach",
+      "name": "Zach"
+    }
+  ],
   "items": [
     {
       "id": "tutorialKey",
@@ -50,21 +56,75 @@
     {
       "id": "flashlight",
       "name": "flashlight"
+    },
+    {
+      "id": "woodenSword",
+      "name": "wooden sword",
+      "isWeapon": true,
+      "attack": 1
+    },
+    {
+      "id": "balletShoes",
+      "name": "ballet shoes"
     }
   ],
   "maps": [
     {
-      "id": "tutorialMap"
+      "id": "tutorialMap",
+      "name": "Somewhere Dark"
+      "connectedTo": [
+        "corridor"
+      ]
     },
     {
       "id": "corridor",
+      "name": "Corridor",
       "requirements": [
         {
           "type": "item",
           "id": "tutorialKey",
           "deniedText": "Good grief, it seems this door is locked!"
         }
+      ],
+      "connectedTo": [
+        "ballroom"
+      ],
+      "contains": [
+        {
+          "type": "character",
+          "id": "zach"
+        },
+        {
+          "type": "item",
+          "id": "woodenSword"
+        },
+        {
+          "type": "item",
+          "id": "balletShoes"
+        }
       ]
+    },
+    {
+      "id": "ballroom",
+      "name": "Grand Ballroom"
+      "requirements": [
+        {
+          "type": "item",
+          "id": "balletShoes"
+        }
+      ],
+      "connectedTo": [
+        "masterBedroom",
+        "courtyard"
+      ]
+    },
+    {
+      "id": "masterBedroom",
+      "name": "Master Bedroom"
+    },
+    {
+      "id": "courdyard",
+      "name": "Courtyard"
     }
   ]
 }
