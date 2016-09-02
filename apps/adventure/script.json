@@ -38,7 +38,14 @@
   "items": [
     {
       "id": "tutorialKey",
-      "name": "old dusty key"
+      "name": "old dusty key",
+      "requirements": [
+        {
+          "type": "item",
+          "id": "flashlight",
+          "deniedText": "It's so dark down here. If only you could see better."
+        }
+      ]
     },
     {
       "id": "flashlight",
