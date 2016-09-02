@@ -6,10 +6,12 @@
   "author": "Nick Cherry",
   "license": "ISC",
   "dependencies": {
-    "alexa-app": "^2.3.2",
+    "alexa-app": "^2.3.4",
     "bugsnag": "^1.8.0",
     "chai": "^3.5.0",
     "lodash": "^4.3.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.5",
+    "sinon-chai": "^2.8.0"
   }
 }

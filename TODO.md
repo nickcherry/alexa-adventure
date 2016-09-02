@@ -9,6 +9,7 @@
 - consider maintaining integrity of in-progress games when script changes
 - jslint
 - run test suite before allowing build
+- add dynasty package to project
 
 - consider introducing end-game villain almost immediately, to define a long-term goal / trajectory and get users interested immediately
 - consider settings "view"
