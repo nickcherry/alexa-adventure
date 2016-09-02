@@ -24,17 +24,21 @@ chai.use(sinonChai);
 /***********************************************/
 
 describe('Command', () => {
-  describe('#requireSlot', () => {
+  describe('#_slot', () => {
     describe('when the slot exists', () => {
       const req = RequestFactory.default();
       stub(req, 'slot', () => 'eureka');
       const command = CommandFactory.default({ req });
-      expect(command._requireSlot('yep')).to.eq('eureka');
+      expect(command._slot('yep')).to.eq('eureka');
     });
-    describe('when the slot does not exist', () => {
-      const command = CommandFactory.default();
-      const requirer = () => command._requireSlot('nope');
-      expect(requirer).to.throw('expects a `nope` slot value.');
+    describe('when a required slot does not exist', () => {
+      const intent = { command: 'move' }
+      const command = CommandFactory.default({ intent });
+      const requirer = () => command._slot('DESTINATION');
+      expect(requirer).to.throw('expects a `DESTINATION` slot value.');
+    });
+    describe('when an optional slot does not exist', () => {
+      //
     });
   });
 });
