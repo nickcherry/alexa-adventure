@@ -5,7 +5,10 @@
 /***********************************************/
 
 const chai = require('chai');
-const expect = require('chai').expect;
+const expect = chai.expect;
+
+const Character = require('../../../engine/item');
+const CharacterFactory = require('../../factories/item_factory');
 
 /***********************************************/
 /* Config */
@@ -17,6 +20,7 @@ chai.config.includeStack = true;
 /* Tests */
 /***********************************************/
 
-describe('Script', () => {
-  //
+describe('ItemValidator', () => {
+  describe('#errors', () => {
+  });
 });

@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const AppFactory = require('./app_factory');
 const Factory = require('./factory');
 const CommandLoader = require('../../engine/commands/command_loader');
@@ -25,12 +26,12 @@ const getCommandClass = (intent) => {
 /***********************************************/
 
 module.exports = class CommandFactory extends Factory {
-  static default({ req, res, state, intent, script, app } = {}) {
+  static default({ req, res, intent, state, script, app } = {}) {
     req = req || RequestFactory.default();
     res = res || ResponseFactory.default();
     state = state || StateFactory.default();
     script = script || ScriptFactory.fromFile('simple_script');
-    intent = intent || script.intents[0];
-    return new (getCommandClass(intent))(req, res, state, intent, script, app);
+    intent = intent || _.first(script.intents);
+    return new (getCommandClass(intent))(req, res, intent, state, script, app);
   }
 }

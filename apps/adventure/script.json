@@ -37,8 +37,8 @@
   ],
   "characters": [
     {
-      "id": "zach",
-      "name": "Zach"
+      "id": "guardBarry",
+      "name": "Barry the Guard"
     }
   ],
   "items": [
@@ -71,7 +71,7 @@
   "maps": [
     {
       "id": "tutorialMap",
-      "name": "Somewhere Dark"
+      "name": "Somewhere Dark",
       "connectedTo": [
         "corridor"
       ]
@@ -79,6 +79,7 @@
     {
       "id": "corridor",
       "name": "Corridor",
+      "enterText": "Entering the corridor. It looks like there's a guard at the other end",
       "requirements": [
         {
           "type": "item",
@@ -92,7 +93,30 @@
       "contains": [
         {
           "type": "character",
-          "id": "zach"
+          "id": "guard",
+          "conversation": {
+            "text": "Hey, whatchoo doing over there, lad?",
+            "playerResponses": [
+              {
+                "text": "I'm lost and trying to find the way out.",
+                "conversation": {
+                  "text": "Ah, well I could show you out through the ballet room, but it seems you don't have the appropriate footwear.",
+                  "playerResponses": [
+                    {
+                      "text": "What kind of footwear do I need?",
+                      "conversation": {
+                        "text": "Ballet slippers, of course!"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "text": "Blow it up your arse, Guard Barry!",
+                "conversation": "Why I oughta teach you some manners, you little monster!"
+              }
+            ]
+          }
         },
         {
           "type": "item",
@@ -106,7 +130,7 @@
     },
     {
       "id": "ballroom",
-      "name": "Grand Ballroom"
+      "name": "Grand Ballroom",
       "requirements": [
         {
           "type": "item",
@@ -120,11 +144,17 @@
     },
     {
       "id": "masterBedroom",
-      "name": "Master Bedroom"
+      "name": "Master Bedroom",
+      "connectedTo": [
+        "ballroom"
+      ]
     },
     {
       "id": "courdyard",
-      "name": "Courtyard"
+      "name": "Courtyard",
+      "connectedTo": [
+        "countyard"
+      ]
     }
   ]
 }

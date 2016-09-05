@@ -5,7 +5,10 @@
 /***********************************************/
 
 const chai = require('chai');
-const expect = require('chai').expect;
+const expect = chai.expect;
+
+const Character = require('../../../engine/map');
+const CharacterFactory = require('../../factories/map_factory');
 
 /***********************************************/
 /* Config */
@@ -17,6 +20,7 @@ chai.config.includeStack = true;
 /* Tests */
 /***********************************************/
 
-describe('Script', () => {
-  //
+describe('MapValidator', () => {
+  describe('#errors', () => {
+  });
 });

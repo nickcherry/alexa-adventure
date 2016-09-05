@@ -17,6 +17,6 @@ chai.config.includeStack = true;
 /* Tests */
 /***********************************************/
 
-describe('Script', () => {
+describe('Item', () => {
   //
 });
