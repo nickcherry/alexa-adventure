@@ -24,8 +24,6 @@ module.exports = class CommandLoader {
   static get(commandId) {
     if (_.includes(COMMANDS, commandId)) {
       return require(`${ __dirname }/${ commandId }`);
-    } else {
-      throw new Error(`\`${ commandId }\` is not a recognized command.`);
     }
   }
 }

@@ -16,7 +16,7 @@ const Validator = require('./validator');
 /* Private */
 /***********************************************/
 
-const concatDuplicateErrors = (script, field, errors = []) => {
+const _validateUniqueness = (script, field, errors = []) => {
   const dups = _.uniq((script[field] || []).filter((array) => {
     return _.countBy(array, 'id') > 1;
   }));
@@ -26,13 +26,13 @@ const concatDuplicateErrors = (script, field, errors = []) => {
   return errors;
 };
 
-const concatKeyPresenceErrors = (script, field, errors = []) => {
+const _validateKeyPresence = (script, field, errors = []) => {
   return script[field] ? errors : errors.concat([
     `The ${ field } array must be defined at the script's root.`
   ]);
 }
 
-const concatValidatorErrors = (array, validatorClass, errors = []) => {
+const _validateNestedModel = (array, validatorClass, errors = []) => {
   return (array || []).reduce((errors, item) => {
     return errors.concat(new validatorClass(item).errors);
   }, errors);
@@ -57,30 +57,30 @@ module.exports = class ScriptValidator extends Validator {
   }
 
   _validateCharacters(script, errors = []) {
-    errors = concatKeyPresenceErrors(script, 'characters', errors);
-    errors = concatValidatorErrors(script.characters, CharacterValidator, errors);
-    errors = concatDuplicateErrors(script, 'characters', errors);
+    errors = _validateKeyPresence(script, 'characters', errors);
+    errors = _validateUniqueness(script, 'characters', errors);
+    errors = _validateNestedModel(script.characters, CharacterValidator, errors);
     return errors;
   }
 
   _validateIntents(script, errors = []) {
-    errors = concatKeyPresenceErrors(script, 'intents', errors);
-    errors = concatValidatorErrors(script.intents, IntentValidator, errors);
-    errors = concatDuplicateErrors(script, 'intents', errors);
+    errors = _validateKeyPresence(script, 'intents', errors);
+    errors = _validateUniqueness(script, 'intents', errors);
+    errors = _validateNestedModel(script.intents, IntentValidator, errors);
     return errors;
   };
 
   _validateItems(script, errors = []) {
-    errors = concatKeyPresenceErrors(script, 'items', errors);
-    errors = concatValidatorErrors(script.items, ItemValidator, errors);
-    errors = concatDuplicateErrors(script, 'items', errors);
+    errors = _validateKeyPresence(script, 'items', errors);
+    errors = _validateUniqueness(script, 'items', errors);
+    errors = _validateNestedModel(script.items, ItemValidator, errors);
     return errors;
   };
 
   _validateMaps(script, errors = []) {
-    errors = concatKeyPresenceErrors(script, 'maps', errors);
-    errors = concatValidatorErrors(script.maps, MapValidator, errors);
-    errors = concatDuplicateErrors(script, 'maps', errors);
+    errors = _validateKeyPresence(script, 'maps', errors);
+    errors = _validateUniqueness(script, 'maps', errors);
+    errors = _validateNestedModel(script.maps, MapValidator, errors);
     return errors;
   }
 }

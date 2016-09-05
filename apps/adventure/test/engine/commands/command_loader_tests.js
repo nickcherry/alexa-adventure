@@ -30,8 +30,7 @@ describe('CommandLoader', () => {
   describe('.get', () => {
     describe('when the requested command is invalid', () => {
       it('should throw an error', () => {
-        const getter = () => CommandLoader.get('xxx');
-        expect(getter).to.throw('`xxx` is not a recognized command.');
+        expect(CommandLoader.get('xxx')).to.be.undefined;
       });
     });
     describe('when the command is valid', () => {

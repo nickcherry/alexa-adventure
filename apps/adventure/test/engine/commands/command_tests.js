@@ -32,14 +32,5 @@ describe('Command', () => {
       const command = CommandFactory.default({ req });
       expect(command._slot('yep')).to.eq('eureka');
     });
-    describe('when a required slot does not exist', () => {
-      const intent = IntentFactory.default({ command: 'move' });
-      const command = CommandFactory.default({ intent });
-      const requirer = () => command._slot('DESTINATION');
-      // expect(requirer).to.throw('expects a `DESTINATION` slot value.');
-    });
-    describe('when an optional slot does not exist', () => {
-      //
-    });
   });
 });

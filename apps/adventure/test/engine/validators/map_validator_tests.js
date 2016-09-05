@@ -7,8 +7,8 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Character = require('../../../engine/map');
-const CharacterFactory = require('../../factories/map_factory');
+const Map = require('../../../engine/map');
+const MapFactory = require('../../factories/map_factory');
 
 /***********************************************/
 /* Config */
