@@ -8,7 +8,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const CommandLoader = require('../../../engine/commands/command_loader');
-const MoveCommand = require('../../../engine/commands/move');
+const new_gameCommand = require('../../../engine/commands/new_game');
 
 /***********************************************/
 /* Config */
@@ -35,7 +35,7 @@ describe('CommandLoader', () => {
     });
     describe('when the command is valid', () => {
       it('should return the requested command class', () => {
-        expect(CommandLoader.get('move')).to.eq(MoveCommand);
+        expect(CommandLoader.get('new_game')).to.eq(new_gameCommand);
       });
     });
   });

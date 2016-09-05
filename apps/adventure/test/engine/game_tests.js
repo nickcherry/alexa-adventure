@@ -12,8 +12,6 @@ const stub = require('sinon').stub;
 const AppFactory = require('../factories/app_factory');
 const Game = require('../../engine/game');
 const GameFactory = require('../factories/game_factory');
-const MoveCommand = require('../../engine/commands/move');
-const NewGameCommand = require('../../engine/commands/new_game');
 const ScriptFactory = require('../factories/script_factory');
 
 /***********************************************/
@@ -37,14 +35,14 @@ describe('Game', () => {
     });
   });
   describe('#init', () => {
-    it('should define intents defined in the script', () => {
+    it('should define intents configured in the script', () => {
       const app = AppFactory.default();
       const script = ScriptFactory.fromFile('simple_script');
       const game = GameFactory.default({ app, script });
       const intentStub = stub(app, 'intent');
       game.init();
       expect(intentStub).to.have.been.calledThrice;
-      expect(intentStub).to.have.been.calledWithMatch('newGame', script.intents[0]);
+      expect(intentStub).to.have.been.calledWithMatch('new_game', script.intents[0]);
       expect(intentStub).to.have.been.calledWithMatch('walk', script.intents[1]);
       expect(intentStub).to.have.been.calledWithMatch('run', script.intents[2]);
     });

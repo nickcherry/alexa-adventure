@@ -11,7 +11,7 @@ const _ = require('lodash');
 COMMANDS = [
   'move',
   'new_game'
-];
+]
 
 /***********************************************/
 /* Exports */
@@ -25,5 +25,10 @@ module.exports = class CommandLoader {
     if (_.includes(COMMANDS, commandId)) {
       return require(`${ __dirname }/${ commandId }`);
     }
+  }
+  static getAll() {
+    return COMMANDS.map((commandId) => {
+      return CommandLoader.get(commandId);
+    });
   }
 }

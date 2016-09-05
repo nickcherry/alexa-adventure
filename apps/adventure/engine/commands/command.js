@@ -34,4 +34,12 @@ module.exports = class Command {
   _say(msg) {
     this.res.say(msg);
   }
+
+  get requiredSlots() {
+    throw new Error(`${ this.constructor.name } must implement a \`get requiredSlots\` method.`);
+  }
+
+  get requiredCommandArgs() {
+    throw new Error(`${ this.constructor.name } must implement a \`get requiredCommandArgs\` method.`);
+  }
 }
