@@ -1,3 +1,14 @@
+//
+//        __       ____  ____  ________   __          __      
+//       /""\     ("  _||_ " ||"      "\ |" \        /""\     
+//      /    \    |   (  ) : |(.  ___  :)||  |      /    \    
+//     /' /\  \   (:  |  | . )|: \   ) |||:  |     /' /\  \   
+//    //  __'  \   \\ \__/ // (| (___\ |||.  |    //  __'  \  
+//   /   /  \\  \  /\\ __ //\ |:       :)/\  |\  /   /  \\  \ 
+//  (___/    \___)(__________)(________/(__\_|_)(___/    \___)
+//
+//                The World's First Audio RPG                                                          
+//                                                          
 {
   "intents": [
     {
@@ -8,38 +19,126 @@
       ],
       "command": "new_game"
     },
+        // Basic commands available in every room
     {
-      "id": "walk",
+      // Plays room description from current room
+      "id":"lookAround",
+      "utterances": [
+        "look", "where am i", "look around"
+      ],
+      "command": "look",
+    },
+    {
+      // Searchs a room to reveal an additional description. This is a core part of RPG-ness. You search barrells and 1 in 10 has an item or some gold. 
+      "id":"search",
+      "utterances": [
+        "search around", "search", "search the area"
+      ],
+      "command": "search",
+    },
+    {
+      // Talk to a character.
+      "id":"talk",
       "slots": {
-        "DESTINATION": "DestinationType"
+        "CHARACTER": "Character_Id" // Not sure i did this part right
       },
       "utterances": [
-        "walk to {-|DESTINATION}"
+        "talk to {-|CHARACTER}"
       ],
-      "command": "move",
+    },
+    {
+      // Open a container. Not needed of course for now.
+      "id":"open",
+      "slots": {
+        "ITEM": "Item_Id" // Not sure i did this part right
+      },
+      "utterances": [
+        "open the {-|ITEM}",
+      ],
+      "command": "open",
       "commandArgs": {
-        "speed": 1
+        "item": false, // Not sure i did this part right
       }
     },
     {
-      "id": "run",
+      // Checks stats and health
+      "id":"stats",
+      "utterances": [
+        "health","check health","stats","check stats", "check my stats", "check my health"
+      ],
+      "command": "stats",
+    }
+    // The next few items are related to Inventory. We could (instead) just manage a couple of key stats, so picking up an item adds to these stats. 
+    {
+      // Lists items in your inventory 
+      "id":"inventory",
+      "utterances": [
+        "check inventory", "inventory"
+      ],
+      "command":"inventory",
+    },
+    {
+      // Add item to your inventory
+      "id":"grabItem",
       "slots": {
-        "DESTINATION": "DestinationType"
+        "ITEM": "Item_Id" // Not sure i did this part right
       },
       "utterances": [
-        "run to {-|DESTINATION}"
+        "pick up {-|ITEM}", "grab {-|ITEM}", "get {-|ITEM}"
       ],
-      "command": "move",
+      "command": "addInventory",
       "commandArgs": {
-        "speed": 2
+        "item": false // Not sure i did this part right. The idea is that you are passing the item (so you can check item requirements, etc.)
+      },
+    },
+    {
+      // Add item to your inventory
+      "id":"grabItem",
+      "slots": {
+        "ITEM": "Item_Id" // Not sure i did this part right
+      },
+      "utterances": [
+        "pick up {-|ITEM}", "grab {-|ITEM}", "get {-|ITEM}"
+      ],
+      "command": "addInventory",
+      "commandArgs": {
+        "item": false // Not sure i did this part right. The idea is that you are passing the item (so you can check item requirements, etc.)
       }
     }
+    // TODO Remove Item from Inventory
+    // TODO Equip Items (assume for now all items are always equipped)
+
+    // Movement can feel more natural if we define specific utterances that are used in each room. See the corridor example.
   ],
   "characters": [
     {
       "id": "guardBarry",
-      "name": "Barry the Guard"
-    }
+      "name": "Barry the Guard",
+      "type": "NPC",
+    },
+    {
+      "id": "giantRat",
+      "name": "Rat",
+      "type": "enemy",
+      "talkResponse": "The rat snarls back at you",
+      "adjectives": ["Giant","Hairy","Ugly"],
+      "damageResponse": [
+        {
+          "type": "minor",
+          "descriptions": ["You land a light hit on the side of the rat.", "You hit the rat, but it doesn't seem to notice."]
+        },
+        {
+          "type": "major",
+          "descriptions": ["You land a heavy blow on the rat.", "You really hit it hard!"]
+        },
+      ],
+      // "openingThreshold": EXP > XYZ or health < XYZ
+      "health": 10,
+      "baseAttack": 10, 
+      "baseDefense": 10,
+      "magicDefense": 0,
+      "magicAttack": 0,
+    },
   ],
   "items": [
     {
@@ -64,6 +163,25 @@
       "attack": 1
     },
     {
+      "id": "broadsword",
+      "name": "broadsword",
+      "isWeapon": true,
+      "baseAttack": 3,
+      "requirements": [
+        {
+          "type": "stat",
+          "stat": "strength",
+          "minimum": "10"
+        },
+      ]
+    },
+    {
+      "id": "lockedBox",
+      "name": "wooden box",
+      "isContainer": true,
+      "contains": "balletShoes"
+    },
+    {
       "id": "balletShoes",
       "name": "ballet shoes"
     }
@@ -79,44 +197,39 @@
     {
       "id": "corridor",
       "name": "Corridor",
-      "enterText": "Entering the corridor. It looks like there's a guard at the other end",
-      "requirements": [
-        {
-          "type": "item",
-          "id": "tutorialKey",
-          "deniedText": "Good grief, it seems this door is locked!"
-        }
-      ],
+      "descriptionText": "Entering the corridor. It looks like there's a guard at the other end",
+      "searchText": "A closer look around the room reveals a small wooden box, tucked away in the corner.",
+      // Removed room requirements, would prefer to manage in connectedTo. See below.
       "connectedTo": [
-        "ballroom"
+        {
+          "location": "ballroom",
+          // The utterance is described here, because it is only available in this location.
+          "utterance": "walk through the french double doors",
+          "secret": false,
+          "requirements": [
+            {
+              "type": "item",
+              "id": "balletShoes",
+              "failure": "The guard stares at you coldly. You won't be able to get in this way without some kind of bribe."
+            }
+          ],
+          "response": "You take out the ballet shoes you found earlier, and set them down on the floor, eyeing the guard deliberately. He nods back to you. And you walk through the graceful doors to enter the ballroom."
+        },
+        {
+          "location": "masterBedroom",
+          "secret": false, // This means that the utterance is played after the description. 
+          "utterance": "Leave the room.",
+          "response": "You pull on the skull on the mantle of the fireplace and a small door opens. You walk through it.",
+        },
       ],
       "contains": [
         {
           "type": "character",
           "id": "guard",
           "conversation": {
-            "text": "Hey, whatchoo doing over there, lad?",
-            "playerResponses": [
-              {
-                "text": "I'm lost and trying to find the way out.",
-                "conversation": {
-                  "text": "Ah, well I could show you out through the ballet room, but it seems you don't have the appropriate footwear.",
-                  "playerResponses": [
-                    {
-                      "text": "What kind of footwear do I need?",
-                      "conversation": {
-                        "text": "Ballet slippers, of course!"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "text": "Blow it up your arse, Guard Barry!",
-                "conversation": "Why I oughta teach you some manners, you little monster!"
-              }
-            ]
-          }
+            // Tough to imagine an in depth convo with an NPC. For now, just one response is enough.
+            "response":"You walk up to the guard and ask why he is so sad. He says he needed to buy ballet shoes for his daughter, but got stuck guarding this stupid door."
+          },
         },
         {
           "type": "item",
@@ -131,12 +244,7 @@
     {
       "id": "ballroom",
       "name": "Grand Ballroom",
-      "requirements": [
-        {
-          "type": "item",
-          "id": "balletShoes"
-        }
-      ],
+
       "connectedTo": [
         "masterBedroom",
         "courtyard"
@@ -145,8 +253,22 @@
     {
       "id": "masterBedroom",
       "name": "Master Bedroom",
+      //After entering a room, Alexa plays the description text and then any non-secret room contents, connections, and characters. 
+      "descriptionText": "The musty old bedroom is covered in a film of dust. It looks like no one has slept here for a long time."
+      "searchText": "You notice a skull on the mantle of the fireplace that is shiny, as if it has been touched recently. It looks like you can pull on the skull."
       "connectedTo": [
-        "ballroom"
+        {
+          "location": "ballroom",
+          "secret": true,
+          "utterance": "Pull on the skull.",
+          "response": "You pull on the skull on the mantle of the fireplace and a small door opens. You walk through it.",
+        },
+        {
+          "location": "corridor",
+          "secret": false, // This means that the utterance is played after the description. 
+          "utterance": "Leave the room.",
+          "response": "You pull on the skull on the mantle of the fireplace and a small door opens. You walk through it.",
+        },
       ]
     },
     {
