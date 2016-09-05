@@ -52,3 +52,9 @@ To run the test suite with debugging enabled, run the following from the project
 ```shell
 npm run test-debug
 ```
+
+To test only the script (`./apps/adventure/script.json`), run the following from the project root:
+
+```shell
+npm run test-script
+```
