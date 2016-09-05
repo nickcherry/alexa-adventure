@@ -1,3 +1,14 @@
+//
+//        __       ____  ____  ________   __          __      
+//       /""\     ("  _||_ " ||"      "\ |" \        /""\     
+//      /    \    |   (  ) : |(.  ___  :)||  |      /    \    
+//     /' /\  \   (:  |  | . )|: \   ) |||:  |     /' /\  \   
+//    //  __'  \   \\ \__/ // (| (___\ |||.  |    //  __'  \  
+//   /   /  \\  \  /\\ __ //\ |:       :)/\  |\  /   /  \\  \ 
+//  (___/    \___)(__________)(________/(__\_|_)(___/    \___)
+//
+//                The World's First Audio RPG                                                          
+//                                                          
 {
   "intents": [
     {
@@ -8,38 +19,126 @@
       ],
       "command": "new_game"
     },
+        // Basic commands available in every room
     {
-      "id": "walk",
+      // Plays room description from current room
+      "id":"lookAround",
+      "utterances": [
+        "look", "where am i", "look around"
+      ],
+      "command": "look",
+    },
+    {
+      // Searchs a room to reveal an additional description. This is a core part of RPG-ness. You search barrells and 1 in 10 has an item or some gold. 
+      "id":"search",
+      "utterances": [
+        "search around", "search", "search the area"
+      ],
+      "command": "search",
+    },
+    {
+      // Talk to a character.
+      "id":"talk",
       "slots": {
-        "DESTINATION": "DestinationType"
+        "CHARACTER": "Character_Id" // Not sure i did this part right
       },
       "utterances": [
-        "walk to {-|DESTINATION}"
+        "talk to {-|CHARACTER}"
       ],
-      "command": "move",
+    },
+    {
+      // Open a container. Not needed of course for now.
+      "id":"open",
+      "slots": {
+        "ITEM": "Item_Id" // Not sure i did this part right
+      },
+      "utterances": [
+        "open the {-|ITEM}",
+      ],
+      "command": "open",
       "commandArgs": {
-        "speed": 1
+        "item": false, // Not sure i did this part right
       }
     },
     {
-      "id": "run",
+      // Checks stats and health
+      "id":"stats",
+      "utterances": [
+        "health","check health","stats","check stats", "check my stats", "check my health"
+      ],
+      "command": "stats",
+    }
+    // The next few items are related to Inventory. We could (instead) just manage a couple of key stats, so picking up an item adds to these stats. 
+    {
+      // Lists items in your inventory 
+      "id":"inventory",
+      "utterances": [
+        "check inventory", "inventory"
+      ],
+      "command":"inventory",
+    },
+    {
+      // Add item to your inventory
+      "id":"grabItem",
       "slots": {
-        "DESTINATION": "DestinationType"
+        "ITEM": "Item_Id" // Not sure i did this part right
       },
       "utterances": [
-        "run to {-|DESTINATION}"
+        "pick up {-|ITEM}", "grab {-|ITEM}", "get {-|ITEM}"
       ],
-      "command": "move",
+      "command": "addInventory",
       "commandArgs": {
-        "speed": 2
+        "item": false // Not sure i did this part right. The idea is that you are passing the item (so you can check item requirements, etc.)
+      },
+    },
+    {
+      // Add item to your inventory
+      "id":"grabItem",
+      "slots": {
+        "ITEM": "Item_Id" // Not sure i did this part right
+      },
+      "utterances": [
+        "pick up {-|ITEM}", "grab {-|ITEM}", "get {-|ITEM}"
+      ],
+      "command": "addInventory",
+      "commandArgs": {
+        "item": false // Not sure i did this part right. The idea is that you are passing the item (so you can check item requirements, etc.)
       }
     }
+    // TODO Remove Item from Inventory
+    // TODO Equip Items (assume for now all items are always equipped)
+
+    // Movement can feel more natural if we define specific utterances that are used in each room. See the corridor example.
   ],
   "characters": [
     {
       "id": "guardBarry",
-      "name": "Barry the Guard"
-    }
+      "name": "Barry the Guard",
+      "type": "NPC",
+    },
+    {
+      "id": "giantRat",
+      "name": "Rat",
+      "type": "enemy",
+      "talkResponse": "The rat snarls back at you",
+      "adjectives": ["Giant","Hairy","Ugly"],
+      "damageResponse": [
+        {
+          "type": "minor",
+          "descriptions": ["You land a light hit on the side of the rat.", "You hit the rat, but it doesn't seem to notice."]
+        },
+        {
+          "type": "major",
+          "descriptions": ["You land a heavy blow on the rat.", "You really hit it hard!"]
+        },
+      ],
+      // "openingThreshold": EXP > XYZ or health < XYZ
+      "health": 10,
+      "baseAttack": 10, 
+      "baseDefense": 10,
+      "magicDefense": 0,
+      "magicAttack": 0,
+    },
   ],
   "items": [
     {

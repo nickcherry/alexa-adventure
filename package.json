@@ -12,7 +12,6 @@
     "test-script": "./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test/script_json_tests.js"
   },
   "author": "Nick Cherry",
-  "license": "ISC",
   "dependencies": {
     "alexa-app-server": "^2.2.4"
   }
