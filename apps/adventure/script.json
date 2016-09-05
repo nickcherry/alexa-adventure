@@ -163,6 +163,25 @@
       "attack": 1
     },
     {
+      "id": "broadsword",
+      "name": "broadsword",
+      "isWeapon": true,
+      "baseAttack": 3,
+      "requirements": [
+        {
+          "type": "stat",
+          "stat": "strength",
+          "minimum": "10"
+        },
+      ]
+    },
+    {
+      "id": "lockedBox",
+      "name": "wooden box",
+      "isContainer": true,
+      "contains": "balletShoes"
+    },
+    {
       "id": "balletShoes",
       "name": "ballet shoes"
     }
@@ -178,44 +197,39 @@
     {
       "id": "corridor",
       "name": "Corridor",
-      "enterText": "Entering the corridor. It looks like there's a guard at the other end",
-      "requirements": [
-        {
-          "type": "item",
-          "id": "tutorialKey",
-          "deniedText": "Good grief, it seems this door is locked!"
-        }
-      ],
+      "descriptionText": "Entering the corridor. It looks like there's a guard at the other end",
+      "searchText": "A closer look around the room reveals a small wooden box, tucked away in the corner.",
+      // Removed room requirements, would prefer to manage in connectedTo. See below.
       "connectedTo": [
-        "ballroom"
+        {
+          "location": "ballroom",
+          // The utterance is described here, because it is only available in this location.
+          "utterance": "walk through the french double doors",
+          "secret": false,
+          "requirements": [
+            {
+              "type": "item",
+              "id": "balletShoes",
+              "failure": "The guard stares at you coldly. You won't be able to get in this way without some kind of bribe."
+            }
+          ],
+          "response": "You take out the ballet shoes you found earlier, and set them down on the floor, eyeing the guard deliberately. He nods back to you. And you walk through the graceful doors to enter the ballroom."
+        },
+        {
+          "location": "masterBedroom",
+          "secret": false, // This means that the utterance is played after the description. 
+          "utterance": "Leave the room.",
+          "response": "You pull on the skull on the mantle of the fireplace and a small door opens. You walk through it.",
+        },
       ],
       "contains": [
         {
           "type": "character",
           "id": "guard",
           "conversation": {
-            "text": "Hey, whatchoo doing over there, lad?",
-            "playerResponses": [
-              {
-                "text": "I'm lost and trying to find the way out.",
-                "conversation": {
-                  "text": "Ah, well I could show you out through the ballet room, but it seems you don't have the appropriate footwear.",
-                  "playerResponses": [
-                    {
-                      "text": "What kind of footwear do I need?",
-                      "conversation": {
-                        "text": "Ballet slippers, of course!"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "text": "Blow it up your arse, Guard Barry!",
-                "conversation": "Why I oughta teach you some manners, you little monster!"
-              }
-            ]
-          }
+            // Tough to imagine an in depth convo with an NPC. For now, just one response is enough.
+            "response":"You walk up to the guard and ask why he is so sad. He says he needed to buy ballet shoes for his daughter, but got stuck guarding this stupid door."
+          },
         },
         {
           "type": "item",
@@ -230,12 +244,7 @@
     {
       "id": "ballroom",
       "name": "Grand Ballroom",
-      "requirements": [
-        {
-          "type": "item",
-          "id": "balletShoes"
-        }
-      ],
+
       "connectedTo": [
         "masterBedroom",
         "courtyard"
@@ -244,8 +253,22 @@
     {
       "id": "masterBedroom",
       "name": "Master Bedroom",
+      //After entering a room, Alexa plays the description text and then any non-secret room contents, connections, and characters. 
+      "descriptionText": "The musty old bedroom is covered in a film of dust. It looks like no one has slept here for a long time."
+      "searchText": "You notice a skull on the mantle of the fireplace that is shiny, as if it has been touched recently. It looks like you can pull on the skull."
       "connectedTo": [
-        "ballroom"
+        {
+          "location": "ballroom",
+          "secret": true,
+          "utterance": "Pull on the skull.",
+          "response": "You pull on the skull on the mantle of the fireplace and a small door opens. You walk through it.",
+        },
+        {
+          "location": "corridor",
+          "secret": false, // This means that the utterance is played after the description. 
+          "utterance": "Leave the room.",
+          "response": "You pull on the skull on the mantle of the fireplace and a small door opens. You walk through it.",
+        },
       ]
     },
     {
