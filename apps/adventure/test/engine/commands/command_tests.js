@@ -36,14 +36,14 @@ describe('Command', () => {
   describe('#requiredSlots', () => {
     it('should define the required slots', () => {
       CommandLoader.getAll().forEach((commandClass) => {
-        expect(new commandClass().requiredSlots).to.be.a('array')
+        expect(commandClass.getRequiredSlots()).to.be.a('array')
       });
     });
   });
   describe('#requiredCommandArgs', () => {
     it('should define the required command args', () => {
       CommandLoader.getAll().forEach((commandClass) => {
-        expect(new commandClass().requiredCommandArgs).to.be.a('array');
+        expect(commandClass.getRequiredCommandArgs()).to.be.a('array');
       });
     });
   });

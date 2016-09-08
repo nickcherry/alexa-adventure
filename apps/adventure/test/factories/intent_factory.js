@@ -12,7 +12,7 @@ const Intent = require('../../engine/intent');
 /***********************************************/
 
 module.exports = class IntentFactory extends Factory {
-  static default({ id, command, commandArgs }) {
+  static default({ id, command, commandArgs } = {}) {
     return new Intent({ id, command, commandArgs });
   }
 }

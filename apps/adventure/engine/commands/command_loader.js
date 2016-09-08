@@ -8,7 +8,7 @@ const _ = require('lodash');
 /* Private */
 /***********************************************/
 
-COMMANDS = [
+COMMAND_KEYS = [
   'move',
   'new_game'
 ]
@@ -21,14 +21,16 @@ module.exports = class CommandLoader {
   constructor() {
     throw new Error('CommandLoader cannot be instantiated.');
   }
-  static get(commandId) {
-    if (_.includes(COMMANDS, commandId)) {
-      return require(`${ __dirname }/${ commandId }`);
+
+  static get(commandKey) {
+    if (_.includes(COMMAND_KEYS, commandKey)) {
+      return require(`${ __dirname }/${ commandKey }`);
     }
   }
+
   static getAll() {
-    return COMMANDS.map((commandId) => {
-      return CommandLoader.get(commandId);
+    return COMMAND_KEYS.map((commandKey) => {
+      return CommandLoader.get(commandKey);
     });
   }
 }

@@ -11,11 +11,13 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Intent extends ConfigurableModel {
-  constructor({ command, commandArgs, id}) {
+  constructor({ command, commandArgs, id, slots, utterances }) {
     super();
     this.id = id;
     this.command = command;
     this.commandArgs = commandArgs;
+    this.slots = slots;
+    this.utterances = utterances;
   }
 
   get requiredProps() {

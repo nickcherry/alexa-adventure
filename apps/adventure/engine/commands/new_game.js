@@ -13,10 +13,12 @@ module.exports = class new_gameCommand extends Command {
     this._say('And so it begins...');
     return true;
   }
-  get requiredSlots() {
+
+  static getRequiredSlots() {
     return [];
   }
-  get requiredCommandArgs() {
+
+  static getRequiredCommandArgs() {
     return [];
   }
 }

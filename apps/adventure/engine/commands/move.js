@@ -14,10 +14,12 @@ module.exports = class MoveCommand extends Command {
     this._say(`Move to ${ destination }`);
     return true;
   }
-  get requiredSlots() {
+
+  static getRequiredSlots() {
     return [];
   }
-  get requiredCommandArgs() {
+
+  static getRequiredCommandArgs() {
     return [];
   }
 }
