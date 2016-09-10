@@ -9,13 +9,11 @@ const _ = require('lodash');
 /***********************************************/
 
 module.exports = class Command {
-  constructor(req, res, intent, state, script, app) {
+  constructor(req, res, intent, game) {
     this.req = req;
     this.res = res;
     this.intent = intent;
-    this.state = state;
-    this.script = script;
-    this.app = app;
+    this.game = game;
   }
 
   perform() {

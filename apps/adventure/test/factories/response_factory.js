@@ -12,6 +12,7 @@ const Factory = require('./factory');
 
 module.exports = class ResponseFactory extends Factory {
   static default() {
-    return { say: new Function() };
+    const defaults = { say: new Function() };
+    return Object.assign(defaults, ...arguments);
   }
 }

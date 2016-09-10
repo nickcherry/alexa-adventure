@@ -13,6 +13,6 @@ const Character = require('../../engine/character');
 
 module.exports = class CharacterFactory extends Factory {
   static default() {
-    return new Character();
+    return new Character(...arguments);
   }
 }

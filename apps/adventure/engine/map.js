@@ -11,12 +11,10 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Map extends ConfigurableModel {
-  constructor({ connectedTo, contains, id, name }) {
-    super();
+  constructor({ connectedTo, contains }) {
+    super(...arguments);
     this.connectedTo = connectedTo;
     this.contains = contains;
-    this.id = id;
-    this.name = name;
   }
 
   get requiredProps() {

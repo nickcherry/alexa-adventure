@@ -18,7 +18,6 @@ const ScriptFactory = require('../factories/script_factory');
 /* Config */
 /***********************************************/
 
-chai.config.includeStack = true;
 chai.use(sinonChai);
 
 /***********************************************/
@@ -27,10 +26,10 @@ chai.use(sinonChai);
 
 describe('Game', () => {
   describe('.constructor', () => {
-    it('should throw an error when an app and script are not provided', () => {
+    it('should throw an error when any arguments are missing', () => {
       const construct = () => new Game();
       expect(construct).to.throw(
-        'The Game constructor requires at least two arguments: an alexa-app and a script'
+        'The Game constructor requires three arguments: an alexa-app, a script, and a state manager'
       );
     });
   });

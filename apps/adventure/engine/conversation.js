@@ -11,9 +11,8 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Conversation extends ConfigurableModel {
-  constructor({ id, playerResponses, text }) {
-    super();
-    this.id = id;
+  constructor({ playerResponses, text }) {
+    super(...arguments);
     this.playerResponses = playerResponses;
     this.text = text;
   }

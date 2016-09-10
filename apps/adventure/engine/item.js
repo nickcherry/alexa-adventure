@@ -11,10 +11,8 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Item extends ConfigurableModel {
-  constructor({ id, name }) {
-    super();
-    this.id = id;
-    this.name = name;
+  constructor() {
+    super(...arguments);
   }
 
   get requiredProps() {

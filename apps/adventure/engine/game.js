@@ -11,20 +11,24 @@ const CommandLoader = require('./commands/command_loader');
 /***********************************************/
 
 module.exports = class Game {
-  constructor(app, script, state = {}) {
-    if (!app || !script || !state) {
-      throw new Error('The Game constructor requires at least two arguments: an alexa-app and a script');
+  constructor(app, script, stateManager) {
+    if (!app || !script || !stateManager) {
+      throw new Error([
+        'The Game constructor requires three arguments: ',
+        'an alexa-app, a script, and a state manager'
+      ].join(''));
     }
     this.app = app;
     this.script = script;
-    this.state = state;
+    this.stateManager = stateManager;
   }
 
   init() {
+    const self = this;
     this.script.intents.forEach((intent) => {
       this.app.intent(intent.id, intent, (req, res) => {
         const commandClass = CommandLoader.get(intent.command);
-        const command = new commandClass(req, res, intent, this.script, this.state, this.app);
+        const command = new commandClass(req, res, intent, game);
         return command.perform();
       });
     });

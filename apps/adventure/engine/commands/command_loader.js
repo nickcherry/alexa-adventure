@@ -1,10 +1,4 @@
 /***********************************************/
-/* Imports */
-/***********************************************/
-
-const _ = require('lodash');
-
-/***********************************************/
 /* Private */
 /***********************************************/
 
@@ -23,7 +17,7 @@ module.exports = class CommandLoader {
   }
 
   static get(commandKey) {
-    if (_.includes(COMMAND_KEYS, commandKey)) {
+    if (COMMAND_KEYS.includes(commandKey)) {
       return require(`${ __dirname }/${ commandKey }`);
     }
   }

@@ -8,13 +8,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const CommandLoader = require('../../../engine/commands/command_loader');
-const new_gameCommand = require('../../../engine/commands/new_game');
-
-/***********************************************/
-/* Config */
-/***********************************************/
-
-chai.config.includeStack = true;
+const NewGameCommand = require('../../../engine/commands/new_game');
 
 /***********************************************/
 /* Tests */
@@ -29,13 +23,13 @@ describe('CommandLoader', () => {
   });
   describe('.get', () => {
     describe('when the requested command is invalid', () => {
-      it('should throw an error', () => {
+      it('should return undefined', () => {
         expect(CommandLoader.get('xxx')).to.be.undefined;
       });
     });
     describe('when the command is valid', () => {
       it('should return the requested command class', () => {
-        expect(CommandLoader.get('new_game')).to.eq(new_gameCommand);
+        expect(CommandLoader.get('new_game')).to.eq(NewGameCommand);
       });
     });
   });

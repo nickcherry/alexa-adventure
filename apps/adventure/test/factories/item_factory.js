@@ -13,6 +13,6 @@ const Item = require('../../engine/item');
 
 module.exports = class ItemFactory extends Factory {
   static default() {
-    return new Item();
+    return new Item(...arguments);
   }
 }

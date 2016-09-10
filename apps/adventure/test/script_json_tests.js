@@ -11,11 +11,6 @@ const fs = require('fs');
 const Script = require('../engine/script');
 const ScriptValidator = require('../engine/validators/script_validator');
 
-/***********************************************/
-/* Config */
-/***********************************************/
-
-chai.config.includeStack = true;
 
 /***********************************************/
 /* Tests */

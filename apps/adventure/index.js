@@ -11,6 +11,8 @@ const fs = require('fs');
 const Config = require('./config');
 const Game = require('./engine/game');
 const Script = require('./engine/script');
+const State = require('./engine/state');
+const StateManager = require('./engine/state_manager');
 
 /***********************************************/
 /* App */
@@ -23,11 +25,16 @@ const app = new alexa.app('adventure');
 
 const scriptPath = __dirname + '/script.json';
 const script = new Script(JSON.parse(fs.readFileSync(scriptPath)));
+const stateManager = new StateManager(
+  getState: (userId) => {
 
-const state = undefined; //TODO fetch from session
+  },
+  setState: (userId, data) => {
 
-const game = new Game(app, script, state);
-game.init();
+  }
+);
+
+new Game(app, script, stateManager).init();
 
 /***********************************************/
 /* Exports */

@@ -17,7 +17,6 @@ const RequestFactory = require('../../factories/request_factory');
 /* Config */
 /***********************************************/
 
-chai.config.includeStack = true;
 chai.use(sinonChai);
 
 /***********************************************/

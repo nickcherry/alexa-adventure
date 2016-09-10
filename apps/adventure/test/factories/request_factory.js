@@ -12,6 +12,7 @@ const Factory = require('./factory');
 
 module.exports = class RequestFactory extends Factory {
   static default() {
-    return { slot: new Function() };
+    const defaults = { slot: new Function() };
+    return Object.assign(defaults, ...arguments);
   }
 }

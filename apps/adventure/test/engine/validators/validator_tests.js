@@ -7,14 +7,16 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Character = require('../../../engine/character');
-const CharacterFactory = require('../../factories/character_factory');
+const Validator = require('../../../engine/validators/validator');
 
 /***********************************************/
 /* Tests */
 /***********************************************/
 
-describe('CharacterValidator', () => {
-  describe('#validators', () => {
-  });
+describe('Validator', () => {
+  // describe('#errors', () => {
+  //   it('should return an empty array by default', () => {
+  //     expect(new Validator().errors).to.deep.equal([]);
+  //   });
+  // });
 });

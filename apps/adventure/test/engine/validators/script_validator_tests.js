@@ -12,12 +12,6 @@ const ScriptFactory = require('../../factories/script_factory');
 const ScriptValidator = require('../../../engine/validators/script_validator');
 
 /***********************************************/
-/* Config */
-/***********************************************/
-
-chai.config.includeStack = true;
-
-/***********************************************/
 /* Tests */
 /***********************************************/
 
@@ -36,17 +30,7 @@ describe('ScriptValidator', () => {
     });
   });
 
-  describe('#errors', () => {
-    it('should return an empty array when the script is valid', () => {
-      const script = ScriptFactory.fromFile('simple_script');
-      const validator = new ScriptValidator(script);
-      expect(validator.errors).to.deep.equal([]);
-    });
-    it('should return an array with errors when the script is invalid', () => {
-      const script = new Script();
-      const validator = new ScriptValidator(script);
-      expect(validator.errors).to.have.length.above(0);
-    });
+  describe('#validators', () => {
   });
 
   describe('#_validateCharacters', () => {

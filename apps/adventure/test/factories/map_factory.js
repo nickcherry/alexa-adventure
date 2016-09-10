@@ -13,6 +13,6 @@ const Map = require('../../engine/map');
 
 module.exports = class MapFactory extends Factory {
   static default() {
-    return new Map();
+    return new Map(...arguments);
   }
 }

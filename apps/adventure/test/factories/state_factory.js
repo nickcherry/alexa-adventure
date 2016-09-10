@@ -13,6 +13,6 @@ const State = require('../../engine/state');
 
 module.exports = class StateFactory extends Factory {
   static default() {
-    return new State();
+    return new State(...arguments);
   }
 }

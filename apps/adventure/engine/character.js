@@ -12,7 +12,7 @@ const ConfigurableModel = require('./configurable_model');
 
 module.exports = class Character extends ConfigurableModel {
   constructor({ id, name }) {
-    super();
+    super(...arguments);
     this.id = id;
     this.name = name;
   }
