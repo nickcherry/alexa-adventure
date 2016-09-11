@@ -36,8 +36,24 @@ const execute = (dbFunc, ...args) => {
 
 module.exports = class Database {
 
-  listTables() {
-    return execute('listTables');
+  getState(userId) {
+    // return execute('getItem', {
+    //   TableName: 'adventureStates',
+    //   Key: [{ userId: { 'S': userId } }]
+    // });
+    new Promise((resolve, reject) {
+      resolve({});
+    });
+  }
+
+  setState(userId, state) {
+    // return execute('put', {
+    //   TableName: 'adventureStates',
+    //   Item: state
+    // });
+    new Promise(resolve, reject) {
+      resolve(state);
+    });
   }
 }
 
