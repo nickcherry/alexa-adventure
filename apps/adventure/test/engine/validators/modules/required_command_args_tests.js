@@ -6,64 +6,51 @@
 
 const chai = require('chai');
 const expect = chai.expect;
-const proxyquire = require('proxyquire');
 
 const Command = require('../../../../engine/commands/command');
-const ConfigurableModelFactory = require('../../../factories/configurable_model_factory');
+const IntentFactory = require('../../../factories/intent_factory');
+const subject = require('../../../../engine/validators/modules/required_command_args');
 
 /***********************************************/
 /* Private */
 /***********************************************/
 
-const subjectPath = '../../../../engine/validators/modules/required_command_args';
-const mockSubjectWithCommandLoader = (stub) => {
-  stub = stub || new Function();
-  return proxyquire(subjectPath, {
-    '../../commands/command_loader': stub
-  });
-}
+const stubCommandClass = (object, getter) => {
+  Object.defineProperty(object, 'commandClass', { get: getter });
+};
 
 /***********************************************/
 /* Tests */
 /***********************************************/
 
 describe('requiredCommandArgs', () => {
-  const subject = mockSubjectWithCommandLoader();
   const shared = require('./shared_behaviors');
   shared.validatorModule('requiredCommandArgs', subject);
 
   it('should not generate errors when all required command args are present', () => {
-    const object = ConfigurableModelFactory.default();
-    const subject = mockSubjectWithCommandLoader({
-      get: (command) => {
-        if (command != 'drink') throw new Error('The command was not passed to CommandLoader');
-        return class CommandWithRequiredArgs extends Command {
-          static getRequiredCommandArgs() {
-            return ['beverage'];
-          }
+    const object = IntentFactory.default();
+    stubCommandClass(object, () => {
+      return class CommandWithRequiredArgs extends Command {
+        static getRequiredCommandArgs() {
+          return ['beverage'];
         }
       }
     });
-    object.command = 'drink';
     object.commandArgs = { beverage: 'beer' };
     expect(subject([], object)).to.deep.equal([]);
   });
 
   it('should generate errors when a required command arg is not present', () => {
-    const object = ConfigurableModelFactory.default();
-    const subject = mockSubjectWithCommandLoader({
-      get: (command) => {
-        if (command != 'drink') throw new Error('The command was not passed to CommandLoader');
-        return class CommandWithRequiredArgs extends Command {
-          static getRequiredCommandArgs() {
-            return ['beverage'];
-          }
+    const object = IntentFactory.default({ id: 'dummyId', command: 'drink' });
+    stubCommandClass(object, () => {
+      return class CommandWithRequiredArgs extends Command {
+        static getRequiredCommandArgs() {
+          return ['beverage'];
         }
       }
     });
-    object.command = 'drink';
     expect(subject([], object)).to.include(
-      'The `beverage` commandArg is required for ConfigurableModel with id "Dummy ID"'
+      'The `beverage` commandArg is required for Intent with id "dummyId"'
     )
   });
 });

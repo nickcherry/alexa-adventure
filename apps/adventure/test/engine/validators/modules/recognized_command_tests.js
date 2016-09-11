@@ -6,48 +6,38 @@
 
 const chai = require('chai');
 const expect = chai.expect;
-const proxyquire = require('proxyquire');
 
 const CommandFactory = require('../../../factories/command_factory');
-const ConfigurableModelFactory = require('../../../factories/configurable_model_factory');
+const IntentFactory = require('../../../factories/intent_factory');
+const subject = require('../../../../engine/validators/modules/recognized_command');
 
 /***********************************************/
 /* Private */
 /***********************************************/
 
-const subjectPath = '../../../../engine/validators/modules/recognized_command';
-const mockSubjectWithCommandLoader = (stub) => {
-  stub = stub || new Function();
-  return proxyquire(subjectPath, {
-    '../../commands/command_loader': stub
-  });
-}
+const stubCommandClass = (object, getter) => {
+  Object.defineProperty(object, 'commandClass', { get: getter });
+};
 
 /***********************************************/
 /* Tests */
 /***********************************************/
 
 describe('recognizedCommand', () => {
-  const subject = mockSubjectWithCommandLoader();
   const shared = require('./shared_behaviors');
   shared.validatorModule('recognizedCommand', subject);
 
   it('should not generate errors when the command is recognized', () => {
-    const object = ConfigurableModelFactory.default();
-    const subject = mockSubjectWithCommandLoader({
-      get: () => CommandFactory.default()
-    });
+    const object = IntentFactory.default();
+    stubCommandClass(object, () => CommandFactory.default());
     expect(subject([], object)).to.deep.equal([]);
   });
 
   it('should generate errors when the command is not recognized', () => {
-    const object = ConfigurableModelFactory.default();
-    const subject = mockSubjectWithCommandLoader({
-      get: () => undefined
-    });
-    object.command = 'nope';
+    const object = IntentFactory.default({ id: 'dummyId', command: 'nope' });
+    stubCommandClass(object, () => undefined);
     expect(subject([], object)).to.include(
-      '"nope" is not a recognized command for ConfigurableModel with id "Dummy ID"'
+      '"nope" is not a recognized command for Intent with id "dummyId"'
     );
   });
 });

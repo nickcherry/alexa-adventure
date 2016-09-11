@@ -33,7 +33,7 @@ describe('keyPresence', () => {
   it('should generate errors when key is not present', () => {
     const object = ConfigurableModelFactory.default();
     expect(subject([], object, { key: 'somethingImportant' })).to.include(
-      'The `somethingImportant` key must be present for ConfigurableModel with id "Dummy ID"'
+      'The `somethingImportant` key must be present for ConfigurableModel with id "dummyId"'
     );
   });
 });

@@ -39,7 +39,7 @@ describe('requiredProps', () => {
       ]
     });
     expect(subject([], object)).to.include(
-      '`favoriteColor` is a required property for ConfigurableModel with id "Dummy ID"'
+      '`favoriteColor` is a required property for ConfigurableModel with id "dummyId"'
     );
   });
 
@@ -54,10 +54,10 @@ describe('requiredProps', () => {
     object.favoriteFoods = 'salmon';
     const errors = subject([], object);
     expect(errors).to.include(
-      '`favoriteNumber` must be of type Number for ConfigurableModel with id "Dummy ID"'
+      '`favoriteNumber` must be of type Number for ConfigurableModel with id "dummyId"'
     );
     expect(errors).to.include(
-      '`favoriteFoods` must be of type Array for ConfigurableModel with id "Dummy ID"'
+      '`favoriteFoods` must be of type Array for ConfigurableModel with id "dummyId"'
     );
   });
 });

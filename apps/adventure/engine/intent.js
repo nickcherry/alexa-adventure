@@ -5,6 +5,7 @@
 /***********************************************/
 
 const ConfigurableModel = require('./configurable_model');
+const CommandLoader = require('./commands/command_loader');
 
 /***********************************************/
 /* Exports */
@@ -17,6 +18,10 @@ module.exports = class Intent extends ConfigurableModel {
     this.commandArgs = commandArgs;
     this.slots = slots;
     this.utterances = utterances;
+  }
+
+  get commandClass() {
+    return CommandLoader.get(this.command);
   }
 
   get requiredProps() {

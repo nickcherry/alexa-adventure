@@ -1,12 +1,6 @@
 "use strict"
 
 /***********************************************/
-/* Imports */
-/***********************************************/
-
-const CommandLoader = require('./commands/command_loader');
-
-/***********************************************/
 /* Exports */
 /***********************************************/
 
@@ -27,7 +21,7 @@ module.exports = class Game {
     const self = this;
     this.script.intents.forEach((intent) => {
       this.app.intent(intent.id, intent, (req, res) => {
-        const commandClass = CommandLoader.get(intent.command);
+        const commandClass = intent.commandClass;
         const command = new commandClass(req, res, intent, game);
         return command.perform();
       });

@@ -14,7 +14,7 @@ const ConfigurableModel = require('../../engine/configurable_model');
 
 module.exports = class ConfigurableModelFactory extends Factory {
   static default({ id, name, requiredProps } = {}) {
-    id = id || 'Dummy ID'
+    id = id || 'dummyId'
     name = name || 'Dummy Name'
     const attrs = Object.assign(...arguments, { id, name });
     delete attrs.requiredProps;

@@ -39,7 +39,7 @@ describe('nestedKeyUniqueness', () => {
     const object = ConfigurableModelFactory.default();
     object.array = [{ id: 1 }, { id: 1 }];
     expect(subject([], object, { key: 'array', nestedKey: 'id' })).to.include(
-      'The `id` key of `array` must be unique for ConfigurableModel with id "Dummy ID": "1" is not unique'
+      'The `id` key of `array` must be unique for ConfigurableModel with id "dummyId": "1" is not unique'
     );
   });
 });
