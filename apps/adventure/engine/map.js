@@ -11,7 +11,7 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Map extends ConfigurableModel {
-  constructor({ connectedTo, contains, name }) {
+  constructor({ connectedTo, contains, name } = {}) {
     super(...arguments);
     this.connectedTo = connectedTo;
     this.contains = contains;

@@ -50,7 +50,7 @@ module.exports.nestedArrayValidator = (validatorPath) => {
 
 module.exports.nestedKeyUniqueness = (validatorPath, { builder, key, nestedKey }) => {
   const validatorClass = require(validatorPath);
-  xit(`${ validatorClass.name } should validate nested key uniqueness`, () => {
+  it(`${ validatorClass.name } should validate nested key uniqueness`, () => {
     const object = ConfigurableModelFactory.default();
     const validator = new validatorClass(object);
     const item1 = builder(), item2 = builder();
