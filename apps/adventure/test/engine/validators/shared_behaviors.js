@@ -131,7 +131,6 @@ module.exports.requiredSlots = (validatorPath) => {
       }
     });
     const validator = new validatorClass(object);
-    console.log(validator.errors);
     expect(validator.errors).to.include(
       'The `style` slot is required for Intent with id "dummyId"'
     )
