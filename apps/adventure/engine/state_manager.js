@@ -1,11 +1,11 @@
-"use strict"
+"use strict";
 
 /***********************************************/
 /* Exports */
 /***********************************************/
 
 module.exports = class StateManager {
-  constructor(getState, setState) {
+  constructor({ getState, setState } = {}) {
     if (!getState || !setState) {
       throw new Error([
         'The StateManager constructor requires two arguments: ',

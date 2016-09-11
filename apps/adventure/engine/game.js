@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 /***********************************************/
 /* Exports */
@@ -22,7 +22,7 @@ module.exports = class Game {
     this.script.intents.forEach((intent) => {
       this.app.intent(intent.id, intent, (req, res) => {
         const commandClass = intent.commandClass;
-        const command = new commandClass(req, res, intent, game);
+        const command = new commandClass(req, res, intent, self);
         return command.perform();
       });
     });

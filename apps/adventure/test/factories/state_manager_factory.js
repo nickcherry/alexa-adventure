@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 /***********************************************/
 /* Imports */
@@ -27,6 +27,6 @@ module.exports = class StateManagerFactory extends Factory {
       });
     };
 
-    return new StateManager(getState, setState);
+    return new StateManager({ getState, setState });
   }
 }

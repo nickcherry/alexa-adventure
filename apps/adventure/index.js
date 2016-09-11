@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 /***********************************************/
 /* Imports */
@@ -25,14 +25,14 @@ const app = new alexa.app('adventure');
 
 const scriptPath = __dirname + '/script.json';
 const script = new Script(JSON.parse(fs.readFileSync(scriptPath)));
-const stateManager = new StateManager(
+const stateManager = new StateManager({
   getState: (userId) => {
 
   },
   setState: (userId, data) => {
 
   }
-);
+});
 
 new Game(app, script, stateManager).init();
 
