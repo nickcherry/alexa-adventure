@@ -18,7 +18,7 @@ describe('StateManager', () => {
     it('should throw an error when any arguments are missing', () => {
       const construct = () => new StateManager();
       expect(construct).to.throw(
-        'The StateManager constructor requires two arguments: a getState function and a setState function'
+        'The StateManager constructor requires two key arguments: getState and setState'
       );
     });
   });

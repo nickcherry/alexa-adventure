@@ -8,9 +8,9 @@ const alexa = require('alexa-app');
 const bugsnag = require('bugsnag');
 const fs = require('fs');
 
-const Config = require('./config');
 const Game = require('./engine/game');
 const Script = require('./engine/script');
+const Settings = require('./settings');
 const State = require('./engine/state');
 const StateManager = require('./engine/state_manager');
 
@@ -19,7 +19,7 @@ const StateManager = require('./engine/state_manager');
 /***********************************************/
 
 module.change_code = 1;
-bugsnag.register(Config.bugsnagApiKey);
+bugsnag.register(Settings.bugsnagApiKey);
 
 const app = new alexa.app('adventure');
 

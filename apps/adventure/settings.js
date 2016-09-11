@@ -8,15 +8,24 @@ const fs = require('fs');
 
 
 /***********************************************/
-/* Config */
+/* Configuration */
 /***********************************************/
 
 const secrets = JSON.parse(fs.readFileSync(__dirname + '/secrets.json'));
 
-class Config {
+module.exports = class Settings {
   static get bugsnagApiKey() {
     return secrets.bugsnagApiKey;
   }
-}
 
-module.exports = Config;
+  static get aws() {
+    return {
+      config: {
+        region: 'us-east-1',
+        accessKeyId: secrets.aws.accessKeyId,
+        secretAccessKey: secrets.aws.secretAccessKey
+      },
+      endpoint: 'http://localhost:4567'
+    };
+  }
+};

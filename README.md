@@ -16,12 +16,18 @@ All the app's sensitive data should reside in a `secrets.json`, where it will be
 cp apps/adventure/secrets.template.json apps/adventure/secrets.json
 ```
 
-Then substitute valid credentials in for the placeholders. See [`apps/adventure/config.js`](apps/adventure/config.js) for usage.
+Then substitute valid credentials in for the placeholders. See [`apps/adventure/settings.js`](apps/adventure/settings.js) for usage.
 
 
 ## Development Server
 
-To start the [alexa-app-server](https://github.com/matt-kruse/alexa-app-server), run the following from the project root:
+First, be sure that a local instance of [DynamoDB](https://github.com/Medium/local-dynamo) is running. To start the database, run the following from the project root:
+
+```shell
+npm run dynamo
+```
+
+Then, to start the [alexa-app-server](https://github.com/matt-kruse/alexa-app-server), run the following from the project root:
 
 ```shell
 npm start

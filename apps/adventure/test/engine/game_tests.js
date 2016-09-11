@@ -15,7 +15,7 @@ const GameFactory = require('../factories/game_factory');
 const ScriptFactory = require('../factories/script_factory');
 
 /***********************************************/
-/* Config */
+/* Configuration */
 /***********************************************/
 
 chai.use(sinonChai);

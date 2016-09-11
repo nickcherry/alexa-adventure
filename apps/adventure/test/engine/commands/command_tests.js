@@ -14,7 +14,7 @@ const CommandFactory = require('../../factories/command_factory');
 const RequestFactory = require('../../factories/request_factory');
 
 /***********************************************/
-/* Config */
+/* Configuration */
 /***********************************************/
 
 chai.use(sinonChai);

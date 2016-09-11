@@ -9,7 +9,8 @@
     "start": "node serve",
     "test": "NODE_ENV=test ./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test --recursive",
     "test-debug": "NODE_ENV=test node --inspect --debug-brk ./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test --recursive --timeout=0",
-    "test-script": "NODE_ENV=test ./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test/script_json_tests.js"
+    "test-script": "NODE_ENV=test ./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test/script_json_tests.js",
+    "dynamo": "mkdir ./.database; node ./apps/adventure/node_modules/local-dynamo/bin/launch_local_dynamo.js --database_dir=./.database --port=4567"
   },
   "author": "Nick Cherry",
   "license": "ISC",
