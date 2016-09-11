@@ -27,7 +27,7 @@ rm -rf node_modules
 npm install --production
 
 # Overwrite environment
-echo "module.exports = 'production';" > "env.js"
+echo '"use strict"; module.exports = "production";' > "env.js"
 
 # Zip the app contents
 zip -r $TARGET_FILE $WHITELISTED_FILES

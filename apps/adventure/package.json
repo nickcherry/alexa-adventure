@@ -16,6 +16,7 @@
     "mocha": "^2.4.5",
     "proxyquire": "^1.7.10",
     "sinon": "^1.17.5",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "walk-sync": "^0.3.1"
   }
 }
