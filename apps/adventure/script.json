@@ -74,7 +74,8 @@
       "name": "Somewhere Dark",
       "connectedTo": [
         "corridor"
-      ]
+      ],
+      "contains": []
     },
     {
       "id": "corridor",
@@ -140,21 +141,24 @@
       "connectedTo": [
         "masterBedroom",
         "courtyard"
-      ]
+      ],
+      "contains": []
     },
     {
       "id": "masterBedroom",
       "name": "Master Bedroom",
       "connectedTo": [
         "ballroom"
-      ]
+      ],
+      "contains": []
     },
     {
       "id": "courdyard",
       "name": "Courtyard",
       "connectedTo": [
         "countyard"
-      ]
+      ],
+      "contains": []
     }
   ]
 }

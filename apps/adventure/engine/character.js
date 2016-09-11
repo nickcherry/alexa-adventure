@@ -11,16 +11,14 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Character extends ConfigurableModel {
-  constructor({ id, name }) {
+  constructor({ name } = {}) {
     super(...arguments);
-    this.id = id;
     this.name = name;
   }
 
   get requiredProps() {
-    return [
-      'id',
-      'name'
-    ];
+    return super.requiredProps.concat([
+      ['name', 'String']
+    ]);
   }
 }

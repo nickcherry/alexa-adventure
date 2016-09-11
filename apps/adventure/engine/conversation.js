@@ -18,9 +18,8 @@ module.exports = class Conversation extends ConfigurableModel {
   }
 
   get requiredProps() {
-    return [
-      'id',
-      'text'
-    ];
+    return super.requiredProps.concat([
+      ['text', 'String']
+    ]);
   }
 }

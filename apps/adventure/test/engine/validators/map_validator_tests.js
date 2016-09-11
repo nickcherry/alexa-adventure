@@ -7,14 +7,16 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Map = require('../../../engine/map');
-const MapFactory = require('../../factories/map_factory');
-
 /***********************************************/
 /* Tests */
 /***********************************************/
 
 describe('MapValidator', () => {
-  describe('#validators', () => {
+  const shared = require('./shared_behaviors');
+  const validatorPath = '../../../engine/validators/map_validator';
+  [
+    { method: 'requiredProps' }
+  ].forEach((behavior) => {
+    shared[behavior.method](validatorPath, behavior.opts);
   });
 });

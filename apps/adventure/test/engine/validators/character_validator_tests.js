@@ -7,14 +7,16 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Character = require('../../../engine/character');
-const CharacterFactory = require('../../factories/character_factory');
-
 /***********************************************/
 /* Tests */
 /***********************************************/
 
 describe('CharacterValidator', () => {
-  describe('#validators', () => {
+  const shared = require('./shared_behaviors');
+  const validatorPath = '../../../engine/validators/character_validator';
+  [
+    { method: 'requiredProps' }
+  ].forEach((behavior) => {
+    shared[behavior.method](validatorPath, behavior.opts);
   });
 });

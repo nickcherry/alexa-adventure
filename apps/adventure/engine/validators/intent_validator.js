@@ -6,6 +6,11 @@
 
 const Validator = require('./validator');
 
+const recognizedCommand = require('./modules/recognized_command');
+const requiredCommandArgs = require('./modules/required_command_args');
+const requiredProps = require('./modules/required_props');
+const requiredSlots = require('./modules/required_slots');
+
 /***********************************************/
 /* Exports */
 /***********************************************/
@@ -13,10 +18,10 @@ const Validator = require('./validator');
 module.exports = class IntentValidator extends Validator {
   get validators() {
     return [
-      require('./modules/required_props'),
-      require('./modules/recognized_command'),
-      require('./modules/required_slots'),
-      require('./modules/required_command_args')
+      recognizedCommand,
+      requiredCommandArgs,
+      requiredProps,
+      requiredSlots
     ];
   }
 }

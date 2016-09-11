@@ -32,6 +32,7 @@ describe('Command', () => {
       expect(command._slot('yep')).to.eq('eureka');
     });
   });
+
   describe('#requiredSlots', () => {
     it('should define the required slots', () => {
       CommandLoader.getAll().forEach((commandClass) => {
@@ -39,6 +40,7 @@ describe('Command', () => {
       });
     });
   });
+
   describe('#requiredCommandArgs', () => {
     it('should define the required command args', () => {
       CommandLoader.getAll().forEach((commandClass) => {

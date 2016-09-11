@@ -14,7 +14,11 @@ module.exports = class Validator {
     if (!this._errors) {
       const object = this.object;
       this._errors = this.validators.reduce((errors, validator) => {
-        return validator(errors, object);
+        if (Array.isArray(validator)) {
+          return validator[0](errors, object, validator[1]);
+        } else {
+          return validator(errors, object);
+        }
       }, []);
     }
     return this._errors;

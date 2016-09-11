@@ -17,6 +17,9 @@ cp -r $APP_DIR $TEMP_APP_DIR
 # Navigate to the temporary app dir
 cd $TEMP_APP_DIR
 
+# Remove tests
+rm -rf tests
+
 # Remove any existing packages
 rm -rf node_modules
 

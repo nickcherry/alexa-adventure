@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+console.log('here i am about ot require commadn loader');
 const CommandLoader = require('../../commands/command_loader');
 
 /***********************************************/

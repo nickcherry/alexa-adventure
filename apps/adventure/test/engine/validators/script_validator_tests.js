@@ -7,65 +7,97 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Script = require('../../../engine/script');
-const ScriptFactory = require('../../factories/script_factory');
-const ScriptValidator = require('../../../engine/validators/script_validator');
+const CharacterFactory = require('../../factories/character_factory');
+const CharacterValidator = require('../../../engine/validators/character_validator');
+const IntentFactory = require('../../factories/intent_factory');
+const IntentValidator = require('../../../engine/validators/intent_validator');
+const ItemFactory = require('../../factories/item_factory');
+const ItemValidator = require('../../../engine/validators/item_validator');
+const MapFactory = require('../../factories/map_factory');
+const MapValidator = require('../../../engine/validators/map_validator');
 
 /***********************************************/
 /* Tests */
 /***********************************************/
 
 describe('ScriptValidator', () => {
+  const shared = require('./shared_behaviors');
+  const validatorPath = '../../../engine/validators/script_validator';
+  [
+    {
+      method: 'keyPresence',
+      opts: { key: 'characters'}
+    },
+    {
+      method: 'nestedKeyUniqueness',
+      opts: {
+        key: 'characters',
+        nestedKey: 'id',
+        builder: CharacterFactory.default
+      }
+    },
+    {
+      method: 'nestedArrayValidator',
+      opts: { key: 'characters', validator: CharacterValidator }
+    },
 
-  describe('#isValid', () => {
-    it('should return true when script is valid', () => {
-      const script = ScriptFactory.fromFile('simple_script');
-      const validator = new ScriptValidator(script);
-      expect(validator.isValid()).to.be.true;
-    });
-    it('should return false when script is invalid', () => {
-      const script = new Script();
-      const validator = new ScriptValidator(script);
-      expect(validator.isValid()).to.be.false;
-    });
-  });
+    /*************************************/
 
-  describe('#validators', () => {
-  });
+    {
+      method: 'keyPresence',
+      opts: { key: 'intents'}
+    },
+    {
+      method: 'nestedKeyUniqueness',
+      opts: {
+        key: 'intents',
+        nestedKey: 'id',
+        builder: IntentFactory.default
+      }
+    },
+    {
+      method: 'nestedArrayValidator',
+      opts: { key: 'intents', validator: IntentValidator }
+    },
 
-  describe('#_validateCharacters', () => {
-    it('should generate error when characters key is not present', () => {
-      const script = ScriptFactory.default({ characters: null });
-      expect(new ScriptValidator(script).errors).to.deep.equal([
-        "The characters array must be defined at the script's root."
-      ]);
-    });
-  });
+    /*************************************/
 
-  describe('#_validateIntents', () => {
-    it('should generate error when intents key is not present', () => {
-      const script = ScriptFactory.default({ intents: null });
-      expect(new ScriptValidator(script).errors).to.deep.equal([
-        "The intents array must be defined at the script's root."
-      ]);
-    });
-  });
+    {
+      method: 'keyPresence',
+      opts: { key: 'items'}
+    },
+    {
+      method: 'nestedKeyUniqueness',
+      opts: {
+        key: 'items',
+        nestedKey: 'id',
+        builder: ItemFactory.default
+      }
+    },
+    {
+      method: 'nestedArrayValidator',
+      opts: { key: 'items', validator: ItemValidator }
+    },
 
-  describe('#_validateItems', () => {
-    it('should generate error when intents key is not present', () => {
-      const script = ScriptFactory.default({ items: null });
-      expect(new ScriptValidator(script).errors).to.deep.equal([
-        "The items array must be defined at the script's root."
-      ]);
-    });
-  });
+    /*************************************/
 
-  describe('#_validateMaps', () => {
-    it('should generate error when maps key is not present', () => {
-      const script = ScriptFactory.default({ maps: null });
-      expect(new ScriptValidator(script).errors).to.deep.equal([
-        "The maps array must be defined at the script's root."
-      ]);
-    });
+    {
+      method: 'keyPresence',
+      opts: { key: 'maps'}
+    },
+    {
+      method: 'nestedKeyUniqueness',
+      opts: {
+        key: 'maps',
+        nestedKey: 'id',
+        builder: MapFactory.default
+      }
+    },
+    {
+      method: 'nestedArrayValidator',
+      opts: { key: 'maps', validator: MapValidator }
+    }
+  ].forEach((behavior) => {
+    shared[behavior.method](validatorPath, behavior.opts);
   });
 });

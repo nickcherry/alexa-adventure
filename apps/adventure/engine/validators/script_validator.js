@@ -4,83 +4,48 @@
 /* Imports */
 /***********************************************/
 
-const _ = require('lodash');
-
 const CharacterValidator = require('./character_validator');
 const IntentValidator = require('./intent_validator');
 const ItemValidator = require('./item_validator');
 const MapValidator = require('./map_validator');
 const Validator = require('./validator');
 
+const keyPresence = require('./modules/key_presence');
+const nestedKeyUniqueness = require('./modules/nested_key_uniqueness');
+const nestedArrayValidator = require('./modules/nested_array_validator');
+
 /***********************************************/
 /* Private */
 /***********************************************/
 
-const _validateUniqueness = (script, field, errors = []) => {
-  const dups = _.uniq((script[field] || []).filter((array) => {
-    return _.countBy(array, 'id') > 1;
-  }));
-  return errors.concat(dups.map((dup) => {
-    return `The script's ${ scriptField } field contains multiple items with the ${ field } "${ field }".`;
-  }));
-  return errors;
-};
-
-const _validateKeyPresence = (script, field, errors = []) => {
-  return script[field] ? errors : errors.concat([
-    `The ${ field } array must be defined at the script's root.`
-  ]);
-}
-
-const _validateNestedModel = (array, validatorClass, errors = []) => {
-  return (array || []).reduce((errors, item) => {
-    return errors.concat(new validatorClass(item).errors);
-  }, errors);
-}
+const CHARACTERS_KEY = 'characters';
+const INTENTS_KEY = 'intents';
+const ID_KEY = 'id';
+const ITEMS_KEY = 'items';
+const MAPS_KEY = 'maps';
 
 /***********************************************/
 /* Exports */
 /***********************************************/
 
 module.exports = class ScriptValidator extends Validator {
-  get errors() {
-    if (!this._errors) {
-      const script = this.object;
-      this._errors = [
-        this._validateCharacters,
-        this._validateIntents,
-        this._validateItems,
-        this._validateMaps
-      ].reduce((errors, func) => func(script, errors), []);
-    }
-    return this._errors;
-  }
+  get validators() {
+    return [
+      [keyPresence, { key: CHARACTERS_KEY }],
+      [nestedKeyUniqueness, { key: CHARACTERS_KEY, nestedKey: ID_KEY }],
+      [nestedArrayValidator, { key: CHARACTERS_KEY, validator: CharacterValidator }],
 
-  _validateCharacters(script, errors = []) {
-    errors = _validateKeyPresence(script, 'characters', errors);
-    errors = _validateUniqueness(script, 'characters', errors);
-    errors = _validateNestedModel(script.characters, CharacterValidator, errors);
-    return errors;
-  }
+      [keyPresence, { key: INTENTS_KEY }],
+      [nestedKeyUniqueness, { key: INTENTS_KEY, nestedKey: ID_KEY }],
+      [nestedArrayValidator, { key: INTENTS_KEY, validator: IntentValidator }],
 
-  _validateIntents(script, errors = []) {
-    errors = _validateKeyPresence(script, 'intents', errors);
-    errors = _validateUniqueness(script, 'intents', errors);
-    errors = _validateNestedModel(script.intents, IntentValidator, errors);
-    return errors;
-  };
+      [keyPresence, { key: ITEMS_KEY }],
+      [nestedKeyUniqueness, { key: ITEMS_KEY, nestedKey: ID_KEY }],
+      [nestedArrayValidator, { key: ITEMS_KEY, validator: ItemValidator }],
 
-  _validateItems(script, errors = []) {
-    errors = _validateKeyPresence(script, 'items', errors);
-    errors = _validateUniqueness(script, 'items', errors);
-    errors = _validateNestedModel(script.items, ItemValidator, errors);
-    return errors;
-  };
-
-  _validateMaps(script, errors = []) {
-    errors = _validateKeyPresence(script, 'maps', errors);
-    errors = _validateUniqueness(script, 'maps', errors);
-    errors = _validateNestedModel(script.maps, MapValidator, errors);
-    return errors;
+      [keyPresence, { key: MAPS_KEY }],
+      [nestedKeyUniqueness, { key: MAPS_KEY, nestedKey: ID_KEY }],
+      [nestedArrayValidator, { key: MAPS_KEY, validator: MapValidator }]
+    ];
   }
 }

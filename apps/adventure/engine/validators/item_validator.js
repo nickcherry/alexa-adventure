@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const requiredProps = require('./modules/required_props');
 const Validator = require('./validator');
 
 /***********************************************/
@@ -13,7 +14,7 @@ const Validator = require('./validator');
 module.exports = class ItemValidator extends Validator {
   get validators() {
     return [
-      require('./modules/required_props')
+      requiredProps
     ];
   }
 }

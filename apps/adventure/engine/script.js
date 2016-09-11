@@ -4,8 +4,6 @@
 /* Imports */
 /***********************************************/
 
-const _ = require('lodash');
-
 const Character = require('./character');
 const Intent = require('./intent');
 const Item = require('./item');
@@ -17,8 +15,8 @@ const Map = require('./map');
 
 const cast = (obj, klass) => {
   if (!obj) return obj;
-  if (!_.isArray(obj)) return new klass(obj);
-  return _.map(obj, (item) => new klass(item));
+  if (!Array.isArray(obj)) return new klass(obj);
+  return obj.map((item) => new klass(item));
 }
 
 /***********************************************/

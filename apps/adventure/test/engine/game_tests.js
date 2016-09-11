@@ -33,6 +33,7 @@ describe('Game', () => {
       );
     });
   });
+
   describe('#init', () => {
     it('should define intents configured in the script', () => {
       const app = AppFactory.default();
@@ -46,6 +47,7 @@ describe('Game', () => {
       expect(intentStub).to.have.been.calledWithMatch('run', script.intents[2]);
     });
   });
+
   describe('#serialize', () => {
     it('should return a deserializable string', () => {
       const jsonString = GameFactory.default().serialize();

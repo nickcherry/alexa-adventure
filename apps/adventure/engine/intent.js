@@ -20,9 +20,8 @@ module.exports = class Intent extends ConfigurableModel {
   }
 
   get requiredProps() {
-    return [
-      'command',
-      'id'
-    ];
+    return super.requiredProps.concat([
+      ['command', 'String']
+    ]);
   }
 }

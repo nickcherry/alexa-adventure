@@ -28,12 +28,9 @@ const mockSubjectWithCommandLoader = (stub) => {
 /***********************************************/
 
 describe('recognizedCommand', () => {
-
-  before(() => {
-    const subject = mockSubjectWithCommandLoader();
-    const shared = require('./shared_behaviors');
-    shared.shouldBehaveLikeValidatorModule('recognizedCommand', subject);
-  });
+  const subject = mockSubjectWithCommandLoader();
+  const shared = require('./shared_behaviors');
+  shared.validatorModule('recognizedCommand', subject);
 
   it('should not generate errors when the command is recognized', () => {
     const object = ConfigurableModelFactory.default();

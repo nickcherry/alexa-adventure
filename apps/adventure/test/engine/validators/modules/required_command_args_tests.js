@@ -28,41 +28,42 @@ const mockSubjectWithCommandLoader = (stub) => {
 /***********************************************/
 
 describe('requiredCommandArgs', () => {
-
-  before(() => {
-    const subject = mockSubjectWithCommandLoader();
-    const shared = require('./shared_behaviors');
-    shared.shouldBehaveLikeValidatorModule('requiredCommandArgs', subject);
-  });
+  const subject = mockSubjectWithCommandLoader();
+  const shared = require('./shared_behaviors');
+  shared.validatorModule('requiredCommandArgs', subject);
 
   it('should not generate errors when all required command args are present', () => {
     const object = ConfigurableModelFactory.default();
     const subject = mockSubjectWithCommandLoader({
-      get: () => {
+      get: (command) => {
+        if (command != 'drink') throw new Error('The command was not passed to CommandLoader');
         return class CommandWithRequiredArgs extends Command {
           static getRequiredCommandArgs() {
-            return ['somethingImportant'];
+            return ['beverage'];
           }
         }
       }
     });
-    object.commandArgs = { somethingImportant: true };
+    object.command = 'drink';
+    object.commandArgs = { beverage: 'beer' };
     expect(subject([], object)).to.deep.equal([]);
   });
 
   it('should generate errors when a required command arg is not present', () => {
     const object = ConfigurableModelFactory.default();
     const subject = mockSubjectWithCommandLoader({
-      get: () => {
+      get: (command) => {
+        if (command != 'drink') throw new Error('The command was not passed to CommandLoader');
         return class CommandWithRequiredArgs extends Command {
           static getRequiredCommandArgs() {
-            return ['somethingImportant'];
+            return ['beverage'];
           }
         }
       }
     });
+    object.command = 'drink';
     expect(subject([], object)).to.include(
-      'The `somethingImportant` commandArg is required for ConfigurableModel with id "Dummy ID"'
+      'The `beverage` commandArg is required for ConfigurableModel with id "Dummy ID"'
     )
   });
 });

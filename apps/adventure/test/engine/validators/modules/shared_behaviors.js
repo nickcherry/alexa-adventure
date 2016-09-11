@@ -14,12 +14,12 @@ const ConfigurableModelFactory = require('../../../factories/configurable_model_
 /* Tests / Exports */
 /***********************************************/
 
-module.exports.shouldBehaveLikeValidatorModule = (name, subject, object) => {
+module.exports.validatorModule = (name, subject, object, opts) => {
   describe(`${ name } as validator module`, () => {
     it('should accumulate errors', () => {
       const msg = 'Ruh-roh!';
       object = object || ConfigurableModelFactory.default();
-      expect(subject([msg], object)).to.include(msg);
+      expect(subject([msg], object, opts)).to.include(msg);
     });
   });
 };
