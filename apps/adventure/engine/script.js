@@ -14,15 +14,13 @@ const Map = require('./map');
 /* Private */
 /***********************************************/
 
-let _characters, _intents, _intentsAsArray, _items, _maps;
-
 const cast = (obj, klass) => {
   if (!obj) return obj;
   if (!Array.isArray(obj)) return new klass(obj);
   return obj.map((item) => new klass(item));
 }
 
-const keyById = (array) => _.keyBy(array, 'id');
+const hash = (array) => _.keyBy(array, 'id');
 
 /***********************************************/
 /* Exports */
@@ -34,30 +32,36 @@ module.exports = class Script {
   }
 
   get characters() {
-    return _characters = _characters || keyById(cast(this._data.characters, Character));
+    return this._castHashAndCache('characters', Character);
   };
 
   get intents() {
-    return _intents = _intents || keyById(cast(this._data.intents, Intent));
+    return this._castHashAndCache('intents', Intent);
   }
 
   get intentsAsArray() {
-    return _intentsAsArray = _intentsAsArray || _.values(this.intents);
+    return this._intentsAsArray = this._intentsAsArray || _.values(this.intents);
   }
 
   get items() {
-    return _items = _items || keyById(cast(this._data.items, Item));
+    return this._castHashAndCache('items', Item);
   }
 
   get maps() {
-    return _maps = _maps || keyById(cast(this._data.maps, Map));
+    return this._castHashAndCache('maps', Map);
   }
 
   lookup(type, id) {
     switch(type.toLowerCase()) {
       case 'character': return this.characters[id];
+      case 'intent': return this.intents[id];
       case 'item': return this.items[id];
       case 'maps': return this.maps[id];
     }
+  }
+
+  _castHashAndCache(key, klass) {
+    const cacheKey = `_${ key }`;
+    return this[cacheKey] = this[cacheKey] || hash(cast(this._data[key], klass));
   }
 };

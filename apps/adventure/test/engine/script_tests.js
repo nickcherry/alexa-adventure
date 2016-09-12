@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const chai = require('chai');
 const expect = require('chai').expect;
 
@@ -16,7 +17,7 @@ const ScriptFactory = require('../factories/script_factory');
 
 describe('Script', () => {
   describe('#getters', () => {
-    it('should cast the non-intent models and hash by id', () => {
+    it('should cast the non-intent models, hash by id, and cache properly', () => {
       const script = ScriptFactory.fromFile('simple_script');
       const assertPresenceAndTypes = (key, type) => {
         const items = script[key];
@@ -24,10 +25,22 @@ describe('Script', () => {
         expect(keys).to.have.length.of.at.least(1);
         keys.forEach((key) => expect(items[key].constructor.name).to.eq(type));
       }
-      assertPresenceAndTypes('characters', 'Character');
-      assertPresenceAndTypes('intents', 'Intent');
-      assertPresenceAndTypes('items', 'Item');
-      assertPresenceAndTypes('maps', 'Map');
+      _.times(2, () => {
+        assertPresenceAndTypes('characters', 'Character');
+        assertPresenceAndTypes('intents', 'Intent');
+        assertPresenceAndTypes('items', 'Item');
+        assertPresenceAndTypes('maps', 'Map');
+      });
+    });
+  });
+
+  describe('#intentsAsArray', () => {
+    it('should properly convert intents hash to array', () => {
+      const script = ScriptFactory.fromFile('simple_script');
+      expect(script.intentsAsArray).to.have.length.of.at.least(1);
+      script.intentsAsArray.forEach((intent) => {
+        expect(script.intents[intent.id]).to.deep.eq(intent);
+      });
     });
   });
 
