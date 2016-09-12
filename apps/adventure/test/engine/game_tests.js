@@ -42,9 +42,9 @@ describe('Game', () => {
       const intentStub = stub(app, 'intent');
       game.init();
       expect(intentStub).to.have.been.calledThrice;
-      expect(intentStub).to.have.been.calledWithMatch('new_game', script.intents[0]);
-      expect(intentStub).to.have.been.calledWithMatch('walk', script.intents[1]);
-      expect(intentStub).to.have.been.calledWithMatch('run', script.intents[2]);
+      expect(intentStub).to.have.been.calledWithMatch('new_game', script.intentsAsArray[0]);
+      expect(intentStub).to.have.been.calledWithMatch('walk', script.intentsAsArray[1]);
+      expect(intentStub).to.have.been.calledWithMatch('run', script.intentsAsArray[2]);
     });
   });
 

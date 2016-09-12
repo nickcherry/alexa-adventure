@@ -19,7 +19,7 @@ module.exports = class Game {
 
   init() {
     const self = this;
-    this.script.intents.forEach((intent) => {
+    this.script.intentsAsArray.forEach((intent) => {
       this.app.intent(intent.id, intent, (req, res) => {
         const commandClass = intent.commandClass;
         const command = new commandClass(req, res, intent, self);

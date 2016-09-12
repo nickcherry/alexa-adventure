@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const Character = require('./character');
 const Intent = require('./intent');
 const Item = require('./item');
@@ -13,11 +14,15 @@ const Map = require('./map');
 /* Private */
 /***********************************************/
 
+let _characters, _intents, _intentsAsArray, _items, _maps;
+
 const cast = (obj, klass) => {
   if (!obj) return obj;
   if (!Array.isArray(obj)) return new klass(obj);
   return obj.map((item) => new klass(item));
 }
+
+const keyById = (array) => _.keyBy(array, 'id');
 
 /***********************************************/
 /* Exports */
@@ -29,23 +34,22 @@ module.exports = class Script {
   }
 
   get characters() {
-    return this._castAndCache('characters', Character);
+    return _characters = _characters || keyById(cast(this._data.characters, Character));
   };
 
   get intents() {
-    return this._castAndCache('intents', Intent);
+    return _intents = _intents || keyById(cast(this._data.intents, Intent));
+  }
+
+  get intentsAsArray() {
+    return _intentsAsArray = _intentsAsArray || _.values(this.intents);
   }
 
   get items() {
-    return this._castAndCache('items', Item);
+    return _items = _items || keyById(cast(this._data.items, Item));
   }
 
   get maps() {
-    return this._castAndCache('maps', Map);
-  }
-
-  _castAndCache(dataKey, klass) {
-    const selfKey = `_${ dataKey }`;
-    return this[selfKey] = this[selfKey] || cast(this._data[dataKey], klass);
+    return _maps = _maps || keyById(cast(this._data.maps, Map));
   }
 };
