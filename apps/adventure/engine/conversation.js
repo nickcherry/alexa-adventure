@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -22,4 +22,4 @@ module.exports = class Conversation extends ConfigurableModel {
       ['text', 'String']
     ]);
   }
-}
+};

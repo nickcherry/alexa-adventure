@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -11,8 +11,8 @@ const _ = require('lodash');
 /***********************************************/
 
 module.exports = (errors, object, { key, nestedKey } = {}) => {
-  if (undefined == key) throw new Error('The `nestedKeyUniqueness` validation requires a `key` option');
-  if (undefined == nestedKey) throw new Error('The `nestedKeyUniqueness` validation requires a `nestedKey` option');
+  if (undefined === key) throw new Error('The `nestedKeyUniqueness` validation requires a `key` option');
+  if (undefined === nestedKey) throw new Error('The `nestedKeyUniqueness` validation requires a `nestedKey` option');
 
   if (!object[key]) return errors;
 
@@ -22,6 +22,6 @@ module.exports = (errors, object, { key, nestedKey } = {}) => {
   }, []);
 
   return errors.concat(dups.map((dup) => {
-    return `The \`${ nestedKey }\` key of \`${ key }\` must be unique for ${ object.identity }: "${ dup }" is not unique`
+    return `The \`${ nestedKey }\` key of \`${ key }\` must be unique for ${ object.identity }: "${ dup }" is not unique`;
   }));
 };

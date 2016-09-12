@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -21,4 +21,4 @@ module.exports = class Character extends ConfigurableModel {
       ['name', 'String']
     ]);
   }
-}
+};

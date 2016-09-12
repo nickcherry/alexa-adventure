@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Exports */
@@ -26,4 +26,4 @@ module.exports = class ConfigurableModel {
       return `${ className } with json ${ JSON.stringify(this) }`;
     }
   }
-}
+};

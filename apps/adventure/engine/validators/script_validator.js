@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -48,4 +48,4 @@ module.exports = class ScriptValidator extends Validator {
       [nestedArrayValidator, { key: MAPS_KEY, validator: MapValidator }]
     ];
   }
-}
+};

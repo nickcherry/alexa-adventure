@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Exports */
@@ -31,4 +31,4 @@ module.exports = class Game {
   serialize() {
     return JSON.stringify(this);
   }
-}
+};

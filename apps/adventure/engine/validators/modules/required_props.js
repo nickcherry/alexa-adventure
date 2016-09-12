@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Exports */
@@ -17,9 +17,9 @@ module.exports = (errors, object) => {
       type = undefined;
     }
 
-    if (undefined == object[key]) {
+    if (undefined === object[key]) {
       return errors.concat(`\`${ key }\` is a required property for ${ object.identity }`);
-    } else if (type && object[key].constructor.name != type) {
+    } else if (type && object[key].constructor.name !== type) {
       return errors.concat(`\`${ key }\` must be of type ${ type } for ${ object.identity }`);
     } else {
       return errors;

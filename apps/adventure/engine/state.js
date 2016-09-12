@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Exports */
@@ -6,4 +6,4 @@
 
 module.exports = class State {
 
-}
+};

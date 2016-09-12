@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -17,4 +17,4 @@ module.exports = class ItemValidator extends Validator {
       requiredProps
     ];
   }
-}
+};

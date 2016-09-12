@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -29,4 +29,4 @@ module.exports = class Intent extends ConfigurableModel {
       ['command', 'String']
     ]);
   }
-}
+};

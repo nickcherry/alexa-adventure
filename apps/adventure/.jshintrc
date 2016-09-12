@@ -1,0 +1,27 @@
+/* http://jshint.com/docs/options/*/
+{
+  "node": true,
+  "esversion": 6,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": false,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "forin": true,
+  "freeze": true,
+  "maxcomplexity": false,
+  "maxdepth": 2,
+  "maxparams": 5,
+  "notypeof": true,
+  "latedef": true,
+  "noarg": true,
+  "quotmark": "single",
+  "regexp": true,
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "trailing": true,
+  "smarttabs": true,
+  "white": true
+}

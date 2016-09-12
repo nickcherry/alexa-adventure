@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Exports */
@@ -15,4 +15,4 @@ module.exports = class StateManager {
     this.getState = getState;
     this.setState = setState;
   }
-}
+};

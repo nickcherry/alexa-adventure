@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Private */
@@ -7,7 +7,7 @@
 const COMMAND_KEYS = [
   'move',
   'new_game'
-]
+];
 
 /***********************************************/
 /* Exports */
@@ -29,4 +29,4 @@ module.exports = class CommandLoader {
       return CommandLoader.get(commandKey);
     });
   }
-}
+};

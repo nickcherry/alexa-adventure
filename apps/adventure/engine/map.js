@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -25,4 +25,4 @@ module.exports = class Map extends ConfigurableModel {
       ['name', 'String']
     ]);
   }
-}
+};

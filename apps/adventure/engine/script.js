@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -48,4 +48,4 @@ module.exports = class Script {
     const selfKey = `_${ dataKey }`;
     return this[selfKey] = this[selfKey] || cast(this._data[dataKey], klass);
   }
-}
+};

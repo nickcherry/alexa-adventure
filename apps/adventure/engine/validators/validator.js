@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Exports */
@@ -34,4 +34,4 @@ module.exports = class Validator {
       'which should return an array of validation modules.'
     ].join(''));
   }
-}
+};

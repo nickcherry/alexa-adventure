@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -23,4 +23,4 @@ module.exports = class NewGameCommand extends Command {
   static getRequiredCommandArgs() {
     return [];
   }
-}
+};

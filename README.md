@@ -64,3 +64,11 @@ To test only the script (`./apps/adventure/script.json`), run the following from
 ```shell
 npm run test-script
 ```
+
+## Lint
+
+To lint all javascript, run the following from the project root:
+
+```shell
+npm run lint
+```

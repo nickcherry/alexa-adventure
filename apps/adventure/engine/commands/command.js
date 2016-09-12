@@ -1,10 +1,4 @@
-"use strict";
-
-/***********************************************/
-/* Imports */
-/***********************************************/
-
-const _ = require('lodash');
+'use strict';
 
 /***********************************************/
 /* Exports */
@@ -42,4 +36,4 @@ module.exports = class Command {
   static getRequiredCommandArgs() {
     throw new Error(`${ this.constructor.name } must implement a \`static getRequiredCommandArgs\` method.`);
   }
-}
+};

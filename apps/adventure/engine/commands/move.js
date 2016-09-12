@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /***********************************************/
 /* Imports */
@@ -24,4 +24,4 @@ module.exports = class MoveCommand extends Command {
   static getRequiredCommandArgs() {
     return [];
   }
-}
+};
