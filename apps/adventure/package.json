@@ -1,7 +1,7 @@
 {
   "name": "alexa-adventure",
   "version": "1.0.0",
-  "description": "a conversational adventure.",
+  "deschemaion": "a conversational adventure.",
   "main": "index.js",
   "author": "Nick Cherry",
   "license": "ISC",

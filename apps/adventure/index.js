@@ -10,7 +10,7 @@ const fs = require('fs');
 
 const Database = require('./database');
 const Game = require('./engine/game');
-const Script = require('./engine/script');
+const Schema = require('./engine/schema');
 const Settings = require('./settings');
 const State = require('./engine/state');
 const StateManager = require('./engine/state_manager');
@@ -25,14 +25,14 @@ bugsnag.register(Settings.bugsnagApiKey);
 const app = new alexa.app('adventure');
 const db = new Database();
 
-const scriptPath = __dirname + '/script.json';
-const script = new Script(JSON.parse(fs.readFileSync(scriptPath)));
+const schemaPath = __dirname + '/schema.json';
+const schema = new Schema(JSON.parse(fs.readFileSync(schemaPath)));
 const stateManager = new StateManager({
   getState: db.getState,
   setState: db.setState
 });
 
-new Game(app, script, stateManager).init();
+new Game(app, schema, stateManager).init();
 
 /***********************************************/
 /* Exports */

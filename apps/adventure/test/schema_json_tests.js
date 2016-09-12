@@ -8,19 +8,19 @@ const chai = require('chai');
 const expect = chai.expect;
 const fs = require('fs');
 
-const Script = require('../engine/script');
-const ScriptValidator = require('../engine/validators/script_validator');
+const Schema = require('../engine/schema');
+const SchemaValidator = require('../engine/validators/schema_validator');
 
 /***********************************************/
 /* Tests */
 /***********************************************/
 
-describe('script.json', () => {
+describe('schema.json', () => {
   it('should be valid', () => {
-    const scriptPath = __dirname + '/../script.json';
-    const scriptContent = fs.readFileSync(scriptPath).toString();
-    const script = new Script(JSON.parse(scriptContent));
-    const validator = new ScriptValidator(script);
+    const schemaPath = __dirname + '/../schema.json';
+    const schemaContent = fs.readFileSync(schemaPath).toString();
+    const schema = new Schema(JSON.parse(schemaContent));
+    const validator = new SchemaValidator(schema);
     expect(validator.errors).to.deep.equal([]);
     expect(validator.isValid()).to.be.true;
   });

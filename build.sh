@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SCRIPT_PATH=`realpath $0`
-ROOT=`dirname $SCRIPT_PATH`
+SCHEMA_PATH=`realpath $0`
+ROOT=`dirname $SCHEMA_PATH`
 
 APP_DIR="$ROOT/apps/adventure/"
 TEMP_APP_DIR="$ROOT/.temp_app_dir"

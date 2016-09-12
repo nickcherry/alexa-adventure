@@ -5,21 +5,21 @@
 /***********************************************/
 
 module.exports = class Game {
-  constructor(app, script, stateManager) {
-    if (!app || !script || !stateManager) {
+  constructor(app, schema, stateManager) {
+    if (!app || !schema || !stateManager) {
       throw new Error([
         'The Game constructor requires three arguments: ',
-        'an alexa-app, a script, and a state manager'
+        'an alexa-app, a schema, and a state manager'
       ].join(''));
     }
     this.app = app;
-    this.script = script;
+    this.schema = schema;
     this.stateManager = stateManager;
   }
 
   init() {
     const self = this;
-    this.script.intentsAsArray.forEach((intent) => {
+    this.schema.intentsAsArray.forEach((intent) => {
       this.app.intent(intent.id, intent, (req, res) => {
         const commandClass = intent.commandClass;
         const command = new commandClass(req, res, intent, self);

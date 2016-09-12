@@ -28,7 +28,7 @@ const MAPS_KEY = 'maps';
 /* Exports */
 /***********************************************/
 
-module.exports = class ScriptValidator extends Validator {
+module.exports = class SchemaValidator extends Validator {
   get validators() {
     return [
       [keyPresence, { key: CHARACTERS_KEY }],

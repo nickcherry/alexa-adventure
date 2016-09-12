@@ -6,7 +6,7 @@
 - figure out how to ask follow-up questions (e.g. Are you sure?)
 - extract new game, name inquiry, etc. to engine?
 - how to ensure that alexa schema/utterances/slots are synced with app code?
-- consider maintaining integrity of in-progress games when script changes
+- consider maintaining integrity of in-progress games when schema changes
 - jslint
 - run test suite before allowing build
 - add dynasty package to project

@@ -12,7 +12,7 @@ const stub = require('sinon').stub;
 const AppFactory = require('../factories/app_factory');
 const Game = require('../../engine/game');
 const GameFactory = require('../factories/game_factory');
-const ScriptFactory = require('../factories/script_factory');
+const SchemaFactory = require('../factories/schema_factory');
 
 /***********************************************/
 /* Configuration */
@@ -29,22 +29,22 @@ describe('Game', () => {
     it('should throw an error when any arguments are missing', () => {
       const construct = () => new Game();
       expect(construct).to.throw(
-        'The Game constructor requires three arguments: an alexa-app, a script, and a state manager'
+        'The Game constructor requires three arguments: an alexa-app, a schema, and a state manager'
       );
     });
   });
 
   describe('#init', () => {
-    it('should define intents configured in the script', () => {
+    it('should define intents configured in the schema', () => {
       const app = AppFactory.default();
-      const script = ScriptFactory.fromFile('simple_script');
-      const game = GameFactory.default({ app, script });
+      const schema = SchemaFactory.fromFile('simple_schema');
+      const game = GameFactory.default({ app, schema });
       const intentStub = stub(app, 'intent');
       game.init();
       expect(intentStub).to.have.been.calledThrice;
-      expect(intentStub).to.have.been.calledWithMatch('new_game', script.intentsAsArray[0]);
-      expect(intentStub).to.have.been.calledWithMatch('walk', script.intentsAsArray[1]);
-      expect(intentStub).to.have.been.calledWithMatch('run', script.intentsAsArray[2]);
+      expect(intentStub).to.have.been.calledWithMatch('new_game', schema.intentsAsArray[0]);
+      expect(intentStub).to.have.been.calledWithMatch('walk', schema.intentsAsArray[1]);
+      expect(intentStub).to.have.been.calledWithMatch('run', schema.intentsAsArray[2]);
     });
   });
 

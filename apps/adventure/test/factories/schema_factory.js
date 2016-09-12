@@ -7,13 +7,13 @@
 const _ = require('lodash');
 const Factory = require('./factory');
 const fs = require('fs');
-const Script = require('../../engine/script');
+const Schema = require('../../engine/schema');
 
 /***********************************************/
 /* Exports */
 /***********************************************/
 
-module.exports = class ScriptFactory extends Factory {
+module.exports = class SchemaFactory extends Factory {
   static default({ characters, data, intents, items, maps } = {}) {
     data = data || {
       characters: [],
@@ -25,7 +25,7 @@ module.exports = class ScriptFactory extends Factory {
     if (!_.isUndefined(intents)) data.intents = intents;
     if (!_.isUndefined(items)) data.items = items;
     if (!_.isUndefined(maps)) data.maps = maps;
-    return new Script(data);
+    return new Schema(data);
   }
   static fromFile(filename) {
     const path = `${ __dirname }/../files/${ filename }.json`;

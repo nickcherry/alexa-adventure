@@ -26,7 +26,7 @@ const hash = (array) => _.keyBy(array, 'id');
 /* Exports */
 /***********************************************/
 
-module.exports = class Script {
+module.exports = class Schema {
   constructor(data = {}) {
     this._data = data;
   }

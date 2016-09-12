@@ -10,7 +10,7 @@ const CommandLoader = require('../../engine/commands/command_loader');
 const GameFactory = require('./game_factory');
 const RequestFactory = require('./request_factory');
 const ResponseFactory = require('./response_factory');
-const ScriptFactory = require('./script_factory');
+const SchemaFactory = require('./schema_factory');
 const StateFactory = require('./state_factory');
 const StateManagerFactory = require('./state_manager_factory');
 
@@ -27,16 +27,16 @@ const getCommandClass = (intent) => {
 /***********************************************/
 
 module.exports = class CommandFactory extends Factory {
-  static default({ app, game, intent, req, res, script, stateManager } = {}) {
+  static default({ app, game, intent, req, res, schema, stateManager } = {}) {
     req = req || RequestFactory.default();
     res = res || ResponseFactory.default();
 
     app = app || AppFactory.default();
-    script = script || ScriptFactory.fromFile('simple_script');
+    schema = schema || SchemaFactory.fromFile('simple_schema');
     stateManager = stateManager || StateManagerFactory.default();
 
-    game = game || GameFactory.default({ app, script, stateManager });
-    intent = intent || script.intentsAsArray[0];
+    game = game || GameFactory.default({ app, schema, stateManager });
+    intent = intent || schema.intentsAsArray[0];
 
     return new (getCommandClass(intent))(req, res, intent, game);
   }

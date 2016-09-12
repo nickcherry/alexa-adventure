@@ -59,15 +59,15 @@ To run the test suite with debugging enabled, run the following from the project
 npm run test-debug
 ```
 
-To test only the script (`./apps/adventure/script.json`), run the following from the project root:
+To test only the schema (`./apps/adventure/schema.json`), run the following from the project root:
 
 ```shell
-npm run test-script
+npm run test-schema
 ```
 
 ## Lint
 
-To lint all javascript, run the following from the project root:
+To lint all javaschema, run the following from the project root:
 
 ```shell
 npm run lint

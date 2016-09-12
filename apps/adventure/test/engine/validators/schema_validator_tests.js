@@ -20,9 +20,9 @@ const MapValidator = require('../../../engine/validators/map_validator');
 /* Tests */
 /***********************************************/
 
-describe('ScriptValidator', () => {
+describe('SchemaValidator', () => {
   const shared = require('./shared_behaviors');
-  const validatorPath = '../../../engine/validators/script_validator';
+  const validatorPath = '../../../engine/validators/schema_validator';
   [
     {
       method: 'keyPresence',
