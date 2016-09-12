@@ -8,6 +8,7 @@
     "dynamo": "mkdir ./.database; node ./apps/adventure/node_modules/local-dynamo/bin/launch_local_dynamo.js --database_dir=./.database --port=4567",
     "lint": "./apps/adventure/node_modules/jshint/bin/jshint apps/adventure/engine/**/* --config apps/adventure/.jshintrc --exclude-path apps/adventure/.jshintignore; exit 0;",
     "preinstall": "npm install --prefix apps/adventure apps/adventure",
+    "simulate": "node ./apps/adventure/simulate.js",
     "start": "node serve",
     "test": "NODE_ENV=test ./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test --recursive",
     "test-debug": "NODE_ENV=test node --inspect --debug-brk ./apps/adventure/node_modules/mocha/bin/_mocha ./apps/adventure/test --recursive --timeout=0",

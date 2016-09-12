@@ -35,6 +35,14 @@ npm start
 
 The alexa-app-server testing utility will be available at [http://localhost:8080/alexa/adventure](http://localhost:8080/alexa/adventure). See [`serve.js`](serve.js) for more information.
 
+## Scripts
+
+To simulate a script from the commandline, run the following from the project root, where `hello.json` is a script file within the `apps/adventure/scripts` directory:
+
+```shell
+npm run simulate --script=hello.json
+```
+
 ## Deployment
 
 To generate a zip file of the files required by Lambda, run the following from the project root:
