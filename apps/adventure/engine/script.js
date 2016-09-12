@@ -52,4 +52,12 @@ module.exports = class Script {
   get maps() {
     return _maps = _maps || keyById(cast(this._data.maps, Map));
   }
+
+  lookup(type, id) {
+    switch(type.toLowerCase()) {
+      case 'character': return this.characters[id];
+      case 'item': return this.items[id];
+      case 'maps': return this.maps[id];
+    }
+  }
 };

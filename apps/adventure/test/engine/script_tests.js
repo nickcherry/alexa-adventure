@@ -7,6 +7,7 @@
 const chai = require('chai');
 const expect = require('chai').expect;
 
+const CharacterFactory = require('../factories/character_factory');
 const ScriptFactory = require('../factories/script_factory');
 
 /***********************************************/
@@ -27,6 +28,26 @@ describe('Script', () => {
       assertPresenceAndTypes('intents', 'Intent');
       assertPresenceAndTypes('items', 'Item');
       assertPresenceAndTypes('maps', 'Map');
+    });
+  });
+
+  describe('#lookup', () => {
+    it('should return undefined when an invalid type is provided', () => {
+      const script = ScriptFactory.default({
+        characters: [CharacterFactory.default({ id: 'pikachu' })]
+      });
+      expect(script.lookup('xxx', 'pikachu')).to.be.undefined;
+    });
+    it('should return undefined when a non-existent id is provided', () => {
+      const script = ScriptFactory.default({
+        characters: [CharacterFactory.default({ id: 'pikachu' })]
+      });
+      expect(script.lookup('character', 'charizard')).to.be.undefined
+    });
+    it('should return the appropriate value when valid type and id are provided', () => {
+      const pikachu = CharacterFactory.default({ id: 'pikachu' });
+      const script = ScriptFactory.default({ characters: [pikachu] });
+      expect(script.lookup('character', 'pikachu')).to.deep.eq(pikachu);
     });
   });
 });
