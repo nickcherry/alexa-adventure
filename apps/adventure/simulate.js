@@ -7,8 +7,14 @@
 const colors = require('colors');
 const fs = require('fs');
 
+const AppFactory = require('./test/factories/app_factory');
+const Database = require('./database');
+const Game = require('./engine/game');
+const Schema = require('./engine/schema');
+const StateManager = require('./engine/state_manager');
+
 /***********************************************/
-/* Config */
+/* Load Script */
 /***********************************************/
 
 const SCRIPTS_DIR_DISPLAY = 'apps/adventures/scripts';
@@ -27,7 +33,6 @@ if (!scriptFile) {
 
 const scriptPath = `${ SCRIPTS_DIR }/${ scriptFile }`;
 
-console.log(scriptPath)
 if (!fs.existsSync(scriptPath)) {
   console.log('The specified script does not exist!\n'.red.bold);
   console.log(`Be sure to specify the file relative to the ${ SCRIPTS_DIR_DISPLAY } directory.\n`.red);
@@ -35,7 +40,54 @@ if (!fs.existsSync(scriptPath)) {
 }
 
 const script = JSON.parse(fs.readFileSync(scriptPath));
-script.forEach((action) => {
-  console.log(action);
-});
 
+/***********************************************/
+/* Intercept Intent Config */
+/***********************************************/
+
+const intents = {};
+const app = AppFactory.default({ name: 'Script Simulation' });
+app.intent = (id, _, handler) => {
+  intents[id] = handler;
+};
+
+/***********************************************/
+/* Initialize Game */
+/***********************************************/
+
+const db = new Database();
+const schemaPath = __dirname + '/schema.json';
+const schema = new Schema(JSON.parse(fs.readFileSync(schemaPath)));
+const stateManager = new StateManager({
+  getState: db.getState,
+  setState: db.setState
+});
+new Game(app, schema, stateManager).init();
+
+/***********************************************/
+/* Invoke Intents */
+/***********************************************/
+
+script.forEach((intent) => {
+  const req = {
+    slot: (id) => {
+      return intent.slots ? intent.slots[id] : undefined;
+    }
+  };
+  const res = {
+    say: (msg) => {
+      console.log(
+        'Response =>'.green.bold,
+        msg.green
+      );
+    }
+  };
+
+  console.log(
+    'Intent =>'.cyan.bold,
+    intent.id.cyan,
+    intent.slots ? JSON.stringify(intent.slots).cyan : ''
+  );
+
+  intents[intent.id](req, res);
+});

@@ -41,7 +41,7 @@ module.exports = class Database {
     //   TableName: 'adventureStates',
     //   Key: [{ userId: { 'S': userId } }]
     // });
-    new Promise((resolve, reject) {
+    return new Promise((resolve, reject) => {
       resolve({});
     });
   }
@@ -51,7 +51,7 @@ module.exports = class Database {
     //   TableName: 'adventureStates',
     //   Item: state
     // });
-    new Promise(resolve, reject) {
+    return new Promise((resolve, reject) => {
       resolve(state);
     });
   }

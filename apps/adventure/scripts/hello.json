@@ -1,3 +1,3 @@
 [
-  { "intent": "new_game" }
+  { "id": "new_game" }
 ]
