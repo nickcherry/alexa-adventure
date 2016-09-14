@@ -31,12 +31,9 @@ describe('Intent', () => {
       const intent = IntentFactory.default();
       expect(intent.commandClass).to.be.undefined;
     });
-    xit('should return a class when the command is recognized', () => {
-      const StubbedIntent = getIntentWithCommandLoaderStub(() => {
-        get: () => CommandFactory.default()
-      })
-      const intent = new StubbedIntent();
-      expect(intent.commandClass).to.be.a('object');
+    it('should return a class when the command is recognized', () => {
+      const intent = IntentFactory.default({ command: 'new_game' });
+      expect(intent.commandClass.name).to.eq('NewGameCommand');
     });
   });
 });
