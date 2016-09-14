@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const env = require('./env');
 const fs = require('fs');
 
 
@@ -14,6 +15,7 @@ const fs = require('fs');
 const secrets = JSON.parse(fs.readFileSync(__dirname + '/secrets.json'));
 
 module.exports = class Settings {
+
   static get bugsnagApiKey() {
     return secrets.bugsnagApiKey;
   }
@@ -25,7 +27,8 @@ module.exports = class Settings {
         accessKeyId: secrets.aws.accessKeyId,
         secretAccessKey: secrets.aws.secretAccessKey
       },
-      endpoint: 'http://localhost:4567'
+      endpoint: 'http://localhost:4567',
+      gameStatesTable: env == 'test' ? 'TEST_GameStates' : 'GameStates',
     };
   }
 };

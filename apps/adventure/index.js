@@ -34,6 +34,10 @@ const stateManager = new StateManager({
 
 new Game(app, schema, stateManager).init();
 
+db.doesStatesTableExist().then((result) => {
+  if (!result) db.createStatesTable();
+})
+
 /***********************************************/
 /* Exports */
 /***********************************************/

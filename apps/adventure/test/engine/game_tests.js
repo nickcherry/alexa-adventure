@@ -47,12 +47,4 @@ describe('Game', () => {
       expect(intentStub).to.have.been.calledWithMatch('run', schema.intentsAsArray[2]);
     });
   });
-
-  describe('#serialize', () => {
-    it('should return a deserializable string', () => {
-      const jsonString = GameFactory.default().serialize();
-      const deserialized = JSON.parse(jsonString);
-      expect(deserialized).to.be.an('object')
-    });
-  });
 });

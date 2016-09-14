@@ -27,8 +27,4 @@ module.exports = class Game {
       });
     });
   }
-
-  serialize() {
-    return JSON.stringify(this);
-  }
 };

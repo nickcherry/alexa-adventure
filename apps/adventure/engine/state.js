@@ -34,4 +34,11 @@ module.exports = class State {
   hasInventory(type, id) {
     _.findWhere(this.inventory, { type, id });
   }
+
+  serialize() {
+    return JSON.stringify({
+      mapId: this.mapId,
+      inventory: this.inventory
+    });
+  }
 };
