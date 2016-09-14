@@ -75,6 +75,11 @@ script.forEach((intent) => {
     }
   };
   const res = {
+    session: {
+      user: {
+        userId: 'amzn1.account.AM3B227HF3FAM1B2_SIMULATION'
+      }
+    },
     say: (msg) => {
       console.log(
         'Response =>'.green.bold,
