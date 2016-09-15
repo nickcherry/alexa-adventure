@@ -8,42 +8,41 @@ const chai = require('chai');
 const expect = chai.expect;
 const ConfigurableModelFactory = require('../../../factories/configurable_model_factory');
 const Validator = require('../../../../engine/validators/validator');
-const subject = require('../../../../engine/validators/modules/nested_array_validator');
+const subject = require('../../../../engine/validators/modules/nested_validator');
 
 /***********************************************/
 /* Tests */
 /***********************************************/
 
-describe('nestedArrayValidator', () => {
+describe('nestedValidator', () => {
   const shared = require('./shared_behaviors');
   const opts = { key: 'whatevs', validator: new Function() }
-  shared.validatorModule('nestedArrayValidator', subject, undefined, opts);
+  shared.validatorModule('nestedValidator', subject, undefined, opts);
 
   it('should throw an error when the key option is not specified', () => {
     const invoke = () => subject([], undefined, { validator: new Function() });
-    expect(invoke).to.throw('The `nestedArrayValidator` validation requires a `key` option');
+    expect(invoke).to.throw('The `nestedValidator` validation requires a `key` option');
   });
 
   it('should throw an error when the validator option is not specified', () => {
     const invoke = () => subject([], undefined, { key: 'key' });
-    expect(invoke).to.throw('The `nestedArrayValidator` validation requires a `validator` option');
+    expect(invoke).to.throw('The `nestedValidator` validation requires a `validator` option');
   });
 
-
-  it('should not generate errors when nested items are valid', () => {
+  it('should not generate errors when nested item is valid', () => {
     const object = ConfigurableModelFactory.default();
-    object.array = [{ name: 'Item A' }, { name: 'Item B' }];
+    object.item = { name: 'Item A' };
     const validator = class HappyValidator extends Validator {
       get validators() {
         return [(errors, object) => errors];
       }
     };
-    expect(subject([], object, { key: 'array', validator: validator })).to.deep.equal([]);
+    expect(subject([], object, { key: 'item', validator: validator })).to.deep.equal([]);
   });
 
-  it('should generate errors when nested items are not valid', () => {
+  it('should generate errors when nested item is invalid', () => {
     const object = ConfigurableModelFactory.default();
-    object.array = [{ name: 'Item A' }, { name: 'Item B' }];
+    object.item = { name: 'Item A' };
     const validator = class UnhappyValidator extends Validator {
       get validators() {
         return [
@@ -53,9 +52,8 @@ describe('nestedArrayValidator', () => {
         ];
       }
     }
-    const result = subject(['Some pre-existing error'], object, { key: 'array', validator: validator });
+    const result = subject(['Some pre-existing error'], object, { key: 'item', validator: validator });
     expect(result).to.include("Some pre-existing error");
     expect(result).to.include("Item A ain't right");
-    expect(result).to.include("Item B ain't right");
   });
 });

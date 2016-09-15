@@ -10,9 +10,10 @@ const ItemValidator = require('./item_validator');
 const MapValidator = require('./map_validator');
 const Validator = require('./validator');
 
+const commandPresence = require('./modules/command_presence');
 const keyPresence = require('./modules/key_presence');
 const nestedKeyUniqueness = require('./modules/nested_key_uniqueness');
-const nestedArrayValidator = require('./modules/nested_array_validator');
+const nestedHashValidator = require('./modules/nested_hash_validator');
 
 /***********************************************/
 /* Private */
@@ -31,21 +32,23 @@ const MAPS_KEY = 'maps';
 module.exports = class SchemaValidator extends Validator {
   get validators() {
     return [
+      [commandPresence, { key: INTENTS_KEY, command: 'launch' }],
+
       [keyPresence, { key: CHARACTERS_KEY }],
       [nestedKeyUniqueness, { key: CHARACTERS_KEY, nestedKey: ID_KEY }],
-      [nestedArrayValidator, { key: CHARACTERS_KEY, validator: CharacterValidator }],
+      [nestedHashValidator, { key: CHARACTERS_KEY, validator: CharacterValidator }],
 
       [keyPresence, { key: INTENTS_KEY }],
       [nestedKeyUniqueness, { key: INTENTS_KEY, nestedKey: ID_KEY }],
-      [nestedArrayValidator, { key: INTENTS_KEY, validator: IntentValidator }],
+      [nestedHashValidator, { key: INTENTS_KEY, validator: IntentValidator }],
 
       [keyPresence, { key: ITEMS_KEY }],
       [nestedKeyUniqueness, { key: ITEMS_KEY, nestedKey: ID_KEY }],
-      [nestedArrayValidator, { key: ITEMS_KEY, validator: ItemValidator }],
+      [nestedHashValidator, { key: ITEMS_KEY, validator: ItemValidator }],
 
       [keyPresence, { key: MAPS_KEY }],
       [nestedKeyUniqueness, { key: MAPS_KEY, nestedKey: ID_KEY }],
-      [nestedArrayValidator, { key: MAPS_KEY, validator: MapValidator }]
+      [nestedHashValidator, { key: MAPS_KEY, validator: MapValidator }]
     ];
   }
 };

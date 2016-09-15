@@ -4,6 +4,8 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
+
 const AppFactory = require('./app_factory');
 const Factory = require('./factory');
 const CommandLoader = require('../../engine/commands/command_loader');
@@ -36,7 +38,7 @@ module.exports = class CommandFactory extends Factory {
     stateManager = stateManager || StateManagerFactory.default();
 
     game = game || GameFactory.default({ app, schema, stateManager });
-    intent = intent || schema.intentsAsArray[0];
+    intent = intent || _.values(schema.intents)[0];
 
     return new (getCommandClass(intent))(req, res, intent, game);
   }

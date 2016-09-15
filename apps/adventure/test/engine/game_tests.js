@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const chai = require('chai');
 const expect = require('chai').expect;
 const sinonChai = require("sinon-chai");
@@ -39,12 +40,15 @@ describe('Game', () => {
       const app = AppFactory.default();
       const schema = SchemaFactory.fromFile('simple_schema');
       const game = GameFactory.default({ app, schema });
+      const launchStub = stub(app, 'launch');
       const intentStub = stub(app, 'intent');
       game.init();
-      expect(intentStub).to.have.been.calledThrice;
-      expect(intentStub).to.have.been.calledWithMatch('new_game', schema.intentsAsArray[0]);
-      expect(intentStub).to.have.been.calledWithMatch('walk', schema.intentsAsArray[1]);
-      expect(intentStub).to.have.been.calledWithMatch('run', schema.intentsAsArray[2]);
+      const intents = _.values(schema.intents);
+      expect(launchStub).to.have.callCount(1);
+      expect(intentStub).to.have.callCount(3);
+      expect(intentStub).to.have.been.calledWithMatch('new_game', intents[1]);
+      expect(intentStub).to.have.been.calledWithMatch('walk', intents[2]);
+      expect(intentStub).to.have.been.calledWithMatch('run',intents[3]);
     });
   });
 });

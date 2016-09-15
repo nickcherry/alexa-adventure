@@ -38,7 +38,7 @@ module.exports.requiredProps = (validatorPath) => {
 
 module.exports.keyPresence = (validatorPath, { key }) => {
   const validatorClass = require(validatorPath);
-  it(`${ validatorClass.name } should validate key presence`, () => {
+  it(`${ validatorClass.name } should validate key presence (${ key })`, () => {
     const object = ConfigurableModelFactory.default();
     const validator = new validatorClass(object);
     delete object[key];
@@ -48,7 +48,7 @@ module.exports.keyPresence = (validatorPath, { key }) => {
   });
 };
 
-module.exports.nestedArrayValidator = (validatorPath) => {
+module.exports.nestedHashValidator = (validatorPath) => {
   const validatorClass = require(validatorPath);
   it(`${ validatorClass.name } should validate nested array validations`, () => {
     const object = ConfigurableModelFactory.default();
@@ -58,7 +58,7 @@ module.exports.nestedArrayValidator = (validatorPath) => {
 
 module.exports.nestedKeyUniqueness = (validatorPath, { builder, key, nestedKey }) => {
   const validatorClass = require(validatorPath);
-  it(`${ validatorClass.name } should validate nested key uniqueness`, () => {
+  it(`${ validatorClass.name } should validate nested key uniqueness (${ key }, ${ nestedKey })`, () => {
     const object = ConfigurableModelFactory.default();
     const validator = new validatorClass(object);
     const item1 = builder(), item2 = builder();

@@ -47,6 +47,9 @@ const script = JSON.parse(fs.readFileSync(scriptPath));
 
 const intents = {};
 const app = AppFactory.default({ name: 'Script Simulation' });
+app.launch = (handler) => {
+  intents.launch = handler;
+}
 app.intent = (id, _, handler) => {
   intents[id] = handler;
 };
@@ -68,12 +71,16 @@ new Game(app, schema, stateManager).init();
 /* Invoke Intents */
 /***********************************************/
 
-script.forEach((intent) => {
+[{ id: 'launch' }].concat(script.intents).forEach((intent) => {
+
+  // Mock Request
   const req = {
     slot: (id) => {
       return intent.slots ? intent.slots[id] : undefined;
     }
   };
+
+  // Mock Response
   const res = {
     session: {
       user: {
@@ -81,18 +88,14 @@ script.forEach((intent) => {
       }
     },
     say: (msg) => {
-      console.log(
-        'Response =>'.green.bold,
-        msg.green
-      );
+      console.log(' Response =>'.green.bold, msg.green, '\n');
     }
   };
 
-  console.log(
-    'Intent =>'.cyan.bold,
-    intent.id.cyan,
-    intent.slots ? JSON.stringify(intent.slots).cyan : ''
-  );
+  // Print Intent
+  const slots = intent.slots ? JSON.stringify(intent.slots).cyan : '';
+  console.log('Intent =>'.cyan.bold, intent.id.cyan, slots);
 
+  // Invoke Command
   intents[intent.id](req, res);
 });

@@ -5,6 +5,7 @@
 /***********************************************/
 
 const _ = require('lodash');
+const BaseModel = require('./base_model');
 const Character = require('./character');
 const Intent = require('./intent');
 const Item = require('./item');
@@ -26,8 +27,9 @@ const hash = (array) => _.keyBy(array, 'id');
 /* Exports */
 /***********************************************/
 
-module.exports = class Schema {
+module.exports = class Schema extends BaseModel {
   constructor(data = {}) {
+    super(...arguments);
     this._data = data;
   }
 
@@ -37,10 +39,6 @@ module.exports = class Schema {
 
   get intents() {
     return this._castHashAndCache('intents', Intent);
-  }
-
-  get intentsAsArray() {
-    return this._intentsAsArray = this._intentsAsArray || _.values(this.intents);
   }
 
   get items() {

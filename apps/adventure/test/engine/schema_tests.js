@@ -34,16 +34,6 @@ describe('Schema', () => {
     });
   });
 
-  describe('#intentsAsArray', () => {
-    it('should properly convert intents hash to array', () => {
-      const schema = SchemaFactory.fromFile('simple_schema');
-      expect(schema.intentsAsArray).to.have.length.of.at.least(1);
-      schema.intentsAsArray.forEach((intent) => {
-        expect(schema.intents[intent.id]).to.deep.eq(intent);
-      });
-    });
-  });
-
   describe('#lookup', () => {
     it('should return undefined when an invalid type is provided', () => {
       const schema = SchemaFactory.default({

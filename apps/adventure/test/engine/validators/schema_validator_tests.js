@@ -37,7 +37,7 @@ describe('SchemaValidator', () => {
       }
     },
     {
-      method: 'nestedArrayValidator',
+      method: 'nestedHashValidator',
       opts: { key: 'characters', validator: CharacterValidator }
     },
 
@@ -56,7 +56,7 @@ describe('SchemaValidator', () => {
       }
     },
     {
-      method: 'nestedArrayValidator',
+      method: 'nestedHashValidator',
       opts: { key: 'intents', validator: IntentValidator }
     },
 
@@ -75,7 +75,7 @@ describe('SchemaValidator', () => {
       }
     },
     {
-      method: 'nestedArrayValidator',
+      method: 'nestedHashValidator',
       opts: { key: 'items', validator: ItemValidator }
     },
 
@@ -94,7 +94,7 @@ describe('SchemaValidator', () => {
       }
     },
     {
-      method: 'nestedArrayValidator',
+      method: 'nestedHashValidator',
       opts: { key: 'maps', validator: MapValidator }
     }
   ].forEach((behavior) => {

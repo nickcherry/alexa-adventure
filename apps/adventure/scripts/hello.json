@@ -1,3 +1,5 @@
-[
-  { "id": "new_game" }
-]
+{
+  "intents": [
+    { "id": "new_game" }
+  ]
+}

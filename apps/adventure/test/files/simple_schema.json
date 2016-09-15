@@ -1,6 +1,13 @@
 {
   "intents": [
     {
+      "id": "launch",
+      "command": "launch",
+      "commandArgs": {
+        "text": "Greetings."
+      }
+    },
+    {
       "id": "new_game",
       "slots": [],
       "utterances": [
