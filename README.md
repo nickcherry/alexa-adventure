@@ -27,7 +27,7 @@ First, be sure that a local instance of [DynamoDB](https://github.com/Medium/loc
 npm run dynamo
 ```
 
-Then, to start the [alexa-app-server](https://github.com/matt-kruse/alexa-app-server), run the following from the project root:
+Then, to start the [alexa-app-server](https://github.com/matt-kruse/alexa-app-server), be sure that Dynamo is available (`npm run dynamo`) and then run the following from the project root:
 
 ```shell
 npm start
@@ -55,13 +55,13 @@ This will generate a `build.zip` file, which should be uploaded to Amazon.
 
 ## Tests
 
-To run the test suite, run the following from the project root:
+To run the test suite, be sure that Dynamo is available (`npm run dynamo`), then run the following from the project root:
 
 ```shell
 npm test
 ```
 
-To run the test suite with debugging enabled, run the following from the project root:
+To run the test suite with debugging enabled, be sure that Dynamo is available (`npm run dynamo`), then run the following from the project root:
 
 ```shell
 npm run test-debug
