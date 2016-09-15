@@ -21,6 +21,16 @@ describe('recognizedMap', () => {
     key: 'initialMapId', schema: SchemaFactory.default()
   });
 
+  it('should throw an error when the key option is not specified', () => {
+    const invoke = () => subject([], undefined, { schema: {} });
+    expect(invoke).to.throw('The `recognizedMap` validation requires a `key` option');
+  });
+
+  it('should throw an error when the schema option is not specified', () => {
+    const invoke = () => subject([], undefined, { key: 'initialMapId' });
+    expect(invoke).to.throw('The `recognizedMap` validation requires a `schema` option');
+  });
+
   it('should not generate errors when the map is recognized', () => {
     const object = SchemaFactory.default({
       initialMapId: 'dungeon',
