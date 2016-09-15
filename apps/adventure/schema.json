@@ -10,37 +10,19 @@
     },
     {
       "id": "new_game",
-      "slots": [],
+      "slots": {},
       "utterances": [
         "start new game"
       ],
       "command": "new_game"
     },
     {
-      "id": "walk",
-      "slots": {
-        "DESTINATION": "DestinationType"
-      },
+      "id": "current_map",
+      "command": "current_map",
+      "slots": {},
       "utterances": [
-        "walk to {-|DESTINATION}"
-      ],
-      "command": "move",
-      "commandArgs": {
-        "speed": 1
-      }
-    },
-    {
-      "id": "run",
-      "slots": {
-        "DESTINATION": "DestinationType"
-      },
-      "utterances": [
-        "run to {-|DESTINATION}"
-      ],
-      "command": "move",
-      "commandArgs": {
-        "speed": 2
-      }
+        "where am i"
+      ]
     }
   ],
   "characters": [

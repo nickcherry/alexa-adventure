@@ -29,9 +29,12 @@ module.exports = class Game extends BaseModel {
     const self = this;
     _.each(this.schema.intents, (intent) => {
       const handler = (req, res) => {
-        const commandClass = intent.commandClass;
-        const command = new commandClass(req, res, intent, self);
-        return command.perform();
+        const userId = req.session.user.userId;
+        this.stateManager.getState(userId).then((state) => {
+          const commandClass = intent.commandClass;
+          const command = new commandClass(req, res, intent, userId, state, self);
+          return command.perform();
+        });
       };
       if (intent.command == 'launch') {
         this.app.launch(handler);

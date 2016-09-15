@@ -63,4 +63,17 @@ describe('Schema', () => {
       expect(schema.lookup('map', 'dungeon')).to.deep.eq(dungeon);
     });
   });
+
+  describe('#lookupArray', () => {
+    it('should look up an array of ids', () => {
+      const charizard = CharacterFactory.default({ id: 'charizard' });
+      const pikachu = CharacterFactory.default({ id: 'pikachu' });
+      const schema = SchemaFactory.default({
+        characters: [charizard, pikachu]
+      });
+      expect(schema.lookupArray('character', ['charizard', 'pikachu'])).to.deep.eq([
+        charizard, pikachu
+      ]);
+    });
+  });
 });

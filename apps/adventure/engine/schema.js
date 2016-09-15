@@ -49,10 +49,6 @@ module.exports = class Schema extends BaseModel {
     return this._castHashAndCache('maps', Map);
   }
 
-  get initialMap() {
-    return this.lookup('map', this.initialMapId);
-  }
-
   get initialMapId() {
     return this._data.initialMapId;
   }
@@ -63,6 +59,10 @@ module.exports = class Schema extends BaseModel {
       case 'item': return this.items[id];
       case 'map': return this.maps[id];
     }
+  }
+
+  lookupArray(type, ids) {
+    return ids.map((id) => this.lookup(type, id));
   }
 
   _castHashAndCache(key, klass) {

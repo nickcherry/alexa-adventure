@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const colors = require('colors');
 const fs = require('fs');
 
@@ -71,31 +72,34 @@ new Game(app, schema, stateManager).init();
 /* Invoke Intents */
 /***********************************************/
 
-[{ id: 'launch' }].concat(script.intents).forEach((intent) => {
+_.each([{ id: 'launch' }].concat(script.intents), (intent, i) => {
+  setTimeout(() => {
 
-  // Mock Request
-  const req = {
-    slot: (id) => {
-      return intent.slots ? intent.slots[id] : undefined;
-    }
-  };
-
-  // Mock Response
-  const res = {
-    session: {
-      user: {
-        userId: 'amzn1.account.AM3B227HF3FAM1B2_SIMULATION'
+    // Mock Request
+    const req = {
+      session: {
+        user: {
+          userId: 'amzn1.account.AM3B227HF3FAM1B2_SIMULATION'
+        }
+      },
+      slot: (id) => {
+        return intent.slots ? intent.slots[id] : undefined;
       }
-    },
-    say: (msg) => {
-      console.log(' Response =>'.green.bold, msg.green, '\n');
-    }
-  };
+    };
 
-  // Print Intent
-  const slots = intent.slots ? JSON.stringify(intent.slots).cyan : '';
-  console.log('Intent =>'.cyan.bold, intent.id.cyan, slots);
+    // Mock Response
+    const res = {
+      say: (msg) => {
+        console.log(' Response =>'.green.bold, msg.green, '\n');
+      }
+    };
 
-  // Invoke Command
-  intents[intent.id](req, res);
+    // Print Intent
+    const slots = intent.slots ? JSON.stringify(intent.slots).cyan : '';
+    console.log('Intent =>'.cyan.bold, intent.id.cyan, slots);
+
+    // Invoke Command
+    intents[intent.id](req, res);
+
+  }, i * 150);
 });

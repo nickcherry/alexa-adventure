@@ -5,10 +5,12 @@
 /***********************************************/
 
 module.exports = class Command {
-  constructor(req, res, intent, game) {
+  constructor(req, res, intent, userId, state, game) {
     this.req = req;
     this.res = res;
     this.intent = intent;
+    this.userId = userId;
+    this.state = state;
     this.game = game;
   }
 

@@ -1,5 +1,6 @@
 {
   "intents": [
-    { "id": "new_game" }
+    { "id": "new_game" },
+    { "id": "current_map" }
   ]
 }

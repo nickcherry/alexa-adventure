@@ -5,6 +5,7 @@
 /***********************************************/
 
 const COMMAND_KEYS = [
+  'current_map',
   'launch',
   'move',
   'new_game'

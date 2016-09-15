@@ -29,17 +29,19 @@ const getCommandClass = (intent) => {
 /***********************************************/
 
 module.exports = class CommandFactory extends Factory {
-  static default({ app, game, intent, req, res, schema, stateManager } = {}) {
+  static default({ app, game, intent, req, res, schema, state, stateManager, userId } = {}) {
     req = req || RequestFactory.default();
     res = res || ResponseFactory.default();
 
     app = app || AppFactory.default();
     schema = schema || SchemaFactory.fromFile('simple_schema');
     stateManager = stateManager || StateManagerFactory.default();
+    state = state || StateFactory.default();
+    userId = userId || 'user_123456789';
 
     game = game || GameFactory.default({ app, schema, stateManager });
     intent = intent || _.values(schema.intents)[0];
 
-    return new (getCommandClass(intent))(req, res, intent, game);
+    return new (getCommandClass(intent))(req, res, intent, userId, state, game);
   }
 }
