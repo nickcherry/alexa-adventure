@@ -5,6 +5,7 @@
 /***********************************************/
 
 const Command = require('./command');
+const MapHelper = require('../helpers/map_helper');
 
 /***********************************************/
 /* Exports */
@@ -12,8 +13,8 @@ const Command = require('./command');
 
 module.exports = class ListConnectedMapsCommand extends Command {
   perform() {
-    const map = this.game.schema.lookup('map', this.state.mapId);
-    const connectedMaps = this.game.schema.lookupArray('map', map.connectedTo);
+    const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
+    const connectedMaps = MapHelper.getConnectedMaps(currentMap, this.game.schema);
     const connectedMapNames = connectedMaps.map((map) => map.name).join(' and ');
     this._say(`You are near ${ connectedMapNames }`);
     return true;

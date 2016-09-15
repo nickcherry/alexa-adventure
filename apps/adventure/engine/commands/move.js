@@ -6,6 +6,7 @@
 
 const _ = require('lodash');
 const Command = require('./command');
+const MapHelper = require('../helpers/map_helper');
 
 /***********************************************/
 /* Exports */
@@ -13,17 +14,9 @@ const Command = require('./command');
 
 module.exports = class MoveCommand extends Command {
   perform() {
-    const map = this.game.schema.lookup('map', this.state.mapId);
     const destinationName = this._slot('destination');
-
-    const possibleDestinations = _.filter(this.game.schema.maps, {
-      name: destinationName
-    });
-
-    const destination = _.find(possibleDestinations, (destination) => {
-      return map.connectedTo.includes(destination.id);
-    });
-
+    const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
+    const destination = MapHelper.getDestination(destinationName, currentMap, this.game.schema);
     if (destination) {
       const self = this;
       this.state.mapId = destination.id;
