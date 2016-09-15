@@ -49,6 +49,10 @@ module.exports = class Schema extends BaseModel {
     return this._castHashAndCache('maps', Map);
   }
 
+  get initialMap() {
+    return this.lookup('map', this._data.initialMap);
+  }
+
   lookup(type, id) {
     switch(type.toLowerCase()) {
       case 'character': return this.characters[id];

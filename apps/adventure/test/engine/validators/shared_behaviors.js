@@ -48,6 +48,17 @@ module.exports.keyPresence = (validatorPath, { key }) => {
   });
 };
 
+module.exports.commandPresence = (validatorPath, { command, key }) => {
+  const validatorClass = require(validatorPath);
+  it(`${ validatorClass.name } should validate the presence of command (\`${ command }\` on "${ key }")`, () => {
+    const intent = IntentFactory.default({ id: 'dummyId' });
+    const validator = new validatorClass(intent);
+    expect(validator.errors).to.include(
+      `\`${ command }\` command was not found for "${ key }" key of Intent with id "dummyId"`
+    );
+  });
+};
+
 module.exports.nestedHashValidator = (validatorPath) => {
   const validatorClass = require(validatorPath);
   it(`${ validatorClass.name } should validate nested array validations`, () => {

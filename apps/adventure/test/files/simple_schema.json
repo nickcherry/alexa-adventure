@@ -1,4 +1,5 @@
 {
+  "initialMap": "tutorialMap",
   "intents": [
     {
       "id": "launch",

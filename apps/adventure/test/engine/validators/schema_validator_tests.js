@@ -25,6 +25,18 @@ describe('SchemaValidator', () => {
   const validatorPath = '../../../engine/validators/schema_validator';
   [
     {
+      method: 'commandPresence',
+      opts: { key: 'intents', command: 'launch' }
+    },
+
+    {
+      method: 'keyPresence',
+      opts: { key: 'initialMap' }
+    },
+
+    /*************************************/
+
+    {
       method: 'keyPresence',
       opts: { key: 'characters'}
     },

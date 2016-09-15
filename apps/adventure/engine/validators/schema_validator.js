@@ -22,6 +22,7 @@ const nestedHashValidator = require('./modules/nested_hash_validator');
 const CHARACTERS_KEY = 'characters';
 const INTENTS_KEY = 'intents';
 const ID_KEY = 'id';
+const INITIAL_MAP_KEY = 'initialMap';
 const ITEMS_KEY = 'items';
 const MAPS_KEY = 'maps';
 
@@ -33,6 +34,7 @@ module.exports = class SchemaValidator extends Validator {
   get validators() {
     return [
       [commandPresence, { key: INTENTS_KEY, command: 'launch' }],
+      [keyPresence, { key: INITIAL_MAP_KEY }],
 
       [keyPresence, { key: CHARACTERS_KEY }],
       [nestedKeyUniqueness, { key: CHARACTERS_KEY, nestedKey: ID_KEY }],
