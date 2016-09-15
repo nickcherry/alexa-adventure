@@ -1,6 +1,12 @@
 {
   "intents": [
     { "id": "new_game" },
-    { "id": "current_map" }
+    { "id": "current_map" },
+    { "id": "list_connected_maps" },
+    { "id": "move", "slots": { "destination": "The Grand Ballroom" } },
+    { "id": "current_map" },
+    { "id": "move", "slots": { "destination": "A Corridor" } },
+    { "id": "current_map" },
+    { "id": "list_connected_maps" }
   ]
 }

@@ -12,8 +12,10 @@ const Command = require('./command');
 
 module.exports = class ListConnectedMapsCommand extends Command {
   perform() {
-    const destination = this._slot('DESTINATION');
-    this._say(`Move to ${ destination }`);
+    const map = this.game.schema.lookup('map', this.state.mapId);
+    const connectedMaps = this.game.schema.lookupArray('map', map.connectedTo);
+    const connectedMapNames = connectedMaps.map((map) => map.name).join(' and ');
+    this._say(`You are near ${ connectedMapNames }`);
     return true;
   }
 

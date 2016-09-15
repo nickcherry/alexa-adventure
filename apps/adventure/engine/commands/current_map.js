@@ -11,10 +11,10 @@ const State = require('../state');
 /* Exports */
 /***********************************************/
 
-module.exports = class CurrentMap extends Command {
+module.exports = class CurrentMapCommand extends Command {
   perform() {
     const map = this.game.schema.lookup('map', this.state.mapId);
-    this._say(`You are currently in ${ map.name }`);
+    this._say(`You are currently ${ map.name }`);
     return true;
   }
 

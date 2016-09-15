@@ -7,6 +7,7 @@
 const COMMAND_KEYS = [
   'current_map',
   'launch',
+  'list_connected_maps',
   'move',
   'new_game'
 ];

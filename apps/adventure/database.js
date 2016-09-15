@@ -62,28 +62,6 @@ module.exports = class Database {
   }
 
   createStatesTable() {
-    // const self = this;
-    // return new Promise((resolve, reject) => {
-    //   self.doesStatesTableExist().then((result) => {
-    //     if (result) {
-    //       self.describeStatesTable().then(resolve).catch(reject);
-    //     } else {
-    //       dbExecute('createTable', {
-    //         TableName: Settings.aws.gameStatesTable,
-    //         KeySchema: [
-    //           { AttributeName: 'UserId', KeyType: 'HASH' }
-    //         ],
-    //         AttributeDefinitions: [
-    //           { AttributeName: 'UserId', AttributeType: 'S' }
-    //         ],
-    //         ProvisionedThroughput: {
-    //           ReadCapacityUnits: 1,
-    //           WriteCapacityUnits: 1
-    //         }
-    //       }).then(resolve).catch(reject);
-    //     }
-    //   }).catch(reject);
-    // });
     return dbExecute('createTable', {
       TableName: Settings.aws.gameStatesTable,
       KeySchema: [

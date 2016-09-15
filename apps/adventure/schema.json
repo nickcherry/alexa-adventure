@@ -14,7 +14,10 @@
       "utterances": [
         "start new game"
       ],
-      "command": "new_game"
+      "command": "new_game",
+      "commandArgs": {
+        "text": "Your journey begins."
+      }
     },
     {
       "id": "current_map",
@@ -22,6 +25,24 @@
       "slots": {},
       "utterances": [
         "where am i"
+      ]
+    },
+    {
+      "id": "list_connected_maps",
+      "command": "list_connected_maps",
+      "slots": {},
+      "utterances": [
+        "where can i go?"
+      ]
+    },
+    {
+      "id": "move",
+      "command": "move",
+      "slots": {
+        "destination": "availableMaps"
+      },
+      "utterances": [
+        "move to {destinations|availableMaps}"
       ]
     }
   ],
@@ -69,7 +90,7 @@
     },
     {
       "id": "corridor",
-      "name": "Corridor",
+      "name": "A Corridor",
       "enterText": "Entering the corridor. It looks like there's a guard at the other end",
       "requirements": [
         {
@@ -121,7 +142,7 @@
     },
     {
       "id": "ballroom",
-      "name": "Grand Ballroom",
+      "name": "The Grand Ballroom",
       "requirements": [
         {
           "type": "item",

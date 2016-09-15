@@ -101,5 +101,5 @@ _.each([{ id: 'launch' }].concat(script.intents), (intent, i) => {
     // Invoke Command
     intents[intent.id](req, res);
 
-  }, i * 150);
+  }, i * 200);
 });
