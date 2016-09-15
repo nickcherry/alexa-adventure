@@ -14,6 +14,7 @@ const commandPresence = require('./modules/command_presence');
 const keyPresence = require('./modules/key_presence');
 const nestedKeyUniqueness = require('./modules/nested_key_uniqueness');
 const nestedHashValidator = require('./modules/nested_hash_validator');
+const recognizedMap = require('./modules/recognized_map');
 
 /***********************************************/
 /* Private */
@@ -22,7 +23,7 @@ const nestedHashValidator = require('./modules/nested_hash_validator');
 const CHARACTERS_KEY = 'characters';
 const INTENTS_KEY = 'intents';
 const ID_KEY = 'id';
-const INITIAL_MAP_KEY = 'initialMap';
+const INITIAL_MAP_KEY = 'initialMapId';
 const ITEMS_KEY = 'items';
 const MAPS_KEY = 'maps';
 
@@ -34,7 +35,9 @@ module.exports = class SchemaValidator extends Validator {
   get validators() {
     return [
       [commandPresence, { key: INTENTS_KEY, command: 'launch' }],
+
       [keyPresence, { key: INITIAL_MAP_KEY }],
+      [recognizedMap, { key: INITIAL_MAP_KEY, schema: this.object }],
 
       [keyPresence, { key: CHARACTERS_KEY }],
       [nestedKeyUniqueness, { key: CHARACTERS_KEY, nestedKey: ID_KEY }],

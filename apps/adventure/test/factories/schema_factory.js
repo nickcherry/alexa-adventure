@@ -14,10 +14,11 @@ const Schema = require('../../engine/schema');
 /***********************************************/
 
 module.exports = class SchemaFactory extends Factory {
-  static default({ characters, data, id, intents, items, maps } = {}) {
+  static default({ characters, data, id, initialMapId, intents, items, intialMap, maps } = {}) {
     data = data || {
       characters: [],
       id: id,
+      initialMapId: initialMapId,
       intents: [],
       items: [],
       maps: []

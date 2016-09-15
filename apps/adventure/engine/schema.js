@@ -50,7 +50,11 @@ module.exports = class Schema extends BaseModel {
   }
 
   get initialMap() {
-    return this.lookup('map', this._data.initialMap);
+    return this.lookup('map', this.initialMapId);
+  }
+
+  get initialMapId() {
+    return this._data.initialMapId;
   }
 
   lookup(type, id) {

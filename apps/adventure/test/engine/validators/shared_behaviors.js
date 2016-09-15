@@ -10,6 +10,7 @@ const expect = chai.expect;
 const Command = require('../../../engine/commands/command');
 const ConfigurableModelFactory = require('../../factories/configurable_model_factory');
 const IntentFactory = require('../../factories/intent_factory');
+const SchemaFactory = require('../../factories/schema_factory');
 
 /***********************************************/
 /* Private */
@@ -89,6 +90,16 @@ module.exports.recognizedCommand = (validatorPath) => {
     object.command = 'na-na-na-na-na-na';
     expect(validator.errors).to.include(
       '"na-na-na-na-na-na" is not a recognized command for ConfigurableModel with id "dummyId"'
+    );
+  });
+};
+
+module.exports.recognizedMap = (validatorPath, { key, schema }) => {
+  const validatorClass = require(validatorPath);
+  it(`${ validatorClass.name } should validate recognized map (${ key })`, () => {
+    const validator = new validatorClass(SchemaFactory.default({ id: 'dummyId' }));
+    expect(validator.errors).to.include(
+      'The `initialMapId` key must be present for Schema with id "dummyId"'
     );
   });
 };

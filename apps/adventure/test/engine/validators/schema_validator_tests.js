@@ -29,9 +29,16 @@ describe('SchemaValidator', () => {
       opts: { key: 'intents', command: 'launch' }
     },
 
+    /*************************************/
+
     {
       method: 'keyPresence',
-      opts: { key: 'initialMap' }
+      opts: { key: 'initialMapId' }
+    },
+
+    {
+      method: 'recognizedMap',
+      opts: { key: 'initialMapId' }
     },
 
     /*************************************/
