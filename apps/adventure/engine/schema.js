@@ -52,9 +52,8 @@ module.exports = class Schema extends BaseModel {
   lookup(type, id) {
     switch(type.toLowerCase()) {
       case 'character': return this.characters[id];
-      case 'intent': return this.intents[id];
       case 'item': return this.items[id];
-      case 'maps': return this.maps[id];
+      case 'map': return this.maps[id];
     }
   }
 

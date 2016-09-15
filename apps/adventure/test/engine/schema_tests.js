@@ -9,6 +9,8 @@ const chai = require('chai');
 const expect = require('chai').expect;
 
 const CharacterFactory = require('../factories/character_factory');
+const ItemFactory = require('../factories/item_factory');
+const MapFactory = require('../factories/map_factory');
 const SchemaFactory = require('../factories/schema_factory');
 
 /***********************************************/
@@ -48,9 +50,17 @@ describe('Schema', () => {
       expect(schema.lookup('character', 'charizard')).to.be.undefined
     });
     it('should return the appropriate value when valid type and id are provided', () => {
+      const dungeon = MapFactory.default({ id: 'dungeon' });
       const pikachu = CharacterFactory.default({ id: 'pikachu' });
-      const schema = SchemaFactory.default({ characters: [pikachu] });
+      const sword = ItemFactory.default({ id: 'sword' });
+      const schema = SchemaFactory.default({
+        characters: [pikachu],
+        items: [sword],
+        maps: [dungeon]
+      });
       expect(schema.lookup('character', 'pikachu')).to.deep.eq(pikachu);
+      expect(schema.lookup('item', 'sword')).to.deep.eq(sword);
+      expect(schema.lookup('map', 'dungeon')).to.deep.eq(dungeon);
     });
   });
 });
