@@ -65,6 +65,16 @@ describe('MapHelper', () => {
       const schema = SchemaFactory.default({ maps: [ ballroom, masterBedroom ] });
       expect(MapHelper.getDestination('Master Bedroom', map, schema)).to.deep.eq(masterBedroom);
     });
+  });
 
+  describe('.getInitialMap', () => {
+    it('should return the initial map', () => {
+      const map = MapFactory.default({ id: 'tutorial' });
+      const schema = SchemaFactory.default({
+        initialMapId: map.id,
+        maps: [map]
+      })
+      expect(MapHelper.getInitialMap(schema)).to.deep.eq(map);
+    });
   });
 });

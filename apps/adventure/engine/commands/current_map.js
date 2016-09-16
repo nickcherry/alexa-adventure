@@ -15,7 +15,7 @@ const State = require('../state');
 module.exports = class CurrentMapCommand extends Command {
   perform() {
     const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
-    this._say(`You are currently ${ currentMap.name }`);
+    this._say(`You are currently in ${ currentMap.name }`);
     return true;
   }
 
