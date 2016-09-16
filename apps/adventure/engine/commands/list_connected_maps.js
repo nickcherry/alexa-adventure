@@ -5,6 +5,7 @@
 /***********************************************/
 
 const Command = require('./command');
+const LanguageHelper = require('../helpers/language_helper');
 const MapHelper = require('../helpers/map_helper');
 
 /***********************************************/
@@ -15,8 +16,9 @@ module.exports = class ListConnectedMapsCommand extends Command {
   perform() {
     const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
     const connectedMaps = MapHelper.getConnectedMaps(currentMap, this.game.schema);
-    const connectedMapNames = connectedMaps.map((map) => map.name).join(' and ');
-    this._say(`You are near ${ connectedMapNames }`);
+    this._say(`You are near ${
+      LanguageHelper.oxfordComma(connectedMaps.map((map) => map.name))
+    }`);
     return true;
   }
 
