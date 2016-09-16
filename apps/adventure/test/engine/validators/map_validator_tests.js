@@ -15,6 +15,7 @@ describe('MapValidator', () => {
   const shared = require('./shared_behaviors');
   const validatorPath = '../../../engine/validators/map_validator';
   [
+    { method: 'arrayWithSize', opts: { key: 'connectedTo' } },
     { method: 'requiredProps' }
   ].forEach((behavior) => {
     shared[behavior.method](validatorPath, behavior.opts);

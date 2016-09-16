@@ -37,6 +37,14 @@ module.exports.requiredProps = (validatorPath) => {
   });
 };
 
+module.exports.arrayWithSize = (validatorPath) => {
+  const validatorClass = require(validatorPath);
+  it(`${ validatorClass.name } should validate array with size validations`, () => {
+    const object = ConfigurableModelFactory.default();
+    const validator = new validatorClass(object);
+  });
+};
+
 module.exports.keyPresence = (validatorPath, { key }) => {
   const validatorClass = require(validatorPath);
   it(`${ validatorClass.name } should validate key presence (${ key })`, () => {
