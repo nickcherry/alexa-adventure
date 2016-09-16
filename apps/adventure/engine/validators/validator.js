@@ -6,8 +6,9 @@
 
 module.exports = class Validator {
 
-  constructor(object) {
+  constructor(object, opts = {}) {
     this.object = object;
+    this.opts = opts;
   }
 
   get errors() {

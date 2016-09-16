@@ -53,7 +53,7 @@ module.exports = class SchemaValidator extends Validator {
 
       [keyPresence, { key: MAPS_KEY }],
       [nestedKeyUniqueness, { key: MAPS_KEY, nestedKey: ID_KEY }],
-      [nestedHashValidator, { key: MAPS_KEY, validator: MapValidator }]
+      [nestedHashValidator, { key: MAPS_KEY, validator: MapValidator, opts: { schema: this.object } }]
     ];
   }
 };
