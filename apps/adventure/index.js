@@ -6,6 +6,7 @@
 
 const alexa = require('alexa-app');
 const bugsnag = require('bugsnag');
+const colors = require('colors');
 const fs = require('fs');
 
 const Database = require('./database');
@@ -32,7 +33,12 @@ const stateManager = new StateManager({
   setState: db.setState
 });
 
-new Game(app, schema, stateManager).init();
+const onError = (err) => {
+  console.error('ERROR'.red);
+  console.error(err);
+};
+
+new Game(app, schema, stateManager, onError).init();
 
 db.doesStatesTableExist().then((result) => {
   if (!result) db.createStatesTable();

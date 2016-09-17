@@ -23,7 +23,7 @@ module.exports = class MoveCommand extends Command {
       this.state.mapId = destination.id;
       this.game.stateManager.setState(this.req.userId, this.state).then((state) => {
         self._say(`You are now entering ${ destinationName }`);
-      });
+      }).catch(this.game.onError);
     } else {
       this._say(`You can't get to ${ destinationName } from here`);
     }

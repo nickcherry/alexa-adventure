@@ -17,7 +17,7 @@ module.exports = class NewGameCommand extends Command {
     const self = this;
     this.game.stateManager.setState(this.req.userId, state).then((state) => {
       self._say(self._commandArg('text'));
-    });
+    }).catch(this.game.onError);
   }
 
   static getRequiredSlots() {

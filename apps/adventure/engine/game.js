@@ -12,7 +12,7 @@ const BaseModel = require('./base_model');
 /***********************************************/
 
 module.exports = class Game extends BaseModel {
-  constructor(app, schema, stateManager) {
+  constructor(app, schema, stateManager, onError) {
     super(...arguments);
     if (!app || !schema || !stateManager) {
       throw new Error([
@@ -23,6 +23,7 @@ module.exports = class Game extends BaseModel {
     this.app = app;
     this.schema = schema;
     this.stateManager = stateManager;
+    this.onError = onError || ((err) => console.error(err));
   }
 
   init() {
@@ -30,9 +31,13 @@ module.exports = class Game extends BaseModel {
     _.each(this.schema.intents, (intent) => {
       const handler = (req, res) => {
         const perform = (state) => {
-          const commandClass = intent.commandClass;
-          const command = new commandClass(req, res, intent, state, self);
-          return command.perform();
+          try {
+            const commandClass = intent.commandClass;
+            const command = new commandClass(req, res, intent, state, self);
+            return command.perform();
+          } catch(err) {
+            this.onError(err);
+          }
         };
         this.stateManager.getState(req.userId).then(perform).catch(perform);
         return false;

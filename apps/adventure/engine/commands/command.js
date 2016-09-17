@@ -27,7 +27,8 @@ module.exports = class Command {
   }
 
   _say(msg) {
-    this.res.say(msg);
+    const say = this.res.say(msg);
+    if (say && say.send) say.send();
   }
 
   static getRequiredSlots() {
