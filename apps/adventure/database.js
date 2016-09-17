@@ -95,9 +95,11 @@ module.exports = class Database {
       AttributesToGet: ['UserId', 'GameState'],
       Key: { UserId: userId }
     }).then((data) => {
-      return new State(
-        data.Item && data.Item.GameState ? JSON.parse(data.Item.GameState) : {}
-      );
+      if (data.Item && data.Item.GameState) {
+        return new State(JSON.parse(data.Item.GameState));
+      } else {
+        return null;
+      }
     });
   }
 

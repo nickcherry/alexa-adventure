@@ -5,10 +5,18 @@
 /***********************************************/
 
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const expect = chai.expect;
 
 const Database = require('../database');
+const State = require('../engine/state');
 const StateFactory = require('./factories/state_factory');
+
+/***********************************************/
+/* Config */
+/***********************************************/
+
+chai.use(chaiAsPromised);
 
 /***********************************************/
 /* Private */
@@ -31,11 +39,16 @@ describe('Database', () => {
     const userId = 'abc123';
     const state = StateFactory.default();
     state.mapId = 'level_1';
-    db.setState(userId, state).then(() => {
+    return db.setState(userId, state).then(() => {
       db.getState(userId).then((persistedState) => {
         expect(persistedState.mapId).to.eq(state.mapId);
         done();
       });
     });
+  });
+
+  it('should return null when no previous state exists', () => {
+    const newState = new State();
+    return expect(db.getState('xxx')).to.eventually.be.null;
   });
 });

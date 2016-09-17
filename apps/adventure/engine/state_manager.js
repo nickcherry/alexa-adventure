@@ -1,6 +1,12 @@
 'use strict';
 
 /***********************************************/
+/* Imports */
+/***********************************************/
+
+const State = require('./state');
+
+/***********************************************/
 /* Exports */
 /***********************************************/
 
@@ -12,7 +18,17 @@ module.exports = class StateManager {
         'getState and setState'
       ].join(''));
     }
-    this.getState = getState;
-    this.setState = setState;
+    this._getState = getState;
+    this._setState = setState;
+  }
+
+  getState(userId) {
+    return this._getState(userId).then((state) => {
+      return state ? state : new State();
+    })
+  }
+
+  setState(userId, state) {
+    return this._setState(userId, state);
   }
 };
