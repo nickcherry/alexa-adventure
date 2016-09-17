@@ -13,7 +13,6 @@ const Command = require('./command');
 module.exports = class LaunchCommand extends Command {
   perform() {
     this._say(this._commandArg('text'));
-    return true;
   }
 
   static getRequiredSlots() {

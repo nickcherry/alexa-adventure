@@ -19,7 +19,6 @@ module.exports = class ListConnectedMapsCommand extends Command {
     this._say(`You are near ${
       LanguageHelper.oxfordComma(connectedMaps.map((map) => map.name))
     }`);
-    return true;
   }
 
   static getRequiredSlots() {

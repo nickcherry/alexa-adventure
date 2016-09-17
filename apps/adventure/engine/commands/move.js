@@ -21,13 +21,12 @@ module.exports = class MoveCommand extends Command {
     if (destination) {
       const self = this;
       this.state.mapId = destination.id;
-      this.game.stateManager.setState(this.userId, this.state).then((state) => {
+      this.game.stateManager.setState(this.req.userId, this.state).then((state) => {
         self._say(`You are now entering ${ destinationName }`);
       });
     } else {
       this._say(`You can't get to ${ destinationName } from here`);
     }
-    return true;
   }
 
   static getRequiredSlots() {

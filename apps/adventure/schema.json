@@ -82,7 +82,7 @@
   "maps": [
     {
       "id": "tutorialMap",
-      "name": "Somewhere Dark",
+      "name": "A Dark Place",
       "connectedTo": [
         "corridor"
       ],

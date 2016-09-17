@@ -77,14 +77,10 @@ _.each([{ id: 'launch' }].concat(script.intents), (intent, i) => {
 
     // Mock Request
     const req = {
-      session: {
-        user: {
-          userId: 'amzn1.account.AM3B227HF3FAM1B2_SIMULATION'
-        }
-      },
       slot: (id) => {
         return intent.slots ? intent.slots[id] : undefined;
-      }
+      },
+      userId: 'amzn1.account.AM3B227HF3FAM1B2_SIMULATION'
     };
 
     // Mock Response

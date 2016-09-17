@@ -37,11 +37,11 @@ module.exports = class CommandFactory extends Factory {
     schema = schema || SchemaFactory.fromFile('simple_schema');
     stateManager = stateManager || StateManagerFactory.default();
     state = state || StateFactory.default();
-    userId = userId || _.get(req, 'session.user.userId');
+    userId = userId || req.userId;
 
     game = game || GameFactory.default({ app, schema, stateManager });
     intent = intent || _.values(schema.intents)[0];
 
-    return new (commandClass || getCommandClass(intent))(req, res, intent, userId, state, game);
+    return new (commandClass || getCommandClass(intent))(req, res, intent, state, game);
   }
 }
