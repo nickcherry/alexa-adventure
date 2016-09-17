@@ -24,7 +24,7 @@ const StateManager = require('./engine/state_manager');
 module.change_code = 1;
 bugsnag.register(Settings.bugsnagApiKey, {
   autoNotify: false,
-  notifyReleaseStages: ['development', 'production'],
+  notifyReleaseStages: ['production'],
   packageJSON: './package.json',
   projectRoot: './'
 });
