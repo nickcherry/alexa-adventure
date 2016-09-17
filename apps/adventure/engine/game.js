@@ -23,7 +23,7 @@ module.exports = class Game extends BaseModel {
     this.app = app;
     this.schema = schema;
     this.stateManager = stateManager;
-    this.onError = onError || ((err) => console.error(err));
+    this.onError = onError || ((err, meta) => console.error(err));
   }
 
   init() {
@@ -36,7 +36,7 @@ module.exports = class Game extends BaseModel {
             const command = new commandClass(req, res, intent, state, self);
             return command.perform();
           } catch(err) {
-            this.onError(err);
+            self.onError(err, { req, res, intent, state, game: self });
           }
         };
         this.stateManager.getState(req.userId).then(perform).catch(perform);

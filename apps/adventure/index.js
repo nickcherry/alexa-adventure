@@ -10,6 +10,7 @@ const colors = require('colors');
 const fs = require('fs');
 
 const Database = require('./database');
+const env = require('./env');
 const Game = require('./engine/game');
 const Schema = require('./engine/schema');
 const Settings = require('./settings');
@@ -17,11 +18,20 @@ const State = require('./engine/state');
 const StateManager = require('./engine/state_manager');
 
 /***********************************************/
-/* App */
+/* Config */
 /***********************************************/
 
 module.change_code = 1;
-bugsnag.register(Settings.bugsnagApiKey);
+bugsnag.register(Settings.bugsnagApiKey, {
+  autoNotify: false,
+  notifyReleaseStages: ['development', 'production'],
+  packageJSON: './package.json',
+  projectRoot: './'
+});
+
+/***********************************************/
+/* App */
+/***********************************************/
 
 const app = new alexa.app('adventure');
 const db = new Database();
@@ -33,9 +43,17 @@ const stateManager = new StateManager({
   setState: db.setState
 });
 
-const onError = (err) => {
-  console.error('ERROR'.red);
-  console.error(err);
+const onError = (err, meta = {}) => {
+  console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);
+  console.error("Egads!".red.bold);
+  console.error((err.stack || err.message).red);
+  console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);
+  if (meta.req) {
+    // Avoid conflicts with Bugsnag
+    meta._req = JSON.parse(JSON.stringify(meta.req));
+    delete meta.req;
+  }
+  bugsnag.notify(err, meta);
 };
 
 new Game(app, schema, stateManager, onError).init();

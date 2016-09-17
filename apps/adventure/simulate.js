@@ -66,7 +66,14 @@ const stateManager = new StateManager({
   getState: db.getState,
   setState: db.setState
 });
-new Game(app, schema, stateManager).init();
+const onError = (err, meta = {}) => {
+  console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);
+  console.error("Egads!".red.bold);
+  console.error((err.stack || err.message).red);
+  console.error('\n\n' + JSON.stringify(meta, null, 2).red);
+  console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);
+};
+new Game(app, schema, stateManager, onError).init();
 
 /***********************************************/
 /* Invoke Intents */
