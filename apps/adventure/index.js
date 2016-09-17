@@ -18,7 +18,7 @@ const State = require('./engine/state');
 const StateManager = require('./engine/state_manager');
 
 /***********************************************/
-/* Config */
+/* Configuration */
 /***********************************************/
 
 module.change_code = 1;

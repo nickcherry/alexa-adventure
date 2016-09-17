@@ -13,7 +13,7 @@ const State = require('../engine/state');
 const StateFactory = require('./factories/state_factory');
 
 /***********************************************/
-/* Config */
+/* Configuration */
 /***********************************************/
 
 chai.use(chaiAsPromised);
