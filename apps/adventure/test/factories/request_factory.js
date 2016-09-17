@@ -11,8 +11,11 @@ const Factory = require('./factory');
 /***********************************************/
 
 module.exports = class RequestFactory extends Factory {
-  static default() {
-    const defaults = { slot: new Function() };
+  static default({ slot, userId } = {}) {
+    const defaults = {
+      slot: new Function(),
+      session: { user: { userId: userId || 'TEST_USER' }}
+    };
     return Object.assign(defaults, ...arguments);
   }
 }

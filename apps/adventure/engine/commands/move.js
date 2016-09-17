@@ -17,6 +17,7 @@ module.exports = class MoveCommand extends Command {
     const destinationName = this._slot('destination');
     const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
     const destination = MapHelper.getDestination(destinationName, currentMap, this.game.schema);
+
     if (destination) {
       const self = this;
       this.state.mapId = destination.id;
