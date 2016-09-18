@@ -79,30 +79,39 @@ new Game(app, schema, stateManager, onError).init();
 /* Invoke Intents */
 /***********************************************/
 
-_.each([{ id: 'launch' }].concat(script.intents), (intent, i) => {
-  setTimeout(() => {
+const ensureTable = new Promise((resolve, reject) => {
+  db.doesStatesTableExist().then((result) => {
+    if (result) return resolve();
+    db.createStatesTable().then(resolve);
+  });
+});
 
-    // Mock Request
-    const req = {
-      slot: (id) => {
-        return intent.slots ? intent.slots[id] : undefined;
-      },
-      userId: 'amzn1.account.AM3B227HF3FAM1B2_SIMULATION'
-    };
+ensureTable.then(() => {
+  _.each([{ id: 'launch' }].concat(script.intents), (intent, i) => {
+    setTimeout(() => {
 
-    // Mock Response
-    const res = {
-      say: (msg) => {
-        console.log(' Response =>'.green.bold, msg.green, '\n');
-      }
-    };
+      // Mock Request
+      const req = {
+        slot: (id) => {
+          return intent.slots ? intent.slots[id] : undefined;
+        },
+        userId: 'amzn1.account.AM3B227HF3FAM1B2_SIMULATION'
+      };
 
-    // Print Intent
-    const slots = intent.slots ? JSON.stringify(intent.slots).cyan : '';
-    console.log('Intent =>'.cyan.bold, intent.id.cyan, slots);
+      // Mock Response
+      const res = {
+        say: (msg) => {
+          console.log(' Response =>'.green.bold, msg.green, '\n');
+        }
+      };
 
-    // Invoke Command
-    intents[intent.id](req, res);
+      // Print Intent
+      const slots = intent.slots ? JSON.stringify(intent.slots).cyan : '';
+      console.log('Intent =>'.cyan.bold, intent.id.cyan, slots);
 
-  }, i * 100);
+      // Invoke Command
+      intents[intent.id](req, res);
+
+    }, i * 100);
+  });
 });
