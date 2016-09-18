@@ -1,6 +1,6 @@
 test:
   post:
-    - cp ./apps/adventure/secrets.template.json ./apps/adventure/secrets.json
-    - npm run dynamo:
+    - 'cp ./apps/adventure/secrets.template.json ./apps/adventure/secrets.json'
+    - 'npm run dynamo':
       - background: true
-    - sleep 2
+    - 'sleep 2'
