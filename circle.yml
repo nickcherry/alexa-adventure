@@ -1,7 +1,7 @@
 test:
-  override:
-    - cp ./apps/adventure/secrets.template.json ./apps/adventure/secrets.json
-    - nvm install stable && nvm alias default stable
-    - npm run dynamo &
-    - sleep 3
-    - npm test
+  machine:
+    post:
+      - cp ./apps/adventure/secrets.template.json ./apps/adventure/secrets.json
+      - npm run dynamo:
+        background: true
+      - sleep 2

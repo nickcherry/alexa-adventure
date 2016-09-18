@@ -18,5 +18,6 @@
   "license": "ISC",
   "dependencies": {
     "alexa-app-server": "^2.2.4"
-  }
+  },
+  "engine": "node 6.4.0"
 }
