@@ -20,6 +20,7 @@ module.exports = class State {
   }
 
   set mapId(mapId) {
+    if (this.mapId) this._pushMapHistory(this.mapId);
     return this._data.mapId = mapId;
   }
 
@@ -27,11 +28,11 @@ module.exports = class State {
     return this._data.mapHistory || [];
   }
 
-  pushMapHistory(mapId) {
+  _pushMapHistory(mapId) {
     return _.tap(this.mapHistory, (mapHistory) => mapHistory.push(mapId));
   }
 
-  popMapHistory() {
+  _popMapHistory() {
     return this.mapHistory.pop();
   }
 
@@ -49,8 +50,9 @@ module.exports = class State {
 
   serialize() {
     return JSON.stringify({
+      inventory: this.inventory,
+      mapHistory: this.mapHistory,
       mapId: this.mapId,
-      inventory: this.inventory
     });
   }
 };

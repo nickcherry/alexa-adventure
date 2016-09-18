@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const chai = require('chai');
 const expect = chai.expect;
 
@@ -62,39 +63,47 @@ describe('MoveCommand', () => {
         }),
         res: res,
         state: StateFactory.default({
-          mapId: 'ballroom'
+          mapId: 'ballroom',
+          mapHistory: ['tutorial']
         })
       });
     }
 
-    it('should move the player to the destination when it is connected to the current map', () => {
-      let promise;
-      const res = { say: spy() };
-      const stateManager = StateManagerFactory.default();
-      const setState = stub(stateManager, 'setState', () => {
-        return promise = Promise.resolve();
-      });
-      buildCommand('The Bathroom', res, stateManager).perform();
-      return promise.then(() => {
-        expect(res.say).to.have.been.calledWithMatch(
-          'You are now entering The Bathroom'
-        );
-        expect(setState).to.have.been.calledWith(
-          sinon.match((userId) => userId === 'TEST_USER'),
-          sinon.match((state) => state.mapId === 'bathroom')
-        );
+    context('when the destination is valid and connected to the current map', () => {
+      it('should move the player to the destination and update the history', () => {
+        let promise;
+        const res = { say: spy() };
+        const stateManager = StateManagerFactory.default();
+        const setState = stub(stateManager, 'setState', () => {
+          return promise = Promise.resolve();
+        });
+        buildCommand('The Bathroom', res, stateManager).perform();
+        return promise.then(() => {
+          expect(res.say).to.have.been.calledWithMatch(
+            'You are now entering The Bathroom'
+          );
+          expect(setState).to.have.been.calledWith(
+            sinon.match((userId) => userId === 'TEST_USER'),
+            sinon.match((state) => {
+              return state.mapId === 'bathroom' &&
+                _.isEqual(state.mapHistory, ['tutorial', 'ballroom'])
+            })
+          );
+        });
       });
     });
 
-    it('should notify the player that the destination is inaccessible when it is not connected to the current map', () => {
-      const res = { say: spy() };
-      const stateManager = StateManagerFactory.default();
-      const setState = stateManager.setState = spy();
-      buildCommand('The Closet', res, stateManager).perform();
-      expect(res.say).to.have.been.calledWithMatch(
-        "You can't get to The Closet from here"
-      );
-      expect(setState).to.have.callCount(0);
+    context('when the destination is not connected to the current map', () => {
+      it('should inform the player that the destination is inaccessible and not change state', () => {
+        const res = { say: spy() };
+        const stateManager = StateManagerFactory.default();
+        const setState = stateManager.setState = spy();
+        buildCommand('The Closet', res, stateManager).perform();
+        expect(res.say).to.have.been.calledWithMatch(
+          "You can't get to The Closet from here"
+        );
+        expect(setState).to.have.callCount(0);
+      });
     });
   });
 });
