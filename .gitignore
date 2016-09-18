@@ -56,3 +56,4 @@ build.zip
 
 # Database
 /.database
+.temp_app_dir

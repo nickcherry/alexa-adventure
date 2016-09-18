@@ -8,6 +8,14 @@ TEMP_APP_DIR="$ROOT/.temp_app_dir"
 TARGET_FILE="$ROOT/build.zip"
 WHITELISTED_FILES="*.js *.json node_modules"
 
+# Only allow build if tests are green
+npm test >/dev/null
+TESTS_RESULT=$?
+if [ $TESTS_RESULT -ne 0 ]; then
+  echo "Tests failed, aborting build"
+  exit 1
+fi
+
 # Remove existing zip file
 rm $TARGET_FILE
 
