@@ -16,7 +16,7 @@ module.exports = class MapHelper {
   }
 
   static getCurrentMap(state, schema) {
-    return schema.lookup('map', state.mapId) || this.getInitialMap(schema);
+    return schema.lookup('map', state.mapId);
   }
 
   static getDestination(name, currentMap, schema) {

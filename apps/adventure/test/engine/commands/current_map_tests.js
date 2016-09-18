@@ -28,7 +28,7 @@ chai.use(sinonChai);
 
 describe('CurrentMapCommand', () => {
   describe('#perform', () => {
-    it('should say the current map name when one is defined', () => {
+    it('should say the current map name', () => {
       const res = { say: spy() };
       CommandFactory.default({
         commandClass: CurrentMapCommand,
@@ -42,23 +42,6 @@ describe('CurrentMapCommand', () => {
         state: StateFactory.default({ mapId: 'dungeon' })
       }).perform();
       expect(res.say).to.have.been.calledWithMatch('You are currently in The Dungeon')
-    });
-
-    it('should say the initial map name when one is defined', () => {
-      const res = { say: spy() };
-      CommandFactory.default({
-        commandClass: CurrentMapCommand,
-        res: res,
-        schema: SchemaFactory.default({
-          initialMapId: 'tutorial',
-          maps: [
-            MapFactory.default({ id: 'tutorial', name: 'The Tutorial' }),
-            MapFactory.default({ id: 'dungeon', name: 'The Dungeon' })
-          ]
-        }),
-        state: StateFactory.default()
-      }).perform();
-      expect(res.say).to.have.been.calledWithMatch('You are currently in The Tutorial');
     });
   });
 });

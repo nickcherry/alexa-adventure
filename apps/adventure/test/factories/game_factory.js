@@ -15,10 +15,10 @@ const StateManagerFactory = require('./state_manager_factory');
 /***********************************************/
 
 module.exports = class GameFactory extends Factory {
-  static default({ app, schema, state, stateManager } = {}) {
+  static default({ app, onError, schema, state, stateManager } = {}) {
     app = app || AppFactory.default();
     schema = schema || SchemaFactory.default();
     stateManager = stateManager || StateManagerFactory.default();
-    return new Game(app, schema, stateManager);
+    return new Game(app, schema, stateManager, onError);
   }
 }

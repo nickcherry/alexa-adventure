@@ -6,6 +6,7 @@
 
 const _ = require('lodash');
 const BaseModel = require('./base_model');
+const StateHelper = require('./helpers/state_helper');
 
 /***********************************************/
 /* Exports */
@@ -30,16 +31,8 @@ module.exports = class Game extends BaseModel {
     const self = this;
     _.each(this.schema.intents, (intent) => {
       const handler = (req, res) => {
-        const perform = (state) => {
-          try {
-            const commandClass = intent.commandClass;
-            const command = new commandClass(req, res, intent, state, self);
-            return command.perform();
-          } catch(err) {
-            self.onError(err, { req, res, intent, state, game: self });
-          }
-        };
-        this.stateManager.getState(req.userId).then(perform).catch(perform);
+        const perform = _.partial(self._perform, req, res, intent);
+        this.stateManager.getState(req.userId).then(perform).catch(self.onError);
         return false;
       };
       if (intent.command == 'launch') {
@@ -48,5 +41,16 @@ module.exports = class Game extends BaseModel {
         this.app.intent(intent.id, intent, handler);
       }
     });
+  }
+
+  _perform(req, res, intent, state) {
+    try {
+      StateHelper.ensureCurrentMap(state, this.schema);
+      const commandClass = intent.commandClass;
+      const command = new intent.commandClass(req, res, intent, state, this);
+      return command.perform();
+    } catch(err) {
+      this.onError(err, { req, res, intent, state, game: this });
+    }
   }
 };

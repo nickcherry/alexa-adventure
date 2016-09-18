@@ -23,6 +23,18 @@ module.exports = class State {
     return this._data.mapId = mapId;
   }
 
+  get mapHistory() {
+    return this._data.mapHistory || [];
+  }
+
+  pushMapHistory(mapId) {
+    return _.tap(this.mapHistory, (mapHistory) => mapHistory.push(mapId));
+  }
+
+  popMapHistory() {
+    return this.mapHistory.pop();
+  }
+
   get inventory() {
     return this._data.inventory || [];
   }
