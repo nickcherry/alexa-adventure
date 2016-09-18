@@ -4,5 +4,5 @@ dependencies:
     - nvm install stable && nvm alias default stable
     - npm install
     - npm run dynamo:
-      background: true
+        background: true
     - sleep 2
