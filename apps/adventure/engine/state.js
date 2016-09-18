@@ -29,7 +29,7 @@ module.exports = class State {
   }
 
   goToPreviousMap() {
-    this._data.mapId = this._popMapHistory();
+    return this._data.mapId = this._popMapHistory();
   }
 
   get mapHistory() {

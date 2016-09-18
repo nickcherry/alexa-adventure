@@ -50,7 +50,7 @@ describe('State', () => {
           mapId: 'ballroom',
           mapHistory: ['tutorial', 'dungeon']
         });
-        state.goToPreviousMap();
+        expect(state.goToPreviousMap()).to.eq('dungeon');
         expect(state.mapId).to.eq('dungeon');
         expect(state.mapHistory).to.deep.eq(['tutorial']);
       });
