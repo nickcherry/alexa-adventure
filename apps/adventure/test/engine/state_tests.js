@@ -43,6 +43,28 @@ describe('State', () => {
     });
   });
 
+  describe('#goToPreviousMap', () => {
+    context('when there is a history', () => {
+      it('should pop the last history id and set it to mapId', () => {
+        const state = StateFactory.default({
+          mapId: 'ballroom',
+          mapHistory: ['tutorial', 'dungeon']
+        });
+        state.goToPreviousMap();
+        expect(state.mapId).to.eq('dungeon');
+        expect(state.mapHistory).to.deep.eq(['tutorial']);
+      });
+    });
+    context('when there is no history', () => {
+      it('should set the mapId to undefined', () => {
+        const state = StateFactory.default({ mapId: 'ballroom' });
+        state.goToPreviousMap();
+        expect(state.mapId).to.be.undefined;
+        expect(state.mapHistory).to.deep.eq([]);
+      });
+    });
+  });
+
   describe('#_pushMapHistory', () => {
     it('should push the map id and return the new history', () => {
       const state = StateFactory.default({ mapHistory: ['tutorial'] });

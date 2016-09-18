@@ -15,6 +15,10 @@ module.exports = class State {
     this._data = data;
   }
 
+  /***********************************************/
+  /* Maps */
+  /***********************************************/
+
   get mapId() {
     return this._data.mapId;
   }
@@ -22,6 +26,10 @@ module.exports = class State {
   set mapId(mapId) {
     if (this.mapId) this._pushMapHistory(this.mapId);
     return this._data.mapId = mapId;
+  }
+
+  goToPreviousMap() {
+    this._data.mapId = this._popMapHistory();
   }
 
   get mapHistory() {
@@ -36,6 +44,10 @@ module.exports = class State {
     return this.mapHistory.pop();
   }
 
+  /***********************************************/
+  /* Inventory */
+  /***********************************************/
+
   get inventory() {
     return this._data.inventory || [];
   }
@@ -47,6 +59,10 @@ module.exports = class State {
   hasInventory(type, id) {
     _.findWhere(this.inventory, { type, id });
   }
+
+  /***********************************************/
+  /* Serialization */
+  /***********************************************/
 
   serialize() {
     return JSON.stringify({
