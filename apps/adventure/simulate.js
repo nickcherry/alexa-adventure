@@ -68,7 +68,7 @@ const stateManager = new StateManager({
 });
 const onError = (err, meta = {}) => {
   console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);
-  console.error("Egads!".red.bold);
+  console.error("EGADS, AN ERROR OCCURRED!".red.bold);
   console.error((err.stack || err.message).red);
   console.error('\n\n' + JSON.stringify(meta, null, 2).red);
   console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);

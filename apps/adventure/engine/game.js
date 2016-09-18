@@ -31,7 +31,7 @@ module.exports = class Game extends BaseModel {
     const self = this;
     _.each(this.schema.intents, (intent) => {
       const handler = (req, res) => {
-        const perform = _.partial(self._perform, req, res, intent);
+        const perform = _.partial(self._perform.bind(self), req, res, intent);
         this.stateManager.getState(req.userId).then(perform).catch(self.onError);
         return false;
       };
