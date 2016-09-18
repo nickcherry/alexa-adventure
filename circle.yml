@@ -2,5 +2,5 @@ test:
   post:
     - cp ./apps/adventure/secrets.template.json ./apps/adventure/secrets.json
     - npm run dynamo:
-      background: true
+      - background: true
     - sleep 2
