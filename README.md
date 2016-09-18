@@ -1,6 +1,6 @@
 # Alexa Adventure
 
-[![CircleCI](https://circleci.com/gh/nickcherry/alexa-adventure.svg?style=svg)](https://circleci.com/gh/nickcherry/alexa-adventure)
+[![CircleCI](https://circleci.com/gh/nickcherry/alexa-adventure.svg?style=svg&circle-token=180458eacd17b82c3e21349e45c22f44e1a76eb2)](https://circleci.com/gh/nickcherry/alexa-adventure)
 
 ## Dependencies
 
