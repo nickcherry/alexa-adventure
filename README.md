@@ -1,5 +1,7 @@
 # Alexa Adventure
 
+[![CircleCI](https://circleci.com/gh/nickcherry/alexa-adventure.svg?style=svg)](https://circleci.com/gh/nickcherry/alexa-adventure)
+
 ## Dependencies
 
 To install required Node dependencies, run the following from the project root:
