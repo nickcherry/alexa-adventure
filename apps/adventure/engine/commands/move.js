@@ -4,7 +4,6 @@
 /* Imports */
 /***********************************************/
 
-const _ = require('lodash');
 const Command = require('./command');
 const MapHelper = require('../helpers/map_helper');
 
@@ -20,8 +19,8 @@ module.exports = class MoveCommand extends Command {
 
     if (destination) {
       const self = this;
-      this.state.mapId = destination.id;
-      this.game.stateManager.setState(this.req.userId, this.state).then((state) => {
+      this.state.setMapId(destination.id, true);
+      this.game.stateManager.setState(this.req.userId, this.state).then(() => {
         self._say(`You are now entering ${ destinationName }`);
       }).catch(this.game.onError);
     } else {

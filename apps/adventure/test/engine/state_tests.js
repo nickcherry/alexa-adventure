@@ -14,22 +14,43 @@ const StateFactory = require('../factories/state_factory');
 /***********************************************/
 
 describe('State', () => {
-  describe('#set mapId', () => {
-    context('when a mapId is already assigned', () => {
-      it('should set the mapId and push the previous mapId to the history', () => {
-        const state = StateFactory.default({
-          mapId: 'dungeon',
-          mapHistory: ['tutorial']
-        });
-        state.mapId = 'ballroom';
-        expect(state.mapId).to.eq('ballroom');
-        expect(state.mapHistory).to.deep.eq(['tutorial', 'dungeon']);
+  describe('#setMapId', () => {
+    context('when no pushHistory argument is specified', () => {
+      it('should throw an error', () => {
+        const state = StateFactory.default();
+        const invoke = () => state.setMapId('tutorial');
+        expect(invoke).to.throw('The `pushHistory` argument is required for `setMapId`');
       });
     });
+    context('when a mapId is already assigned', () => {
+      context('and pushHistory is true', () => {
+        it('should set the mapId and push the previous mapId to the history', () => {
+          const state = StateFactory.default({
+            mapId: 'dungeon',
+            mapHistory: ['tutorial']
+          });
+          state.setMapId('ballroom', true);
+          expect(state.mapId).to.eq('ballroom');
+          expect(state.mapHistory).to.deep.eq(['tutorial', 'dungeon']);
+        });
+      });
+      context('and pushHistory is false', () => {
+        it('should set the mapId and not modify the mapHistory', () => {
+          const state = StateFactory.default({
+            mapId: 'dungeon',
+            mapHistory: ['tutorial']
+          });
+          state.setMapId('ballroom', false);
+          expect(state.mapId).to.eq('ballroom');
+          expect(state.mapHistory).to.deep.eq(['tutorial']);
+        });
+      });
+    });
+
     context('when no mapId is assigned', () => {
       it('should set the mapId', () => {
         const state = StateFactory.default();
-        state.mapId = 'ballroom';
+        state.setMapId('ballroom', true);
         expect(state.mapId).to.eq('ballroom');
         expect(state.mapHistory).to.deep.eq([]);
       });

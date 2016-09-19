@@ -38,7 +38,7 @@ describe('Database', () => {
   it('should set and fetch state', (done) => {
     const userId = 'abc123';
     const state = StateFactory.default();
-    state.mapId = 'level_1';
+    state.setMapId('level_1', false);
     return db.setState(userId, state).then(() => {
       db.getState(userId).then((persistedState) => {
         expect(persistedState.mapId).to.eq(state.mapId);

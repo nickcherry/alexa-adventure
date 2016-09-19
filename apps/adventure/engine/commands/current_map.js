@@ -6,7 +6,6 @@
 
 const Command = require('./command');
 const MapHelper = require('../helpers/map_helper');
-const State = require('../state');
 
 /***********************************************/
 /* Exports */

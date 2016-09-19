@@ -23,13 +23,14 @@ module.exports = class State {
     return this._data.mapId;
   }
 
-  set mapId(mapId) {
-    if (this.mapId) this._pushMapHistory(this.mapId);
+  setMapId(mapId, pushHistory) {
+    if (_.isUndefined(pushHistory)) throw new Error('The `pushHistory` argument is required for `setMapId`');
+    if (this.mapId && pushHistory) this._pushMapHistory(this.mapId);
     return this._data.mapId = mapId;
   }
 
   goToPreviousMap() {
-    return this._data.mapId = this._popMapHistory();
+    return this.setMapId(this._popMapHistory(), false);
   }
 
   get mapHistory() {

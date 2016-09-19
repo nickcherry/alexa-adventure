@@ -6,12 +6,13 @@
 
 module.exports = class StateHelper {
   static ensureCurrentMap(state, schema) {
-    let map, mapId;
-    if (map = schema.lookup('map', state.mapId)) return map;
-    while(mapId = state.goToPreviousMap()) {
-      if (map = schema.lookup('map', mapId)) return map;
+    let map = schema.lookup('map', state.mapId);
+    if (map) return map;
+    while(state.mapHistory.length) {
+      map = schema.lookup('map', state.goToPreviousMap());
+      if (map) return map;
     }
-    state.mapId = schema.initialMapId;
+    state.setMapId(schema.initialMapId, false);
     return schema.lookup('map', state.mapId);
   }
 };
