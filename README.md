@@ -29,7 +29,7 @@ First, be sure that a local instance of [DynamoDB](https://github.com/Medium/loc
 npm run dynamo
 ```
 
-Then, to start the [alexa-app-server](https://github.com/matt-kruse/alexa-app-server), be sure that Dynamo is available (`npm run dynamo`) and then run the following from the project root:
+Then, to start the [alexa-app-server](https://github.com/matt-kruse/alexa-app-server), run the following from the project root:
 
 ```shell
 npm start
@@ -39,7 +39,7 @@ The alexa-app-server testing utility will be available at [http://localhost:8080
 
 ## Scripts
 
-To simulate a script from the commandline, run the following from the project root, where `hello.json` is a script file within the `apps/adventure/scripts` directory:
+To simulate a script from the commandline, first be sure that Dynamo is available (`npm run dynamo`), then run the following from the project root, where `hello.json` is a script file within the `apps/adventure/scripts` directory:
 
 ```shell
 npm run simulate --script=hello.json
@@ -75,9 +75,15 @@ To test only the schema (`./apps/adventure/schema.json`), run the following from
 npm run test-schema
 ```
 
+To test only the scripts (`./apps/adventure/scripts/**/*.json`), run the following from the project root:
+
+```shell
+npm run test-scripts
+```
+
 ## Lint
 
-To lint all javaschema, run the following from the project root:
+To lint all javascript, run the following from the project root:
 
 ```shell
 npm run lint
