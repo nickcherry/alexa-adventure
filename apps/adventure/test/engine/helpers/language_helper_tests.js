@@ -24,10 +24,10 @@ describe('LanguageHelper', () => {
     it('should handle an array of 1 correctly', () => {
       expect(LanguageHelper.oxfordComma(['lions'])).to.eq('lions')
     });
-    it('should handle an array of 1 correctly', () => {
+    it('should handle an array of 2 correctly', () => {
       expect(LanguageHelper.oxfordComma(['lions', 'tigers'])).to.eq('lions and tigers');
     });
-    it('should handle an array of 1 correctly', () => {
+    it('should handle an array of 3 correctly', () => {
       expect(LanguageHelper.oxfordComma(['lions', 'tigers', 'bears']))
         .to.eq('lions, tigers, and bears');
     });
