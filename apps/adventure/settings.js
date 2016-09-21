@@ -27,8 +27,12 @@ module.exports = class Settings {
         accessKeyId: secrets.aws.accessKeyId,
         secretAccessKey: secrets.aws.secretAccessKey
       },
-      endpoint: 'http://localhost:4567',
-      gameStatesTable: env == 'test' ? 'TEST_GameStates' : 'GameStates',
+      endpoint: env === 'production' ?
+        'https://acm.us-east-1.amazonaws.com' :
+        'http://localhost:4567',
+      gameStatesTable: env === 'test' ?
+        'TEST_GameStates' :
+        'GameStates'
     };
   }
 };

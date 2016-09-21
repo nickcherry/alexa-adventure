@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const aws = require('aws-sdk');
 const State = require('./engine/state');
 const Settings = require('./settings');
@@ -56,7 +57,7 @@ module.exports = class Database {
     const self = this;
     return new Promise((resolve, reject) => {
       self.listTables().then((data) => {
-        resolve(data.TableNames.includes(Settings.aws.gameStatesTable));
+        resolve(_.includes(data.TableNames, Settings.aws.gameStatesTable));
       }).catch(reject);
     });
   }
@@ -71,8 +72,8 @@ module.exports = class Database {
         { AttributeName: 'UserId', AttributeType: 'S' }
       ],
       ProvisionedThroughput: {
-        ReadCapacityUnits: 1,
-        WriteCapacityUnits: 1
+        ReadCapacityUnits: 5,
+        WriteCapacityUnits: 5
       }
     });
   }

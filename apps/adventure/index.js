@@ -60,7 +60,10 @@ new Game(app, schema, stateManager, onError).init();
 
 db.doesStatesTableExist().then((result) => {
   if (!result) db.createStatesTable();
-})
+}).catch((err) => {
+  console.error('There was an error connecting to the database.');
+  bugsnag.notify(err);
+});
 
 /***********************************************/
 /* Exports */
