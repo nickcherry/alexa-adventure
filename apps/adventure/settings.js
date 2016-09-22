@@ -32,7 +32,9 @@ module.exports = class Settings {
         'http://localhost:4567',
       gameStatesTable: env === 'test' ?
         'TEST_GameStates' :
-        'GameStates'
+        'GameStates',
+      applicationBucket: 'alexa-adventure',
+      assetsBucket: 'alexa-adventure-assets'
     };
   }
 };

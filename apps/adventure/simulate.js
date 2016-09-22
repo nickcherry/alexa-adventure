@@ -37,6 +37,7 @@ const scriptPath = `${ SCRIPTS_DIR }/${ scriptFile }`;
 if (!fs.existsSync(scriptPath)) {
   console.log('The specified script does not exist!\n'.red.bold);
   console.log(`Be sure to specify the file relative to the ${ SCRIPTS_DIR_DISPLAY } directory.\n`.red);
+  console.log("And don't forget the .json extension!\n".red);
   process.exit(0);
 }
 

@@ -7,6 +7,9 @@
 const colors = require('colors');
 const exec = require('sync-exec');
 const fs = require('fs-extra');
+const path = require('path');
+const s3 = require('s3');
+const Settings = require('./settings');
 
 /***********************************************/
 /* Settings */
@@ -16,6 +19,7 @@ const PROJECT_ROOT = `${ __dirname }/../..`;
 const APP_ROOT = __dirname;
 const TEMP_APP_ROOT = `${ APP_ROOT }/temp_app_container`;
 const TARGET_BUILD_FILE = `${ APP_ROOT }/build.zip`;
+const ASSETS_DIR = `${ APP_ROOT }/assets`;
 
 /***********************************************/
 /* Helpers */
@@ -83,3 +87,46 @@ if (fs.existsSync(TEMP_APP_ROOT)) {
   log('🚽', 'Removing temporary app directory');
   fs.removeSync(TEMP_APP_ROOT);
 }
+
+log('🚀', 'Uploading build file to S3');
+const s3Client = s3.createClient({
+  maxAsyncS3: 20,
+  s3RetryCount: 3,
+  s3RetryDelay: 1000,
+  s3Options: {
+    accessKeyId: Settings.aws.config.accessKeyId,
+    secretAccessKey: Settings.aws.config.secretAccessKey,
+    region: Settings.aws.config.region,
+  }
+});
+
+const buildUploader = s3Client.uploadFile({
+  localFile: TARGET_BUILD_FILE,
+  s3Params: {
+    Bucket: Settings.aws.applicationBucket,
+    Key: path.basename(TARGET_BUILD_FILE)
+  }
+});
+
+buildUploader.on('error', function(err) {
+  error(`Error uploading build to S3: ${ err.stack }`);
+});
+
+buildUploader.on('end', function() {
+  log('🎵', 'Syncing audio assets with S3');
+  const assetUploader = s3Client.uploadDir({
+    localDir: ASSETS_DIR,
+    deleteRemoved: true,
+    s3Params: {
+      Bucket: Settings.aws.assetsBucket
+    }
+  });
+
+  assetUploader.on('error', function(err) {
+    console.error(`Error uploading assets to S3: ${ err.stack }`);
+  });
+
+  assetUploader.on('end', function() {
+    log('🤘', 'The adventure is on.')
+  });
+});
