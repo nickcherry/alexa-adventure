@@ -50,10 +50,8 @@ Temporary Items
 
 apps/adventure/etc
 
-# Sensitive Files
+# Sensitive / Temporary Files
 secrets.json
 build.zip
-
-# Database
-/.database
 .temp_app_dir
+/.database

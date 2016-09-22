@@ -28,7 +28,7 @@ module.exports = class Settings {
         secretAccessKey: secrets.aws.secretAccessKey
       },
       endpoint: env === 'production' ?
-        'https://acm.us-east-1.amazonaws.com' :
+        'https://dynamodb.us-east-1.amazonaws.com' :
         'http://localhost:4567',
       gameStatesTable: env === 'test' ?
         'TEST_GameStates' :

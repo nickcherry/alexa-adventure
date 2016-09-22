@@ -28,5 +28,5 @@ describe('scripts/*.json', () => {
       expect(intentCount).to.be.above(0, `There should be at least one intent in the ${ path } script`);
       expect(intentCount).to.eq(responseCount, `There should be a response for every intent in the ${ path } script`);
     });
-  });
+  }).timeout(5000);
 });

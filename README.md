@@ -12,13 +12,13 @@ To install required Node dependencies, run the following from the project root:
 
 ## Secrets
 
-All the app's sensitive data should reside in a `secrets.json`, where it will be excluded from version control. To copy the expected template for `secrets.json`, run the following from the project root:
+All the app's sensitive data should reside in a `secrets.json` file, which will be excluded from version control. To copy the expected template for this file, run the following from the project root:
 
 ```shell
 cp apps/adventure/secrets.template.json apps/adventure/secrets.json
 ```
 
-Then substitute valid credentials in for the placeholders. See [`apps/adventure/settings.js`](apps/adventure/settings.js) for usage.
+Then substitute valid credentials in for all placeholders. See [`apps/adventure/settings.js`](apps/adventure/settings.js) and [./deploy.sh](deploy.sh) for usage.
 
 
 ## Development Server
@@ -47,10 +47,10 @@ npm run simulate --script=hello.json
 
 ## Deployment
 
-To generate a zip file of the files required by Lambda, run the following from the project root:
+To deploy, be sure that `app/adventures/secrets.json` is populated and that Dynamo is available (`npm run dynamo`), then run the following from the project root:
 
 ```shell
-npm run build
+npm run deploy
 ```
 
 This will generate a `build.zip` file, which should be uploaded to Amazon.
