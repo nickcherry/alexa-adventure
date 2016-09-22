@@ -10,6 +10,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const s3 = require('s3');
 const Settings = require('./settings');
+const walkSync = require('walk-sync');
 
 /***********************************************/
 /* Settings */
@@ -17,7 +18,8 @@ const Settings = require('./settings');
 
 const PROJECT_ROOT = `${ __dirname }/../..`;
 const APP_ROOT = __dirname;
-const TEMP_APP_ROOT = `${ APP_ROOT }/temp_app_container`;
+const TEMP_APP_ROOT = `${ APP_ROOT }/temp_app_dir`;
+const TEMP_ASSETS_ROOT = `${ APP_ROOT }/temp_assets_dir`;
 const TARGET_BUILD_FILE = `${ APP_ROOT }/build.zip`;
 const ASSETS_DIR = `${ APP_ROOT }/assets`;
 
@@ -50,6 +52,11 @@ if (fs.existsSync(TEMP_APP_ROOT)) {
   fs.removeSync(TEMP_APP_ROOT);
 }
 
+if (fs.existsSync(TEMP_ASSETS_ROOT)) {
+  log('🚽', 'Removing temporary assets directory from previous deploy');
+  fs.removeSync(TEMP_ASSETS_ROOT);
+}
+
 log('🍐', 'Verifying that tests are green');
 if (exec('cd PROJECT_ROOT; npm test').status !== 0) {
   error('Tests aren\'t green; fix those and try again!');
@@ -58,7 +65,10 @@ if (exec('cd PROJECT_ROOT; npm test').status !== 0) {
 log('🏠', 'Creating temporary app directory');
 fs.mkdirpSync(TEMP_APP_ROOT);
 
-log('🔑', 'Copying json files to temporary app directory');
+log('🏠', 'Creating temporary assets directory');
+fs.mkdirpSync(TEMP_ASSETS_ROOT);
+
+log('🐇', 'Copying json files to temporary app directory');
 fs.copySync(`${ APP_ROOT }/package.json`, `${ TEMP_APP_ROOT }/package.json`);
 fs.copySync(`${ APP_ROOT }/schema.json`, `${ TEMP_APP_ROOT }/schema.json`);
 fs.copySync(`${ APP_ROOT }/secrets.json`, `${ TEMP_APP_ROOT }/secrets.json`);
@@ -82,6 +92,13 @@ fs.writeFileSync(`${ TEMP_APP_ROOT }/env.js`, envContent);
 
 log('🗜', 'Zipping target build file');
 let zip = exec(`cd ${ TEMP_APP_ROOT }; zip -r ${ TARGET_BUILD_FILE } .`);
+
+log('🎛', 'Converting assets to Amazon-friendly format')
+walkSync(ASSETS_DIR, {
+  directories: false,
+}).forEach((audioPath) => {
+  exec(`ffmpeg -i ${ ASSETS_DIR }/${ audioPath } -ac 2 -codec:a libmp3lame -b:a 48k -ar 16000 ${ TEMP_ASSETS_ROOT }/${ audioPath }`);
+});
 
 if (fs.existsSync(TEMP_APP_ROOT)) {
   log('🚽', 'Removing temporary app directory');
@@ -127,6 +144,12 @@ buildUploader.on('end', function() {
   });
 
   assetUploader.on('end', function() {
+
+    if (fs.existsSync(TEMP_ASSETS_ROOT)) {
+      log('🚽', 'Removing temporary assets directory');
+      fs.removeSync(TEMP_ASSETS_ROOT);
+    }
+
     log('🤘', 'The adventure is on.')
   });
 });

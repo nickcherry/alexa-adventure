@@ -10,6 +10,13 @@ To install required Node dependencies, run the following from the project root:
   npm install
 ```
 
+For deployment, [FFmpeg](https://ffmpeg.org/) and [LAME](http://lame.sourceforge.net/) are required to convert audio files to [an Alexa-friendly format](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference#audio). To install these dependencies with Homebrew, run the following:
+
+```shell
+brew install lame
+brew install ffmpeg
+```
+
 ## Secrets
 
 All the app's sensitive data should reside in a `secrets.json` file, which will be excluded from version control. To copy the expected template for this file, run the following from the project root:
