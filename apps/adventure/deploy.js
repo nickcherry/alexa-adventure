@@ -96,6 +96,7 @@ let zip = exec(`cd ${ TEMP_APP_ROOT }; zip -r ${ TARGET_BUILD_FILE } .`);
 log('🎛', 'Converting assets to Amazon-friendly format')
 walkSync(ASSETS_DIR, {
   directories: false,
+  globs: ['**/*.mp3', '**/*.mp4', '**/*.wav'],
 }).forEach((audioPath) => {
   exec(`ffmpeg -i ${ ASSETS_DIR }/${ audioPath } -ac 2 -codec:a libmp3lame -b:a 48k -ar 16000 ${ TEMP_ASSETS_ROOT }/${ audioPath }`);
 });
