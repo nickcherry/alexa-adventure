@@ -5,7 +5,14 @@
       "id": "launch",
       "command": "launch",
       "commandArgs": {
-        "text": "Welcome, adventurer."
+        "text": "Welcome adventurer."
+      }
+    },
+    {
+      "id": "sessionEnded",
+      "command": "session_ended",
+      "commandArgs": {
+        "text": "Farewell adventurer."
       }
     },
     {

@@ -15,7 +15,8 @@ const COMMAND_KEYS = [
   'launch',
   'list_connected_maps',
   'move',
-  'new_game'
+  'new_game',
+  'session_ended'
 ];
 
 /***********************************************/

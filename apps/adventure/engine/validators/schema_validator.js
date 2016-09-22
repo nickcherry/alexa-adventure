@@ -35,6 +35,7 @@ module.exports = class SchemaValidator extends Validator {
   get validators() {
     return [
       [commandPresence, { key: INTENTS_KEY, command: 'launch' }],
+      [commandPresence, { key: INTENTS_KEY, command: 'session_ended' }],
 
       [keyPresence, { key: INITIAL_MAP_KEY }],
       [recognizedMap, { key: INITIAL_MAP_KEY, schema: this.object }],

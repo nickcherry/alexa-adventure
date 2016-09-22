@@ -37,6 +37,8 @@ module.exports = class Game extends BaseModel {
       };
       if (intent.command == 'launch') {
         this.app.launch(handler);
+      } else if (intent.command == 'sessionEnded') {
+        this.app.sessionEnded(handler);
       } else {
         this.app.intent(intent.id, intent, handler);
       }
