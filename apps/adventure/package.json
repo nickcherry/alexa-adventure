@@ -10,7 +10,8 @@
     "aws-sdk": "^2.6.1",
     "bugsnag": "^1.8.0",
     "colors": "^1.1.2",
-    "lodash": "^4.3.0"
+    "lodash": "^4.3.0",
+    "micromustache": "^4.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
