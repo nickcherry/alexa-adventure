@@ -11,6 +11,12 @@ const Validator = require('../../../../engine/validators/validator');
 const subject = require('../../../../engine/validators/modules/nested_hash_validator');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

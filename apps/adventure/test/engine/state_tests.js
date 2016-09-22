@@ -10,6 +10,12 @@ const expect = require('chai').expect;
 const StateFactory = require('../factories/state_factory');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

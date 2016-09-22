@@ -10,6 +10,12 @@ const ConfigurableModelFactory = require('../../../factories/configurable_model_
 const subject = require('../../../../engine/validators/modules/key_presence');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

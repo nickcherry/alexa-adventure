@@ -13,6 +13,12 @@ const StateFactory = require('../../factories/state_factory');
 const StateHelper = require('../../../engine/helpers/state_helper');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

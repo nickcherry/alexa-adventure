@@ -12,6 +12,12 @@ const SchemaFactory = require('../../../factories/schema_factory');
 const subject = require('../../../../engine/validators/modules/recognized_map');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

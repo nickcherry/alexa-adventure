@@ -12,6 +12,12 @@ const Schema = require('../engine/schema');
 const SchemaValidator = require('../engine/validators/schema_validator');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

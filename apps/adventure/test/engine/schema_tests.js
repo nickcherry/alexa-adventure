@@ -14,6 +14,12 @@ const MapFactory = require('../factories/map_factory');
 const SchemaFactory = require('../factories/schema_factory');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

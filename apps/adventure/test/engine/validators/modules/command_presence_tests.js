@@ -11,6 +11,12 @@ const subject = require('../../../../engine/validators/modules/command_presence'
 const SchemaFactory = require('../../../factories/schema_factory');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

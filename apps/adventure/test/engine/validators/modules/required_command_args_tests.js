@@ -12,6 +12,12 @@ const IntentFactory = require('../../../factories/intent_factory');
 const subject = require('../../../../engine/validators/modules/required_command_args');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Private */
 /***********************************************/
 

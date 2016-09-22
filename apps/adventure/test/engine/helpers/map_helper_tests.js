@@ -12,6 +12,12 @@ const MapHelper = require('../../../engine/helpers/map_helper');
 const SchemaFactory = require('../../factories/schema_factory');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 

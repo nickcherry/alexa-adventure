@@ -10,6 +10,12 @@ const MapFactory = require('../../../factories/map_factory');
 const subject = require('../../../../engine/validators/modules/array_with_size');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+chai.config.truncateThreshold = 0; // Better reporting with deep equals
+
+/***********************************************/
 /* Tests */
 /***********************************************/
 
