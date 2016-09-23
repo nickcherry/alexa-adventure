@@ -52,13 +52,14 @@ describe('Game', () => {
       const game = GameFactory.default({ app, schema });
       const launchStub = stub(app, 'launch');
       const intentStub = stub(app, 'intent');
+      const sessionEndedStub = stub(app, 'sessionEnded');
       game.init();
       const intents = _.values(schema.intents);
       expect(launchStub).to.have.callCount(1);
-      expect(intentStub).to.have.callCount(3);
-      expect(intentStub).to.have.been.calledWithMatch('new_game', intents[1]);
-      expect(intentStub).to.have.been.calledWithMatch('walk', intents[2]);
-      expect(intentStub).to.have.been.calledWithMatch('run',intents[3]);
+      expect(intentStub).to.have.callCount(9);
+      expect(sessionEndedStub).to.have.callCount(1);
+      expect(intentStub).to.have.been.calledWithMatch('AMAZON.CancelIntent', intents[1]);
+      expect(intentStub).to.have.been.calledWithMatch('AMAZON.HelpIntent', intents[2]);
     });
   });
 

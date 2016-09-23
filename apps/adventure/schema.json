@@ -127,7 +127,7 @@
       "connectedTo": [
         "corridor"
       ],
-      "contains": []
+      "items":[]
     },
     {
       "id": "corridor",
@@ -142,9 +142,8 @@
       "connectedTo": [
         "ballroom"
       ],
-      "contains": [
+      "characters": [
         {
-          "type": "character",
           "id": "guard",
           "conversation": {
             "text": "Hey, whatchoo doing over there, lad?",
@@ -169,13 +168,13 @@
               }
             ]
           }
-        },
+        }
+      ],
+      "items": [
         {
-          "type": "item",
           "id": "woodenSword"
         },
         {
-          "type": "item",
           "id": "balletShoes"
         }
       ]
@@ -193,7 +192,7 @@
         "masterBedroom",
         "courtyard"
       ],
-      "contains": []
+      "items":[]
     },
     {
       "id": "masterBedroom",
@@ -201,7 +200,7 @@
       "connectedTo": [
         "ballroom"
       ],
-      "contains": []
+      "items":[]
     },
     {
       "id": "courtyard",
@@ -209,7 +208,7 @@
       "connectedTo": [
         "ballroom"
       ],
-      "contains": []
+      "items":[]
     }
   ]
 }

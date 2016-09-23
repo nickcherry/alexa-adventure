@@ -5,42 +5,87 @@
       "id": "launch",
       "command": "launch",
       "commandArgs": {
-        "text": "Greetings."
+        "text": "Welcome adventurer. />"
+      }
+    },
+    {
+      "id": "AMAZON.CancelIntent",
+      "command": "cancel",
+      "commandArgs": {
+        "defaultText": "Ok, I'll stop doing that thing."
+      }
+    },
+    {
+      "id": "AMAZON.HelpIntent",
+      "command": "help",
+      "commandArgs": {
+        "defaultText": "Just say one of the recognized commands. You remember those, right?"
+      }
+    },
+    {
+      "id": "AMAZON.NoIntent",
+      "command": "no",
+      "commandArgs": {
+        "defaultText": "No it shall be."
+      }
+    },
+    {
+      "id": "AMAZON.StopIntent",
+      "command": "stop",
+      "commandArgs": {
+        "defaultText": "Ok."
+      }
+    },
+    {
+      "id": "AMAZON.YesIntent",
+      "command": "yes",
+      "commandArgs": {
+        "defaultText": "Yes it shall be."
+      }
+    },
+    {
+      "id": "sessionEnded",
+      "command": "session_ended",
+      "commandArgs": {
+        "text": "Farewell adventurer."
       }
     },
     {
       "id": "new_game",
-      "slots": [],
+      "slots": {},
       "utterances": [
         "start new game"
       ],
-      "command": "new_game"
-    },
-    {
-      "id": "walk",
-      "slots": {
-        "DESTINATION": "DestinationType"
-      },
-      "utterances": [
-        "walk to {-|DESTINATION}"
-      ],
-      "command": "move",
+      "command": "new_game",
       "commandArgs": {
-        "speed": 1
+        "text": "Your journey begins."
       }
     },
     {
-      "id": "run",
+      "id": "current_map",
+      "command": "current_map",
+      "slots": {},
+      "utterances": [
+        "where am i"
+      ]
+    },
+    {
+      "id": "list_connected_maps",
+      "command": "list_connected_maps",
+      "slots": {},
+      "utterances": [
+        "where can i go?"
+      ]
+    },
+    {
+      "id": "move",
+      "command": "move",
       "slots": {
-        "DESTINATION": "DestinationType"
+        "destination": "availableMaps"
       },
       "utterances": [
-        "run to {-|DESTINATION}"
-      ],
-      "command": "move",
-      "commandArgs": {
-        "speed": 2
-      }
+        "move to {destinations|availableMaps}"
+      ]
     }
   ],
   "characters": [
@@ -55,8 +100,7 @@
       "name": "old dusty key",
       "requirements": [
         {
-          "type": "item",
-          "id": "flashlight",
+          "itemId": "flashlight",
           "deniedText": "It's so dark down here. If only you could see better."
         }
       ]
@@ -82,26 +126,23 @@
       "name": "A Dark Place",
       "connectedTo": [
         "corridor"
-      ],
-      "contains": []
+      ]
     },
     {
       "id": "corridor",
-      "name": "Corridor",
+      "name": "A Corridor",
       "enterText": "Entering the corridor. It looks like there's a guard at the other end",
       "requirements": [
         {
-          "type": "item",
-          "id": "tutorialKey",
+          "itemId": "tutorialKey",
           "deniedText": "Good grief, it seems this door is locked!"
         }
       ],
       "connectedTo": [
         "ballroom"
       ],
-      "contains": [
+      "characters": [
         {
-          "type": "character",
           "id": "guard",
           "conversation": {
             "text": "Hey, whatchoo doing over there, lad?",
@@ -126,47 +167,44 @@
               }
             ]
           }
-        },
+        }
+      ],
+      "items": [
         {
-          "type": "item",
           "id": "woodenSword"
         },
         {
-          "type": "item",
           "id": "balletShoes"
         }
       ]
     },
     {
       "id": "ballroom",
-      "name": "Grand Ballroom",
+      "name": "The Grand Ballroom",
       "requirements": [
         {
-          "type": "item",
-          "id": "balletShoes"
+          "itemId": "balletShoes",
+          "deniedText": "Ballet shoes DENITED!"
         }
       ],
       "connectedTo": [
         "masterBedroom",
         "courtyard"
-      ],
-      "contains": []
+      ]
     },
     {
       "id": "masterBedroom",
       "name": "Master Bedroom",
       "connectedTo": [
         "ballroom"
-      ],
-      "contains": []
+      ]
     },
     {
-      "id": "courdyard",
+      "id": "courtyard",
       "name": "Courtyard",
       "connectedTo": [
-        "countyard"
-      ],
-      "contains": []
+        "ballroom"
+      ]
     }
   ]
 }

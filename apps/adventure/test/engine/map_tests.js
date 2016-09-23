@@ -17,7 +17,6 @@ const Requirement = require('../../engine/requirement');
 describe('Map', () => {
   require('./shared_behaviors').constructorAssignsProps(Map, [
     'connectedTo',
-    'contains',
     'id',
     'name',
     [

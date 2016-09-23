@@ -12,10 +12,10 @@ const Requirement = require('./requirement');
 /***********************************************/
 
 module.exports = class Map extends ConfigurableModel {
-  constructor({ connectedTo, contains, name, requirements } = {}) {
+  constructor({ connectedTo, items, name, requirements } = {}) {
     super(...arguments);
     this.connectedTo = connectedTo;
-    this.contains = contains;
+    this.items = items;
     this.name = name;
     this.requirements = (requirements || []).map((attrs) => {
       return new Requirement(attrs)
@@ -25,7 +25,7 @@ module.exports = class Map extends ConfigurableModel {
   get requiredProps() {
     return super.requiredProps.concat([
       ['connectedTo', 'Array'],
-      ['contains', 'Array'],
+      ['items', 'Array'],
       ['name', 'String']
     ]);
   }
