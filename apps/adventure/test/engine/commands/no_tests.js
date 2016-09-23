@@ -11,7 +11,7 @@ const sinonChai = require("sinon-chai");
 const spy = require('sinon').spy;
 
 const CommandFactory = require('../../factories/command_factory');
-const HelpCommand = require('../../../engine/commands/help');
+const NoCommand = require('../../../engine/commands/no');
 const IntentFactory = require('../../factories/intent_factory');
 
 /***********************************************/
@@ -24,21 +24,21 @@ chai.use(sinonChai);
 /* Tests */
 /***********************************************/
 
-describe('HelpCommand', () => {
+describe('NoCommand', () => {
   describe('#perform', () => {
-    it('should say the default help text', () => {
+    it('should say the default no text', () => {
       const res = { say: spy() };
       CommandFactory.default({
-        commandClass: HelpCommand,
+        commandClass: NoCommand,
         res: res,
         intent: IntentFactory.default({
           commandArgs: {
-            defaultText: 'Everything is going to be ok.'
+            defaultText: 'No it is.'
           }
         })
       }).perform();
       expect(res.say).to.have.been.calledWithMatch(
-        'Everything is going to be ok.'
+        'No it is.'
       );
     });
   });

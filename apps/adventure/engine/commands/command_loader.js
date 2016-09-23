@@ -18,6 +18,7 @@ const COMMAND_KEYS = [
   'list_connected_maps',
   'move',
   'new_game',
+  'no',
   'session_ended'
 ];
 

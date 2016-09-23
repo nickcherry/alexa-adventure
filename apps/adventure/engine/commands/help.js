@@ -12,7 +12,7 @@ const Command = require('./command');
 
 module.exports = class HelpCommand extends Command {
   perform() {
-    this._say(this._commandArg('text'));
+    this._say(this._commandArg('defaultText'));
   }
 
   static getRequiredSlots() {
@@ -20,6 +20,6 @@ module.exports = class HelpCommand extends Command {
   }
 
   static getRequiredCommandArgs() {
-    return ["text"];
+    return ["defaultText"];
   }
 };

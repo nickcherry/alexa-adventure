@@ -41,11 +41,14 @@ module.exports = class SchemaValidator extends Validator {
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'session_ended' }],
 
     /* Built-In Intents */
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.CancelIntent' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'cancel' }],
+
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.HelpIntent' }],
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'help' }],
 
-      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.CancelIntent' }],
-      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'cancel' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.NoIntent' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'no' }],
 
     /* Game Configuration */
       [keyPresence, { key: INITIAL_MAP_KEY }],

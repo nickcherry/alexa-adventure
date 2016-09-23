@@ -10,7 +10,7 @@ const Command = require('./command');
 /* Exports */
 /***********************************************/
 
-module.exports = class CancelCommand extends Command {
+module.exports = class NoCommand extends Command {
   perform() {
     this._say(this._commandArg('defaultText'));
   }

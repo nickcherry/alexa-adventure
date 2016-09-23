@@ -26,14 +26,14 @@ chai.use(sinonChai);
 
 describe('CancelCommand', () => {
   describe('#perform', () => {
-    it('should say the cancel text', () => {
+    it('should say the default cancel text', () => {
       const res = { say: spy() };
       CommandFactory.default({
         commandClass: CancelCommand,
         res: res,
         intent: IntentFactory.default({
           commandArgs: {
-            text: "Ok, I'll stop doing that."
+            defaultText: "Ok, I'll stop doing that."
           }
         })
       }).perform();
