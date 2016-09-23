@@ -40,7 +40,7 @@ module.exports = class Settings {
 
   static get schemaConstants() {
     return {
-      ROOT_ASSET_URL: 'https://s3.amazonaws.com/alexa-adventure-assets'
+      ASSETS_ROOT_URL: 'https://s3.amazonaws.com/alexa-adventure-assets'
     };
   }
 };

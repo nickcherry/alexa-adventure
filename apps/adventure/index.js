@@ -12,7 +12,7 @@ const fs = require('fs');
 const Database = require('./database');
 const env = require('./env');
 const Game = require('./engine/game');
-const InterpolationHelper = require('./engine/helpers/interpolation_helper').interpolate;
+const interpolate = require('./engine/helpers/interpolation_helper').interpolate;
 const Schema = require('./engine/schema');
 const Settings = require('./settings');
 const State = require('./engine/state');
@@ -41,7 +41,7 @@ const schemaPath = __dirname + '/schema.json';
 const schema = new Schema(
   JSON.parse(
     interpolate(
-      fs.readFileSync(schemaPath),
+      fs.readFileSync(schemaPath).toString(),
       Settings.schemaConstants
     )
   )

@@ -11,7 +11,9 @@ const fs = require('fs');
 const AppFactory = require('./test/factories/app_factory');
 const Database = require('./database');
 const Game = require('./engine/game');
+const interpolate = require('./engine/helpers/interpolation_helper').interpolate;
 const Schema = require('./engine/schema');
+const Settings = require('./settings');
 const StateManager = require('./engine/state_manager');
 
 /***********************************************/
@@ -62,7 +64,14 @@ app.intent = (id, _, handler) => {
 
 const db = new Database();
 const schemaPath = __dirname + '/schema.json';
-const schema = new Schema(JSON.parse(fs.readFileSync(schemaPath)));
+const schema = new Schema(
+  JSON.parse(
+    interpolate(
+      fs.readFileSync(schemaPath).toString(),
+      Settings.schemaConstants
+    )
+  )
+);
 const stateManager = new StateManager({
   getState: db.getState,
   setState: db.setState
