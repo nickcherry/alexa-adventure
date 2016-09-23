@@ -30,6 +30,13 @@
       }
     },
     {
+      "id": "AMAZON.YesIntent",
+      "command": "yes",
+      "commandArgs": {
+        "defaultText": "Yes it is."
+      }
+    },
+    {
       "id": "sessionEnded",
       "command": "session_ended",
       "commandArgs": {

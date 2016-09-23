@@ -19,7 +19,8 @@ const COMMAND_KEYS = [
   'move',
   'new_game',
   'no',
-  'session_ended'
+  'session_ended',
+  'yes'
 ];
 
 /***********************************************/
