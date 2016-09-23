@@ -9,6 +9,13 @@
       }
     },
     {
+      "id": "AMAZON.CancelIntent",
+      "command": "cancel",
+      "commandArgs": {
+        "text": "Ok, I'll stop doing that thing."
+      }
+    },
+    {
       "id": "AMAZON.HelpIntent",
       "command": "help",
       "commandArgs": {

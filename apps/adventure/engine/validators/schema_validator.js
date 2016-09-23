@@ -35,12 +35,19 @@ const MAPS_KEY = 'maps';
 module.exports = class SchemaValidator extends Validator {
   get validators() {
     return [
+
+    /* Special Commands */
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'launch' }],
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'session_ended' }],
 
+    /* Built-In Intents */
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.HelpIntent' }],
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'help' }],
 
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.CancelIntent' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'cancel' }],
+
+    /* Game Configuration */
       [keyPresence, { key: INITIAL_MAP_KEY }],
       [recognizedMap, { key: INITIAL_MAP_KEY, schema: this.object }],
 

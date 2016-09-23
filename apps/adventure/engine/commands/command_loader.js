@@ -11,6 +11,7 @@ const _ = require('lodash');
 /***********************************************/
 
 const COMMAND_KEYS = [
+  'cancel',
   'current_map',
   'help',
   'launch',
