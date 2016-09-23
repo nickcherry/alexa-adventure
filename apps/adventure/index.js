@@ -12,6 +12,7 @@ const fs = require('fs');
 const Database = require('./database');
 const env = require('./env');
 const Game = require('./engine/game');
+const InterpolationHelper = require('./engine/helpers/interpolation_helper').interpolate;
 const Schema = require('./engine/schema');
 const Settings = require('./settings');
 const State = require('./engine/state');
@@ -37,7 +38,14 @@ const app = new alexa.app('adventure');
 const db = new Database();
 
 const schemaPath = __dirname + '/schema.json';
-const schema = new Schema(JSON.parse(fs.readFileSync(schemaPath)));
+const schema = new Schema(
+  JSON.parse(
+    interpolate(
+      fs.readFileSync(schemaPath),
+      Settings.schemaConstants
+    )
+  )
+);
 const stateManager = new StateManager({
   getState: db.getState,
   setState: db.setState

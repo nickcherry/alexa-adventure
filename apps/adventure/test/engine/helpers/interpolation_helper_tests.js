@@ -21,9 +21,10 @@ const interpolate = InterpolationHelper.interpolate;
 
 describe('InterpolationHelper', () => {
   describe('.interpolate', () => {
-    it('should return the original string with placeholders removed when params are empty', () => {
+    it('should throw an error when params are undefined', () => {
       const str = 'Well hello there, {{ name }}. How are you on this fine {{ day }}?';
-      expect(interpolate(str)).to.eq('Well hello there, . How are you on this fine ?');
+      const invoke = () => interpolate(str);
+      expect(invoke).to.throw('InterpolationHelper.interpolate requires a params argument.');
     });
       it('should interpolate values', () => {
         const str = 'Well hello there, {{ name }}. How are you on this fine {{ day }}?';

@@ -16,10 +16,6 @@ const secrets = JSON.parse(fs.readFileSync(__dirname + '/secrets.json'));
 
 module.exports = class Settings {
 
-  static get bugsnagApiKey() {
-    return secrets.bugsnagApiKey;
-  }
-
   static get aws() {
     return {
       config: {
@@ -35,6 +31,16 @@ module.exports = class Settings {
         'GameStates',
       applicationBucket: 'alexa-adventure',
       assetsBucket: 'alexa-adventure-assets'
+    };
+  }
+
+  static get bugsnagApiKey() {
+    return secrets.bugsnagApiKey;
+  }
+
+  static get schemaConstants() {
+    return {
+      ROOT_ASSET_URL: 'https://s3.amazonaws.com/alexa-adventure-assets'
     };
   }
 };

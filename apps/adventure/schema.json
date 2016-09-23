@@ -5,7 +5,7 @@
       "id": "launch",
       "command": "launch",
       "commandArgs": {
-        "text": "Welcome adventurer."
+        "text": "Welcome adventurer. <audio src='{{ ASSETS_ROOT_URL }}/launch_music.mp3' />"
       }
     },
     {
