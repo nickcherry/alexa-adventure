@@ -20,6 +20,7 @@ const COMMAND_KEYS = [
   'new_game',
   'no',
   'session_ended',
+  'stop',
   'yes'
 ];
 

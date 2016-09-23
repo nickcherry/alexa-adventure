@@ -50,6 +50,12 @@ module.exports = class SchemaValidator extends Validator {
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.NoIntent' }],
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'no' }],
 
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.StopIntent' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'stop' }],
+
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.YesIntent' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'yes' }],
+
     /* Game Configuration */
       [keyPresence, { key: INITIAL_MAP_KEY }],
       [recognizedMap, { key: INITIAL_MAP_KEY, schema: this.object }],

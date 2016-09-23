@@ -26,14 +26,21 @@
       "id": "AMAZON.NoIntent",
       "command": "no",
       "commandArgs": {
-        "defaultText": "No it is."
+        "defaultText": "No it shall be."
+      }
+    },
+    {
+      "id": "AMAZON.StopIntent",
+      "command": "stop",
+      "commandArgs": {
+        "defaultText": "Ok."
       }
     },
     {
       "id": "AMAZON.YesIntent",
       "command": "yes",
       "commandArgs": {
-        "defaultText": "Yes it is."
+        "defaultText": "Yes it shall be."
       }
     },
     {
