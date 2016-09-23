@@ -20,6 +20,6 @@ module.exports = class HelpCommand extends Command {
   }
 
   static getRequiredCommandArgs() {
-    return ["defaultText"];
+    return ['defaultText'];
   }
 };

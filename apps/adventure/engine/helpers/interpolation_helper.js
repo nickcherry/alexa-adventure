@@ -13,7 +13,7 @@ const micromustache = require('micromustache');
 module.exports = class InterpolationHelper {
   static interpolate(str, params) {
     if (!params) {
-      throw new Error('InterpolationHelper.interpolate requires a params argument.')
+      throw new Error('InterpolationHelper.interpolate requires a params argument.');
     }
     return micromustache.render(str, params);
   }

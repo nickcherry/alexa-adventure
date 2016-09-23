@@ -20,6 +20,6 @@ module.exports = class NoCommand extends Command {
   }
 
   static getRequiredCommandArgs() {
-    return ["defaultText"];
+    return ['defaultText'];
   }
 };

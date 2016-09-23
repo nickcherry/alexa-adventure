@@ -20,6 +20,6 @@ module.exports = class YesCommand extends Command {
   }
 
   static getRequiredCommandArgs() {
-    return ["defaultText"];
+    return ['defaultText'];
   }
 };

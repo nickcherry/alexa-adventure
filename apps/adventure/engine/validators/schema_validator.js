@@ -12,7 +12,6 @@ const Validator = require('./validator');
 
 const keyPresence = require('./modules/key_presence');
 const keyValueInArrayPresence = require('./modules/key_value_in_array_presence');
-const keyValuePresence = require('./modules/key_value_presence');
 const nestedKeyUniqueness = require('./modules/nested_key_uniqueness');
 const nestedHashValidator = require('./modules/nested_hash_validator');
 const recognizedMap = require('./modules/recognized_map');
