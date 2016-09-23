@@ -67,7 +67,6 @@ describe('StateHelper', () => {
             mapHistory: [ballroom.id]
           });
           expect(StateHelper.ensureCurrentMap(state, schema)).to.deep.eq(tutorial);
-          console.log('AND HERE I AM', state.mapHistory, state._data.mapHistory);
           expect(state.mapId).to.eq(tutorial.id);
           expect(state.mapHistory).to.deep.eq([]);
         });

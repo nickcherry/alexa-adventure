@@ -56,10 +56,11 @@ module.exports = class SchemaValidator extends Validator {
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.YesIntent' }],
       [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'yes' }],
 
-    /* Game Configuration */
+    /* Global Configuration */
       [keyPresence, { key: INITIAL_MAP_KEY }],
       [recognizedMap, { key: INITIAL_MAP_KEY, schema: this.object }],
 
+    /* Nested Models */
       [keyPresence, { key: CHARACTERS_KEY }],
       [nestedKeyUniqueness, { key: CHARACTERS_KEY, nestedKey: ID_KEY }],
       [nestedHashValidator, { key: CHARACTERS_KEY, validator: CharacterValidator }],

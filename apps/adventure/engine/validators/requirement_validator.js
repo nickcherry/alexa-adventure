@@ -4,21 +4,17 @@
 /* Imports */
 /***********************************************/
 
-const ConfigurableModel = require('./configurable_model');
+const requiredProps = require('./modules/required_props');
+const Validator = require('./validator');
 
 /***********************************************/
 /* Exports */
 /***********************************************/
 
-module.exports = class Requirement extends ConfigurableModel {
-  constructor({ itemId } = {}) {
-    super(...arguments);
-    this.itemId = itemId;
-  }
-
-  get requiredProps() {
+module.exports = class RequirementValidator extends Validator {
+  get validators() {
     return [
-      ['itemId', 'String']
+      requiredProps
     ];
   }
 };

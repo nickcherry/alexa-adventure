@@ -137,7 +137,7 @@
       "requirements": [
         {
           "type": "item",
-          "id": "tutorialKey",
+          "itemId": "tutorialKey",
           "deniedText": "Good grief, it seems this door is locked!"
         }
       ],
@@ -188,7 +188,7 @@
       "requirements": [
         {
           "type": "item",
-          "id": "balletShoes"
+          "itemId": "balletShoes"
         }
       ],
       "connectedTo": [
