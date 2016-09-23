@@ -4,7 +4,10 @@
 /* Imports */
 /***********************************************/
 
+const cast = require('./helpers/casting_helper').cast;
+const Character = require('./character');
 const ConfigurableModel = require('./configurable_model');
+const Item = require('./item');
 const Requirement = require('./requirement');
 
 /***********************************************/
@@ -12,21 +15,22 @@ const Requirement = require('./requirement');
 /***********************************************/
 
 module.exports = class Map extends ConfigurableModel {
-  constructor({ connectedTo, items, name, requirements } = {}) {
+  constructor({ characters, connectedTo, items, name, requirements } = {}) {
     super(...arguments);
     this.connectedTo = connectedTo;
-    this.items = items;
+    this.characters = cast(characters, Character);
+    this.items = cast(items, Item);
     this.name = name;
-    this.requirements = (requirements || []).map((attrs) => {
-      return new Requirement(attrs)
-    });
+    this.requirements = cast(requirements, Requirement);
   }
 
   get requiredProps() {
     return super.requiredProps.concat([
+      ['characters', 'Array'],
       ['connectedTo', 'Array'],
       ['items', 'Array'],
-      ['name', 'String']
+      ['name', 'String'],
+      ['requirements', 'Array']
     ]);
   }
 };

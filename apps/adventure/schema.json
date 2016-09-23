@@ -127,7 +127,9 @@
       "connectedTo": [
         "corridor"
       ],
-      "items":[]
+      "characters": [],
+      "items":[],
+      "requirements": []
     },
     {
       "id": "corridor",
@@ -192,7 +194,9 @@
         "masterBedroom",
         "courtyard"
       ],
-      "items":[]
+      "characters": [],
+      "items":[],
+      "requirements": []
     },
     {
       "id": "masterBedroom",
@@ -200,7 +204,9 @@
       "connectedTo": [
         "ballroom"
       ],
-      "items":[]
+      "characters": [],
+      "items":[],
+      "requirements": []
     },
     {
       "id": "courtyard",
@@ -208,7 +214,9 @@
       "connectedTo": [
         "ballroom"
       ],
-      "items":[]
+      "characters": [],
+      "items":[],
+      "requirements": []
     }
   ]
 }

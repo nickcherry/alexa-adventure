@@ -26,12 +26,13 @@ describe('InterpolationHelper', () => {
       const invoke = () => interpolate(str);
       expect(invoke).to.throw('InterpolationHelper.interpolate requires a params argument.');
     });
-      it('should interpolate values', () => {
-        const str = 'Well hello there, {{ name }}. How are you on this fine {{ day }}?';
-        const params = { name: 'Bubba', day: 'Tuesday' };
-        expect(interpolate(str, params)).to.eq(
-          'Well hello there, Bubba. How are you on this fine Tuesday?'
-        );
-      });
+
+    it('should interpolate values', () => {
+      const str = 'Well hello there, {{ name }}. How are you on this fine {{ day }}?';
+      const params = { name: 'Bubba', day: 'Tuesday' };
+      expect(interpolate(str, params)).to.eq(
+        'Well hello there, Bubba. How are you on this fine Tuesday?'
+      );
+    });
   });
 });
