@@ -15,6 +15,7 @@ const Requirement = require('../../engine/requirement');
 
 describe('Requirement', () => {
   require('./shared_behaviors').constructorAssignsProps(Requirement, [
+    'deniedText',
     'itemId'
   ]);
 });

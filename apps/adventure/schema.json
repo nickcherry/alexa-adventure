@@ -185,7 +185,8 @@
       "name": "The Grand Ballroom",
       "requirements": [
         {
-          "itemId": "balletShoes"
+          "itemId": "balletShoes",
+          "deniedText": "Ballet shoes DENITED!"
         }
       ],
       "connectedTo": [

@@ -11,13 +11,15 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Requirement extends ConfigurableModel {
-  constructor({ itemId } = {}) {
+  constructor({ deniedText, itemId } = {}) {
     super(...arguments);
     this.itemId = itemId;
+    this.deniedText = deniedText;
   }
 
   get requiredProps() {
     return [
+      ['deniedText', 'String'],
       ['itemId', 'String']
     ];
   }
