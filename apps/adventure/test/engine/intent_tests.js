@@ -9,6 +9,7 @@ const expect = require('chai').expect;
 const proxyquire = require('proxyquire');
 
 const CommandFactory = require('../factories/command_factory');
+const Intent = require('../../engine/intent');
 const IntentFactory = require('../factories/intent_factory');
 
 /***********************************************/
@@ -26,6 +27,14 @@ const getIntentWithCommandLoaderStub = (stub) => {
 /***********************************************/
 
 describe('Intent', () => {
+  require('./shared_behaviors').constructorAssignsProps(Intent, [
+    'command',
+    'commandArgs',
+    'id',
+    'slots',
+    'utterances'
+  ]);
+
   describe('#commandClass', () => {
     it('should return undefined when the command is not recognized', () => {
       const intent = IntentFactory.default();

@@ -15,7 +15,7 @@ const ConfigurableModelFactory = require('../../../factories/configurable_model_
 /***********************************************/
 
 module.exports.validatorModule = (name, subject, object, opts) => {
-  describe(`${ name } as validator module`, () => {
+  describe(`as validator module`, () => {
     it('should accumulate errors', () => {
       const msg = 'Ruh-roh!';
       object = object || ConfigurableModelFactory.default();
