@@ -16,7 +16,13 @@ const Validator = require('./validator');
 module.exports = class ItemValidator extends Validator {
   get validators() {
     return [
-      [nestedHashValidator, { key: 'requirements', validator: RequirementValidator }],
+      [
+        nestedHashValidator, {
+          key: 'requirements',
+          validator: RequirementValidator,
+          opts: this.opts
+        }
+      ],
       requiredProps
     ];
   }

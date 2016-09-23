@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 const MapFactory = require('../../../factories/map_factory');
 const SchemaFactory = require('../../../factories/schema_factory');
-const subject = require('../../../../engine/validators/modules/recognized_map');
+const subject = require('../../../../engine/validators/modules/recognized_model');
 
 /***********************************************/
 /* Configuration */
@@ -21,28 +21,33 @@ chai.config.truncateThreshold = 0; // Better reporting with deep equals
 /* Tests */
 /***********************************************/
 
-describe('recognizedMap', () => {
+describe('recognizedModel', () => {
   const shared = require('./shared_behaviors');
-  shared.validatorModule('recognizedMap', subject, undefined, {
-    key: 'initialMapId', schema: SchemaFactory.default()
+  shared.validatorModule('recognizedModel', subject, undefined, {
+    type: 'map', key: 'initialMapId', schema: SchemaFactory.default()
   });
 
   it('should throw an error when the key option is not specified', () => {
-    const invoke = () => subject([], undefined, { schema: {} });
-    expect(invoke).to.throw('The `recognizedMap` validation requires a `key` option');
+    const invoke = () => subject([], undefined, { type: 'map', schema: {} });
+    expect(invoke).to.throw('The `recognizedModel` validation requires a `key` option');
   });
 
   it('should throw an error when the schema option is not specified', () => {
-    const invoke = () => subject([], undefined, { key: 'initialMapId' });
-    expect(invoke).to.throw('The `recognizedMap` validation requires a `schema` option');
+    const invoke = () => subject([], undefined, { type: 'map', key: 'initialMapId' });
+    expect(invoke).to.throw('The `recognizedModel` validation requires a `schema` option');
   });
 
-  it('should not generate errors when the map is recognized', () => {
+  it('should throw an error when the type option is not specified', () => {
+    const invoke = () => subject([], undefined, { key: 'initialMapId', schema: {} });
+    expect(invoke).to.throw('The `recognizedModel` validation requires a `type` option');
+  });
+
+  it('should not generate errors when the model is recognized', () => {
     const schema = SchemaFactory.default({
       initialMapId: 'dungeon',
       maps: [ MapFactory.default({ id: 'dungeon' })]
     });
-    expect(subject([], schema, { key: 'initialMapId', schema: schema })).to.deep.equal([]);
+    expect(subject([], schema, { type: 'map', key: 'initialMapId', schema: schema })).to.deep.equal([]);
   });
 
   it('should generate errors when the map is not recognized', () => {
@@ -50,7 +55,7 @@ describe('recognizedMap', () => {
       id: 'dummyId',
       initialMapId: 'dungeon'
     });
-    expect(subject([], schema, { key: 'initialMapId', schema: schema })).to.include(
+    expect(subject([], schema, { type: 'map', key: 'initialMapId', schema: schema })).to.include(
       '"dungeon" is not a recognized map for Schema with id "dummyId"'
     );
   });
@@ -63,7 +68,7 @@ describe('recognizedMap', () => {
       id: 'dummyMapId',
       connectedTo: ['dungeon', 'bathroom', 'closet']
     });
-    expect(subject([], subjectMap, { key: 'connectedTo', schema: schema })).to.include.members([
+    expect(subject([], subjectMap, { type: 'map', key: 'connectedTo', schema: schema })).to.include.members([
       '"bathroom" is not a recognized map for Map with id "dummyMapId"',
       '"closet" is not a recognized map for Map with id "dummyMapId"'
     ]);
