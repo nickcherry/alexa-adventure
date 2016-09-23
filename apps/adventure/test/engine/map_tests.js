@@ -21,6 +21,7 @@ describe('Map', () => {
     'connectedTo',
     'id',
     'name',
+    'searchText',
     [
       'characters',
       [{ id: 'pika', name: 'Pikachu' }],

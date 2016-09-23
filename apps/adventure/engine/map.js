@@ -15,13 +15,14 @@ const Requirement = require('./requirement');
 /***********************************************/
 
 module.exports = class Map extends ConfigurableModel {
-  constructor({ characters, connectedTo, items, name, requirements } = {}) {
+  constructor({ characters, connectedTo, items, name, requirements, searchText } = {}) {
     super(...arguments);
     this.connectedTo = connectedTo;
     this.characters = cast(characters, Character);
     this.items = cast(items, Item);
     this.name = name;
     this.requirements = cast(requirements, Requirement);
+    this.searchText = searchText;
   }
 
   get requiredProps() {
@@ -30,7 +31,8 @@ module.exports = class Map extends ConfigurableModel {
       ['connectedTo', 'Array'],
       ['items', 'Array'],
       ['name', 'String'],
-      ['requirements', 'Array']
+      ['requirements', 'Array'],
+      ['searchText', 'String']
     ]);
   }
 };

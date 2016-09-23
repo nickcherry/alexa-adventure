@@ -129,7 +129,8 @@
       ],
       "characters": [],
       "items":[],
-      "requirements": []
+      "requirements": [],
+      "searchText": "This is the search text for tutorial map"
     },
     {
       "id": "corridor",
@@ -179,7 +180,8 @@
         {
           "id": "balletShoes"
         }
-      ]
+      ],
+      "searchText": "This is the search text for corridor"
     },
     {
       "id": "ballroom",
@@ -196,7 +198,8 @@
       ],
       "characters": [],
       "items":[],
-      "requirements": []
+      "requirements": [],
+      "searchText": "This is the search text for ballroom"
     },
     {
       "id": "masterBedroom",
@@ -206,7 +209,8 @@
       ],
       "characters": [],
       "items":[],
-      "requirements": []
+      "requirements": [],
+      "searchText": "This is the search text for master bedroom"
     },
     {
       "id": "courtyard",
@@ -216,7 +220,8 @@
       ],
       "characters": [],
       "items":[],
-      "requirements": []
+      "requirements": [],
+      "searchText": "This is the search text for courtyard"
     }
   ]
 }
