@@ -9,6 +9,13 @@
       }
     },
     {
+      "id": "AMAZON.HelpIntent",
+      "command": "help",
+      "commandArgs": {
+        "text": "Just say one of the recognized commands. You remember those, right?"
+      }
+    },
+    {
       "id": "sessionEnded",
       "command": "session_ended",
       "commandArgs": {

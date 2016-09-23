@@ -26,18 +26,20 @@ chai.use(sinonChai);
 
 describe('HelpCommand', () => {
   describe('#perform', () => {
-    it('should say the launch text', () => {
+    it('should say the help text', () => {
       const res = { say: spy() };
       CommandFactory.default({
         commandClass: HelpCommand,
         res: res,
         intent: IntentFactory.default({
           commandArgs: {
-            text: 'Welcome!'
+            text: 'Everything is going to be ok.'
           }
         })
       }).perform();
-      expect(res.say).to.have.been.calledWithMatch('Welcome!');
+      expect(res.say).to.have.been.calledWithMatch(
+        'Everything is going to be ok.'
+      );
     });
   });
 });

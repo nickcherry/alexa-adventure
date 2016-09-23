@@ -12,6 +12,7 @@ const _ = require('lodash');
 
 const COMMAND_KEYS = [
   'current_map',
+  'help',
   'launch',
   'list_connected_maps',
   'move',

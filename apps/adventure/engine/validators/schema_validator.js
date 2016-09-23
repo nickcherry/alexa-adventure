@@ -10,8 +10,9 @@ const ItemValidator = require('./item_validator');
 const MapValidator = require('./map_validator');
 const Validator = require('./validator');
 
-const commandPresence = require('./modules/command_presence');
 const keyPresence = require('./modules/key_presence');
+const keyValueInArrayPresence = require('./modules/key_value_in_array_presence');
+const keyValuePresence = require('./modules/key_value_presence');
 const nestedKeyUniqueness = require('./modules/nested_key_uniqueness');
 const nestedHashValidator = require('./modules/nested_hash_validator');
 const recognizedMap = require('./modules/recognized_map');
@@ -34,8 +35,11 @@ const MAPS_KEY = 'maps';
 module.exports = class SchemaValidator extends Validator {
   get validators() {
     return [
-      [commandPresence, { key: INTENTS_KEY, command: 'launch' }],
-      [commandPresence, { key: INTENTS_KEY, command: 'session_ended' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'launch' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'session_ended' }],
+
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'id', value: 'AMAZON.HelpIntent' }],
+      [keyValueInArrayPresence, { arrayKey: INTENTS_KEY, key: 'command', value: 'help' }],
 
       [keyPresence, { key: INITIAL_MAP_KEY }],
       [recognizedMap, { key: INITIAL_MAP_KEY, schema: this.object }],
