@@ -70,6 +70,7 @@ module.exports = class State {
       items: this.items,
       mapHistory: this.mapHistory,
       mapId: this.mapId,
+      updatedAt: new Date().valueOf()
     });
   }
 };

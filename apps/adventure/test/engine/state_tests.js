@@ -6,6 +6,7 @@
 
 const chai = require('chai');
 const expect = require('chai').expect;
+const timekeeper = require('timekeeper');
 
 const StateFactory = require('../factories/state_factory');
 
@@ -133,11 +134,14 @@ describe('State', () => {
   });
 
   describe('#serialize', () => {
-    it('should serialize the state', () => {
+    it('should serialize the state and set a timestamp', () => {
+      const time = new Date(2016, 8, 24);
+      timekeeper.freeze(time);
       const attrs = {
         items: [],
         mapHistory: ['tutorial', 'dungeon'],
-        mapId: 'ballroom'
+        mapId: 'ballroom',
+        updatedAt: time.valueOf()
       };
       const state = StateFactory.default(attrs);
       expect(state.serialize()).to.eq(JSON.stringify(attrs));
