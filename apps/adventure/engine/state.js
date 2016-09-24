@@ -46,19 +46,19 @@ module.exports = class State {
   }
 
   /***********************************************/
-  /* Inventory */
+  /* Items */
   /***********************************************/
 
-  get inventory() {
-    return this._data.inventory || [];
+  get items() {
+    return this._data.items || [];
   }
 
-  addInventory(type, id) {
-    _.tap(this.inventory, (inventory) => inventory.push({ type, id }));
+  addItem(itemId) {
+    return _.tap(this.items, (items) => items.push(itemId));
   }
 
-  hasInventory(type, id) {
-    _.findWhere(this.inventory, { type, id });
+  hasItem(itemId) {
+    return _.includes(this.items, itemId);
   }
 
   /***********************************************/
@@ -67,7 +67,7 @@ module.exports = class State {
 
   serialize() {
     return JSON.stringify({
-      inventory: this.inventory,
+      items: this.items,
       mapHistory: this.mapHistory,
       mapId: this.mapId,
     });

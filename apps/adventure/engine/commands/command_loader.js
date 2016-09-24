@@ -19,6 +19,8 @@ const COMMAND_KEYS = [
   'move',
   'new_game',
   'no',
+  'pick_up',
+  'search',
   'session_ended',
   'stop',
   'yes'

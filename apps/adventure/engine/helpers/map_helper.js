@@ -19,7 +19,7 @@ module.exports = class MapHelper {
     return schema.lookup('map', state.mapId);
   }
 
-  static getDestination(name, currentMap, schema) {
+  static getMapWithName(name, currentMap, schema) {
     return _.find(this.getConnectedMaps(currentMap, schema), { name: name });
   }
 

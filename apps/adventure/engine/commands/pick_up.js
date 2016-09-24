@@ -5,31 +5,31 @@
 /***********************************************/
 
 const Command = require('./command');
+const ItemHelper = require('../helpers/item_helper');
 const MapHelper = require('../helpers/map_helper');
 
 /***********************************************/
 /* Exports */
 /***********************************************/
 
-module.exports = class MoveCommand extends Command {
+module.exports = class PickUpCommand extends Command {
   perform() {
-    const destinationName = this._slot('destination');
-    const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
-    const destination = MapHelper.getMapWithName(destinationName, currentMap, this.game.schema);
-
-    if (destination) {
+    const itemName = this._slot('item');
+    const map = MapHelper.getCurrentMap(this.state, this.game.schema);
+    const item = ItemHelper.getItemWithName(itemName, map.items, this.game.schema);
+    if (item) {
       const self = this;
-      this.state.setMapId(destination.id, true);
+      this.state.addItem(item.id);
       this.game.stateManager.setState(this.req.userId, this.state).then(() => {
-        self._say(`You are now entering ${ destinationName }`);
+        self._say(`${ itemName } has been added to your inventory`);
       }).catch(this.game.onError);
     } else {
-      this._say(`You can't get to ${ destinationName } from here`);
+      this._say(`${ itemName } isn't here`);
     }
   }
 
   static getRequiredSlots() {
-    return ['destination'];
+    return ['item'];
   }
 
   static getRequiredCommandArgs() {

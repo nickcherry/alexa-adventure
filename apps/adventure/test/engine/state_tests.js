@@ -109,10 +109,33 @@ describe('State', () => {
     });
   });
 
+  describe('#items', () => {
+    it('should return the inventory item ids', () => {
+      const state = StateFactory.default({ items: ['sword', 'boomerang'] });
+      expect(state.items).to.deep.eq(['sword', 'boomerang']);
+    });
+  });
+
+  describe('#addItem', () => {
+    it('should add the item to the inventory', () => {
+      const state = StateFactory.default({ items: ['boomerang'] });
+      expect(state.addItem('plunger')).to.deep.eq(['boomerang', 'plunger'])
+      expect(state.items).to.deep.eq(['boomerang', 'plunger']);
+    });
+  });
+
+  describe('#hasItem', () => {
+    it('should return true/false depending on whether the item exists in the inventory', () => {
+      const state = StateFactory.default({ items: ['boomerang'] });
+      expect(state.hasItem('boomerang')).to.be.true;
+      expect(state.hasItem('slipper')).to.be.false;
+    });
+  });
+
   describe('#serialize', () => {
     it('should serialize the state', () => {
       const attrs = {
-        inventory: [],
+        items: [],
         mapHistory: ['tutorial', 'dungeon'],
         mapId: 'ballroom'
       };

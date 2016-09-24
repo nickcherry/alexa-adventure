@@ -18,8 +18,8 @@ module.exports = class Map extends ConfigurableModel {
   constructor({ characters, connectedTo, items, name, requirements, searchText } = {}) {
     super(...arguments);
     this.connectedTo = connectedTo;
-    this.characters = cast(characters, Character);
-    this.items = cast(items, Item);
+    this.characters = characters;
+    this.items = items;
     this.name = name;
     this.requirements = cast(requirements, Requirement);
     this.searchText = searchText;
