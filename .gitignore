@@ -53,5 +53,6 @@ apps/adventure/etc
 # Sensitive / Temporary Files
 secrets.json
 build.zip
-.temp_app_dir
+temp_app_dir
+temp_assets_dir
 /.database
