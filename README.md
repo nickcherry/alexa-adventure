@@ -62,6 +62,14 @@ npm run deploy
 
 This will generate a `build.zip` file, which should be uploaded to Amazon.
 
+## Custom Slots
+
+To generate values for all custom slots, run the following from the project root:
+
+```shell
+npm run custom-slots
+```
+
 ## Tests
 
 To run the test suite, be sure that Dynamo is available (`npm run dynamo`), then run the following from the project root:
