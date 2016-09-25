@@ -21,7 +21,7 @@ module.exports = class PickUpCommand extends Command {
       const self = this;
       this.state.addItem(item.id);
       this.game.stateManager.setState(this.req.userId, this.state).then(() => {
-        self._say(`${ itemName } has been added to your inventory`);
+        self._say(item.pickUpText);
       }).catch(this.game.onError);
     } else {
       this._say(`${ itemName } isn't here`);

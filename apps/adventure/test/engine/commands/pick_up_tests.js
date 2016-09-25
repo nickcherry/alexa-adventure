@@ -40,8 +40,12 @@ describe('PickUpCommand', () => {
         schema: SchemaFactory.default({
           items: [
             ItemFactory.default({ id: 'sword', name: 'Sword' }),
-            ItemFactory.default({ id: 'plunger', name: 'The Royal Plunger' }),
-            ItemFactory.default({ id: 'boomerang', name: 'Boomerang' })
+            ItemFactory.default({ id: 'boomerang', name: 'Boomerang' }),
+            ItemFactory.default({
+              id: 'plunger',
+              name: 'The Royal Plunger',
+              pickUpText: 'You picked up The Royal Plunger. This will go great with your throne.'
+             })
           ],
           maps: [
             MapFactory.default({
@@ -87,7 +91,7 @@ describe('PickUpCommand', () => {
     });
 
     context('when the item is valid and in the current map', () => {
-      it('should add it to the inventory', () => {
+      it('should add it to the inventory and read the pick-up text', () => {
         let promise;
         const res = { say: spy() };
         const stateManager = StateManagerFactory.default();
@@ -97,7 +101,7 @@ describe('PickUpCommand', () => {
         buildCommand('The Royal Plunger', res, stateManager).perform();
         return promise.then(() => {
           expect(res.say).to.have.been.calledWithMatch(
-            'The Royal Plunger has been added to your inventory'
+            'You picked up The Royal Plunger. This will go great with your throne.'
           );
           expect(setState).to.have.been.calledWith(
             sinon.match((userId) => userId === 'TEST_USER'),

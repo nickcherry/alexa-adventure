@@ -22,7 +22,8 @@ module.exports = class Item extends ConfigurableModel {
   get requiredProps() {
     return super.requiredProps.concat([
       ['name', 'String'],
-      ['isVisible', 'Boolean']
+      ['isVisible', 'Boolean'],
+      ['pickUpText', 'String']
     ]);
   }
 };

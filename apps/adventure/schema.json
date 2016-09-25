@@ -141,13 +141,15 @@
   "items": [
     {
       "id": "rubySlippers",
+      "isVisible": false,
       "name": "Ruby Slippers",
-      "isVisible": true
+      "pickUpText": "You picked up the ruby slippers. They look damn fine."
     },
     {
       "id": "axe",
+      "isVisible": true,
       "name": "Axe",
-      "isVisible": true
+      "pickUpText": "You picked up the axe. It's a heavy sucker."
     }
   ],
   "maps": [

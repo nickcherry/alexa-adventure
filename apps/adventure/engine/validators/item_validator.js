@@ -23,6 +23,7 @@ module.exports = class ItemValidator extends Validator {
             'id',
             'isVisible',
             'name',
+            'pickUpText',
             'requirements'
           ]
         }
