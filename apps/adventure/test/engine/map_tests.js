@@ -24,7 +24,16 @@ describe('Map', () => {
     'introText',
     'items',
     'name',
-    'requirements',
     'searchText'
   ]);
+
+  describe('.constructor', () => {
+    it('should cast requirements', () => {
+      expect(new Map({ requirements: undefined }).requirements).to.deep.eq([]);
+      expect(new Map({ requirements: [] }).requirements).to.deep.eq([]);
+      const map = new Map({ requirements: [{ itemId: 'sword' }] });
+      expect(map.requirements[0].itemId).to.eq('sword');
+      expect(map.requirements[0].constructor.name).to.eq('Requirement');
+    });
+  });
 });

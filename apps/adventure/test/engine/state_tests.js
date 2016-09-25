@@ -8,6 +8,7 @@ const chai = require('chai');
 const expect = require('chai').expect;
 const timekeeper = require('timekeeper');
 
+const ItemFactory = require('../factories/item_factory');
 const StateFactory = require('../factories/state_factory');
 
 /***********************************************/
@@ -111,33 +112,41 @@ describe('State', () => {
   });
 
   describe('#items', () => {
-    it('should return the inventory item ids', () => {
-      const state = StateFactory.default({ items: ['sword', 'boomerang'] });
-      expect(state.items).to.deep.eq(['sword', 'boomerang']);
+    it('should return the inventory items', () => {
+      const sword = ItemFactory.default({ id: 'sword', name: 'Sword' });
+      const boomerang = ItemFactory.default({ id: 'boomerang', name: 'Boomerang' });
+      const state = StateFactory.default({ items: [sword, boomerang] });
+      expect(state.items).to.deep.eq([sword, boomerang]);
     });
   });
 
   describe('#addItem', () => {
     it('should add the item to the inventory', () => {
-      const state = StateFactory.default({ items: ['boomerang'] });
-      expect(state.addItem('plunger')).to.deep.eq(['boomerang', 'plunger'])
-      expect(state.items).to.deep.eq(['boomerang', 'plunger']);
+      const sword = ItemFactory.default({ id: 'sword', name: 'Sword' });
+      const boomerang = ItemFactory.default({ id: 'boomerang', name: 'Boomerang' });
+      const state = StateFactory.default({ items: [sword] });
+      expect(state.addItem(boomerang)).to.deep.eq([sword, boomerang])
+      expect(state.items).to.deep.eq([sword, boomerang]);
     });
   });
 
   describe('#addItems', () => {
     it('should add the items to the inventory', () => {
-      const state = StateFactory.default({ items: ['boomerang'] });
-      expect(state.addItems(['plunger', 'mushroom'])).to.deep.eq(['boomerang', 'plunger', 'mushroom'])
-      expect(state.items).to.deep.eq(['boomerang', 'plunger', 'mushroom']);
+      const sword = ItemFactory.default({ id: 'sword', name: 'Sword' });
+      const boomerang = ItemFactory.default({ id: 'boomerang', name: 'Boomerang' });
+      const plunger = ItemFactory.default({ id: 'plunger', name: 'Plunger' });
+      const state = StateFactory.default({ items: [sword] });
+      expect(state.addItems([boomerang, plunger])).to.deep.eq([sword, boomerang, plunger])
+      expect(state.items).to.deep.eq([sword, boomerang, plunger]);
     });
   });
 
-  describe('#hasItem', () => {
+  describe('#hasItemWithId', () => {
     it('should return true/false depending on whether the item exists in the inventory', () => {
-      const state = StateFactory.default({ items: ['boomerang'] });
-      expect(state.hasItem('boomerang')).to.be.true;
-      expect(state.hasItem('slipper')).to.be.false;
+      const sword = ItemFactory.default({ id: 'sword', name: 'Sword' });
+      const state = StateFactory.default({ items: [sword] });
+      expect(state.hasItemWithId('sword')).to.be.true;
+      expect(state.hasItemWithId('slipper')).to.be.false;
     });
   });
 

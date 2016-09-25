@@ -6,6 +6,7 @@
 
 const CharacterHelper = require('../helpers/character_helper');
 const Command = require('./command');
+const ItemHelper = require('../helpers/item_helper');
 const MapHelper = require('../helpers/map_helper');
 
 /***********************************************/
@@ -20,7 +21,8 @@ module.exports = class TalkCommand extends Command {
     if (character) {
       this._say(character.responseText);
       if (character.items && character.items.length) {
-        this.state.addItems(character.items.map((item) => item.id));
+        const items = ItemHelper.assembleItems(character.items, this.game.schema);
+        this.state.addItems(items);
         this.game.stateManager.setState(
           this.req.userId, this.state
         ).catch(this.game.onError);

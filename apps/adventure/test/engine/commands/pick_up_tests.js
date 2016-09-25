@@ -35,18 +35,19 @@ chai.use(sinonChai);
 
 describe('PickUpCommand', () => {
   describe('#perform', () => {
+
+    const sword = ItemFactory.default({ id: 'sword', name: 'Sword' });
+    const boomerang = ItemFactory.default({ id: 'boomerang', name: 'Boomerang' });
+    const plunger = ItemFactory.default({
+      id: 'plunger',
+      name: 'The Royal Plunger',
+      pickUpText: 'You picked up The Royal Plunger. This will go great with your throne.'
+     });
+
     const buildGame = (stateManager) => {
       return GameFactory.default({
         schema: SchemaFactory.default({
-          items: [
-            ItemFactory.default({ id: 'sword', name: 'Sword' }),
-            ItemFactory.default({ id: 'boomerang', name: 'Boomerang' }),
-            ItemFactory.default({
-              id: 'plunger',
-              name: 'The Royal Plunger',
-              pickUpText: 'You picked up The Royal Plunger. This will go great with your throne.'
-             })
-          ],
+          items: [sword, boomerang, plunger],
           maps: [
             MapFactory.default({
               id: 'ballroom',
@@ -72,7 +73,7 @@ describe('PickUpCommand', () => {
         res: res,
         state: StateFactory.default({
           mapId: 'ballroom',
-          items: ['boomerang']
+          items: [boomerang]
         })
       });
     };
@@ -106,7 +107,7 @@ describe('PickUpCommand', () => {
           expect(setState).to.have.been.calledWith(
             sinon.match((userId) => userId === 'TEST_USER'),
             sinon.match((state) => {
-              return _.isEqual(state.items, ['boomerang', 'plunger']);
+              return _.isEqual(state.items, [boomerang, plunger]);
             })
           );
         });

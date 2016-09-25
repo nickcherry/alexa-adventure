@@ -51,7 +51,7 @@
       }
     },
     {
-      "id": "new_game",
+      "id": "newGameIntent",
       "slots": {},
       "utterances": [
         "new game",
@@ -63,7 +63,7 @@
       }
     },
     {
-      "id": "current_map",
+      "id": "currentMapIntent",
       "command": "current_map",
       "slots": {},
       "utterances": [
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "id": "list_connected_maps",
+      "id": "listConnectedMapsIntent",
       "command": "list_connected_maps",
       "slots": {},
       "utterances": [
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "id": "move",
+      "id": "moveIntent",
       "command": "move",
       "slots": {
         "destination": "AVAILABLE_MAPS"
@@ -92,7 +92,7 @@
       ]
     },
     {
-      "id": "pick_up",
+      "id": "pickUpIntent",
       "command": "pick_up",
       "slots": {
         "item": "AVAILABLE_ITEMS"
@@ -102,7 +102,7 @@
       ]
     },
     {
-      "id": "talk",
+      "id": "talkIntent",
       "command": "talk",
       "slots": {
         "character": "AVAILABLE_CHARACTERS"
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "id": "search",
+      "id": "searchIntent",
       "command": "search",
       "utterances": [
         "search",
@@ -185,7 +185,10 @@
         }
       ],
       "items": [{ "id": "axe" }],
-      "requirements": [{ "id": "rubySlippers" }],
+      "requirements": [{
+        "itemId": "rubySlippers",
+        "deniedText": "You don't have the appropriate footwear for this road."
+      }],
       "searchText": "You're standing on a road made of yellow bricks. Off in the distance is a strange-looking metal man. On the ground next to him is an axe."
     },
     {

@@ -79,11 +79,11 @@ module.exports = class SchemaValidator extends Validator {
     /* Nested Models */
       [keyPresence, { key: CHARACTERS_KEY }],
       [nestedKeyUniqueness, { key: CHARACTERS_KEY, nestedKey: ID_KEY }],
-      [nestedHashValidator, { key: CHARACTERS_KEY, validator: CharacterValidator }],
+      [nestedHashValidator, { key: CHARACTERS_KEY, validator: CharacterValidator, opts: { schema: this.object } }],
 
       [keyPresence, { key: INTENTS_KEY }],
       [nestedKeyUniqueness, { key: INTENTS_KEY, nestedKey: ID_KEY }],
-      [nestedHashValidator, { key: INTENTS_KEY, validator: IntentValidator }],
+      [nestedHashValidator, { key: INTENTS_KEY, validator: IntentValidator, opts: { schema: this.object } }],
 
       [keyPresence, { key: ITEMS_KEY }],
       [nestedKeyUniqueness, { key: ITEMS_KEY, nestedKey: ID_KEY }],

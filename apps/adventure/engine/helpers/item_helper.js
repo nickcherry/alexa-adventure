@@ -5,6 +5,7 @@
 /***********************************************/
 
 const _ = require('lodash');
+const Item = require('../item');
 
 /***********************************************/
 /* Exports */
@@ -12,9 +13,22 @@ const _ = require('lodash');
 
 module.exports = class ItemHelper {
   static getItemWithName(name, items, schema) {
-    const itemIds = items.map((item) => item.id);
-    const schemaItem = _.find(schema.lookupArray('item', itemIds), { name: name });
-    if (!schemaItem) return;
-    return Object.assign(schemaItem, _.find(items, { id: schemaItem.id }));
+    const partialItem = _.find(items, (item) => {
+      const schemaItem = schema.lookup('item', item.id);
+      return schemaItem && schemaItem.name === name;
+    });
+    return partialItem ? this.assembleItem(partialItem, schema) : undefined;
+  }
+
+  static assembleItem(partialItem, schema) {
+    if (!partialItem) return;
+    return new Item(Object.assign({}, schema.lookup('item', partialItem.id), partialItem));
+  }
+
+  static assembleItems(partialItems, schema) {
+    const self = this;
+    return partialItems.map((partialItem) => {
+      return self.assembleItem(partialItem, schema);
+    });
   }
 };

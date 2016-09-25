@@ -19,7 +19,7 @@ module.exports = class PickUpCommand extends Command {
     const item = ItemHelper.getItemWithName(itemName, map.items, this.game.schema);
     if (item) {
       const self = this;
-      this.state.addItem(item.id);
+      this.state.addItem(item);
       this.game.stateManager.setState(this.req.userId, this.state).then(() => {
         self._say(item.pickUpText);
       }).catch(this.game.onError);

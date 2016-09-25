@@ -24,7 +24,7 @@ module.exports = class RequirementValidator extends Validator {
           ]
         }
       ],
-      [recognizedModel, { type: 'item', key: 'connectedTo', schema: this.opts.schema }],
+      [recognizedModel, { type: 'item', key: 'itemId', schema: this.opts.schema }],
       requiredProps
     ];
   }

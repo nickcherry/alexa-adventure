@@ -1,15 +1,15 @@
 {
   "intents": [
-    { "id": "new_game" },
-    { "id": "search" },
-    { "id": "talk", "slots": { "character": "Glinda" } },
-    { "id": "list_connected_maps" },
-    { "id": "move", "slots": { "destination": "The Yellow Brick Road" }},
-    { "id": "search" },
-    { "id": "talk", "slots": { "character": "Tin Man" } },
-    { "id": "pick_up", "slots": { "item": "Axe" } },
-    { "id": "talk", "slots": { "character": "Hodor" } },
-    { "id": "pick_up", "slots": { "item": "Dragon Egg" } },
-    { "id": "list_connected_maps" }
+    { "id": "newGameIntent" },
+    { "id": "searchIntent" },
+    { "id": "talkIntent", "slots": { "character": "Glinda" } },
+    { "id": "listConnectedMapsIntent" },
+    { "id": "moveIntent", "slots": { "destination": "The Yellow Brick Road" }},
+    { "id": "searchIntent" },
+    { "id": "talkIntent", "slots": { "character": "Tin Man" } },
+    { "id": "pickUpIntent", "slots": { "item": "Axe" } },
+    { "id": "talkIntent", "slots": { "character": "Hodor" } },
+    { "id": "pickUpIntent", "slots": { "item": "Dragon Egg" } },
+    { "id": "listConnectedMapsIntent" }
   ]
 }

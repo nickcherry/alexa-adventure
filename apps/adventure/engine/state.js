@@ -53,18 +53,18 @@ module.exports = class State {
     return this._data.items || [];
   }
 
-  addItem(itemId) {
-    return _.tap(this.items, (items) => items.push(itemId));
+  addItem(item) {
+    return _.tap(this.items, (items) => items.push(item));
   }
 
-  addItems(itemIds) {
+  addItems(items) {
     const self = this;
-    itemIds.forEach((itemId) => self.addItem(itemId));
+    items.forEach((item) => self.addItem(item));
     return this.items;
   }
 
-  hasItem(itemId) {
-    return _.includes(this.items, itemId);
+  hasItemWithId(itemId) {
+    return !!_.find(this.items, { id: itemId });
   }
 
   /***********************************************/

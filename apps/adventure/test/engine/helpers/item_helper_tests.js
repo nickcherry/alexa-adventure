@@ -53,4 +53,59 @@ describe('ItemHelper', () => {
       expect(result.isVisible).to.be.true;
     });
   });
+
+  describe('.assembleItem', () => {
+    it('should merge the item partial into the schema item defininition', () => {
+      const schema = SchemaFactory.default({
+        items: [
+          ItemFactory.default({
+            id: 'boomerang', name: 'Boomerang', isVisible: true
+          })
+        ]
+      });
+      const partialItem = { id: 'boomerang', isVisible: false, color: 'blue' };
+      expect(ItemHelper.assembleItem(partialItem, schema)).to.deep.eq({
+        id: 'boomerang',
+        name: 'Boomerang',
+        isVisible: false,
+        color: 'blue',
+        requirements: []
+      });
+    });
+  });
+
+  describe('.assembleItems', () => {
+    it('should merge the item partials into the schema item definitions', () => {
+      const schema = SchemaFactory.default({
+        items: [
+          ItemFactory.default({
+            id: 'boomerang', name: 'Boomerang', isVisible: true
+          }),
+          ItemFactory.default({
+            id: 'tunic', name: 'Tunic', color: 'red', isVisible: true
+          })
+        ]
+      });
+      const partialItems = [
+        { id: 'boomerang', color: 'blue' },
+        { id: 'tunic', color: 'green', isVisible: false }
+      ];
+      expect(ItemHelper.assembleItems(partialItems, schema)).to.deep.eq([
+        {
+          id: 'boomerang',
+          name: 'Boomerang',
+          isVisible: true,
+          color: 'blue',
+          requirements: []
+        },
+        {
+          id: 'tunic',
+          name: 'Tunic',
+          color: 'green',
+          isVisible: false,
+          requirements: []
+        }
+      ]);
+    });
+  });
 });

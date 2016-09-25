@@ -37,6 +37,9 @@ chai.use(sinonChai);
 describe('TalkCommand', () => {
   describe('#perform', () => {
 
+    const toto = ItemFactory.default({ id: 'toto', name: 'Toto' });
+    const rubySlippers = ItemFactory.default({ id: 'rubySlippers', name: 'Ruby Slippers' });
+
     const buildGame = (stateManager) => {
       return GameFactory.default({
         schema: SchemaFactory.default({
@@ -50,16 +53,7 @@ describe('TalkCommand', () => {
               name: 'Tin Man'
             })
           ],
-          items: [
-            ItemFactory.default({
-              id: 'toto',
-              name: 'Toto'
-            }),
-            ItemFactory.default({
-              id: 'rubySlippers',
-              name: 'Ruby Slippers'
-            })
-          ],
+          items: [toto, rubySlippers],
           maps: [
             MapFactory.default({
               id: 'munchkinland',
@@ -92,7 +86,7 @@ describe('TalkCommand', () => {
         res: res,
         state: StateFactory.default({
           mapId: 'munchkinland',
-          items: ['toto']
+          items: [toto]
         })
       });
     };
@@ -134,7 +128,7 @@ describe('TalkCommand', () => {
             expect(setState).to.have.been.calledWith(
               sinon.match((userId) => userId === 'TEST_USER'),
               sinon.match((state) => {
-                return _.isEqual(state.items, ['toto', 'rubySlippers'])
+                return _.isEqual(state.items, [toto, rubySlippers])
               })
             );
           });

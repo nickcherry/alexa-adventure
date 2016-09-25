@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const cast = require('./helpers/casting_helper').cast;
 const Character = require('./character');
 const ConfigurableModel = require('./configurable_model');
 const Item = require('./item');
@@ -14,6 +15,11 @@ const Requirement = require('./requirement');
 /***********************************************/
 
 module.exports = class Map extends ConfigurableModel {
+  constructor(attrs = {}) {
+    super(...arguments);
+    this.requirements = cast(this.requirements, Requirement) || [];
+  }
+
   get requiredProps() {
     return super.requiredProps.concat([
       ['characters', 'Array'],
