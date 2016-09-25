@@ -23,6 +23,7 @@ const COMMAND_KEYS = [
   'search',
   'session_ended',
   'stop',
+  'talk',
   'yes'
 ];
 

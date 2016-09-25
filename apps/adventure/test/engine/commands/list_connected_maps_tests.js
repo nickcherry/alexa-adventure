@@ -7,7 +7,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const sinonChai = require("sinon-chai");
+const sinonChai = require('sinon-chai');
 const spy = require('sinon').spy;
 
 const CommandFactory = require('../../factories/command_factory');
@@ -38,7 +38,11 @@ describe('ListConnectedMapsCommand', () => {
             MapFactory.default({
               id: 'ballroom',
               name: 'The Ballroom',
-              connectedTo: ['masterBedroom', 'bathroom', 'closet']
+              connectedTo: [
+                { id:'masterBedroom' },
+                { id: 'bathroom' },
+                { id: 'closet' }
+              ]
             }),
             MapFactory.default({ id: 'masterBedroom', name: 'The Master Bedroom' }),
             MapFactory.default({ id: 'bathroom', name: 'The Bathroom' }),

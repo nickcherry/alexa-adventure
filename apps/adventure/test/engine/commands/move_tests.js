@@ -9,7 +9,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const sinon = require('sinon');
-const sinonChai = require("sinon-chai");
+const sinonChai = require('sinon-chai');
 const spy = require('sinon').spy;
 const stub = require('sinon').stub;
 
@@ -43,16 +43,19 @@ describe('MoveCommand', () => {
             MapFactory.default({
               id: 'ballroom',
               name: 'The Ballroom',
-              connectedTo: ['masterBedroom', 'bathroom']
+              connectedTo: [
+                { id: 'masterBedroom' },
+                { id: 'bathroom' }
+              ]
             }),
             MapFactory.default({ id: 'masterBedroom', name: 'The Master Bedroom' }),
-            MapFactory.default({ id: 'bathroom', name: 'The Bathroom' }),
+            MapFactory.default({ id: 'bathroom', name: 'The Bathroom', introText: 'You are now entering The Bathroom' }),
             MapFactory.default({ id: 'closet', name: 'The Closet' })
           ]
         }),
         stateManager: stateManager
       });
-    }
+    };
 
     const buildCommand = (destination, res, stateManager) => {
       return CommandFactory.default({
@@ -67,7 +70,7 @@ describe('MoveCommand', () => {
           mapHistory: ['tutorial']
         })
       });
-    }
+    };
 
     context('when the destination is valid and connected to the current map', () => {
       it('should move the player to the destination and update the history', () => {

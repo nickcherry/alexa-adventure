@@ -6,7 +6,7 @@
 
 const chai = require('chai');
 const expect = chai.expect;
-const sinonChai = require("sinon-chai");
+const sinonChai = require('sinon-chai');
 const stub = require('sinon').stub;
 
 const CommandLoader = require('../../../engine/commands/command_loader');

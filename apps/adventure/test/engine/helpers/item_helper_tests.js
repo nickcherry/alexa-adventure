@@ -32,10 +32,25 @@ describe('ItemHelper', () => {
       const flashlight = ItemFactory.default({ id: 'flashlight', name: 'Flashlight' });
       const ductTape = ItemFactory.default({ id: 'ductTape', name: 'Duct Tape' });
       const hammer = ItemFactory.default({ id: 'hammer', name: 'Hammer' });
-      const schema = SchemaFactory.default({ items: [ ductTape, flashlight, hammer ] });
+      const schema = SchemaFactory.default({ items: [ductTape, flashlight, hammer ] });
       expect(ItemHelper.getItemWithName(
-        'Duct Tape', ['flashlight', 'ductTape', 'hammer'], schema
+        'Duct Tape', [
+          { id: flashlight.id },
+          { id: ductTape.id },
+          { id: hammer.id }
+        ], schema
       )).to.deep.eq(ductTape);
+    });
+
+    it('should merge argument item attributes into schema item', () => {
+      const schema = SchemaFactory.default({
+        items: [ItemFactory.default({ id: 'hammer', name: 'Hammer' })]
+      });
+      const result = ItemHelper.getItemWithName(
+        'Hammer', [{ id: 'hammer', isVisible: true }], schema
+      );
+      expect(result.name).to.eq('Hammer');
+      expect(result.isVisible).to.be.true;
     });
   });
 });

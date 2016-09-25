@@ -9,7 +9,7 @@ const chai = require('chai');
 const expect = require('chai').expect;
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
-const sinonChai = require("sinon-chai");
+const sinonChai = require('sinon-chai');
 const spy = require('sinon').spy;
 const stub = require('sinon').stub;
 

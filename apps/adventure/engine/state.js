@@ -57,6 +57,12 @@ module.exports = class State {
     return _.tap(this.items, (items) => items.push(itemId));
   }
 
+  addItems(itemIds) {
+    const self = this;
+    itemIds.forEach((itemId) => self.addItem(itemId));
+    return this.items;
+  }
+
   hasItem(itemId) {
     return _.includes(this.items, itemId);
   }

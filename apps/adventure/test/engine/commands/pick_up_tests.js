@@ -8,7 +8,7 @@ const _ = require('lodash');
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
-const sinonChai = require("sinon-chai");
+const sinonChai = require('sinon-chai');
 const spy = require('sinon').spy;
 const stub = require('sinon').stub;
 
@@ -47,7 +47,10 @@ describe('PickUpCommand', () => {
             MapFactory.default({
               id: 'ballroom',
               name: 'The Ballroom',
-              items: ['sword', 'plunger']
+              items: [
+                { id: 'sword' },
+                { id: 'plunger' }
+              ]
             })
           ]
         }),

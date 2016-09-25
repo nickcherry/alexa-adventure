@@ -1,64 +1,65 @@
 {
-  "initialMapId": "tutorialMap",
+  "initialMapId": "munchkinland",
   "intents": [
     {
       "id": "launch",
       "command": "launch",
       "commandArgs": {
-        "text": "Welcome adventurer. <audio src=\"{{ ASSETS_ROOT_URL }}/launch_music.mp3\" />"
+        "text": "Hello, Dorothy. <audio src=\"{{ ASSETS_ROOT_URL }}/launch.mp3\" />"
       }
     },
     {
       "id": "AMAZON.CancelIntent",
       "command": "cancel",
       "commandArgs": {
-        "defaultText": "Ok, I'll stop doing that thing."
+        "defaultText": "DEFAULT CANCEL TEXT GOES HERE"
       }
     },
     {
       "id": "AMAZON.HelpIntent",
       "command": "help",
       "commandArgs": {
-        "defaultText": "Just say one of the recognized commands. You remember those, right?"
+        "defaultText": "DEFAULT HELP TEXT GOES HERE"
       }
     },
     {
       "id": "AMAZON.NoIntent",
       "command": "no",
       "commandArgs": {
-        "defaultText": "No it shall be."
+        "defaultText": "DEFAULT NO TEXT GOES HERE"
       }
     },
     {
       "id": "AMAZON.StopIntent",
       "command": "stop",
       "commandArgs": {
-        "defaultText": "Ok."
+        "defaultText": "DEFAULT STOP TEXT GOES HERE"
       }
     },
     {
       "id": "AMAZON.YesIntent",
       "command": "yes",
       "commandArgs": {
-        "defaultText": "Yes it shall be."
+        "defaultText": "DEFAULT YES TEXT GOES HERE"
       }
     },
     {
       "id": "sessionEnded",
       "command": "session_ended",
       "commandArgs": {
-        "text": "Farewell adventurer."
+        "text": "Goodbye, my pretty."
       }
     },
     {
       "id": "new_game",
       "slots": {},
       "utterances": [
+        "new game",
         "start new game"
       ],
       "command": "new_game",
       "commandArgs": {
-        "text": "Your journey begins."
+        "text": "Here's the deal. You were restless and discontent with life in Kansas. To be fair, who wouldn't be. A tornado came 'round, scooped up your house, and spat you out in this unfamiliar and fantastical land. To check out your surroundings, try saying 'search' or 'look around'."
       }
     },
     {
@@ -66,7 +67,8 @@
       "command": "current_map",
       "slots": {},
       "utterances": [
-        "where am i"
+        "Where am I?",
+        "What is this place?"
       ]
     },
     {
@@ -74,7 +76,9 @@
       "command": "list_connected_maps",
       "slots": {},
       "utterances": [
-        "where can i go?"
+        "Where can I go?",
+        "What's nearby?",
+        "What is nearby?"
       ]
     },
     {
@@ -86,142 +90,111 @@
       "utterances": [
         "move to {destinations|availableMaps}"
       ]
+    },
+    {
+      "id": "pick_up",
+      "command": "pick_up",
+      "slots": {
+        "item": "availableItems"
+      },
+      "utterances": [
+        "pick up {items|availableItems}"
+      ]
+    },
+    {
+      "id": "talk",
+      "command": "talk",
+      "utterances": [
+        "talk to",
+        "talk with",
+        "speak to",
+        "speak with",
+        "converse with"
+      ]
+    },
+    {
+      "id": "search",
+      "command": "search",
+      "utterances": [
+        "search",
+        "look around",
+        "check out the surroundings"
+      ]
     }
   ],
   "characters": [
     {
-      "id": "guardBarry",
-      "name": "Barry the Guard"
+      "id": "glinda",
+      "name": "Glinda"
+    },
+    {
+      "id": "tinMan",
+      "name": "Tin Man"
+    },
+    {
+      "id": "cowardlyLion",
+      "name": "Cowardly Lion"
     }
   ],
   "items": [
     {
-      "id": "tutorialKey",
-      "name": "old dusty key",
-      "requirements": [
-        {
-          "itemId": "flashlight",
-          "deniedText": "It's so dark down here. If only you could see better."
-        }
-      ]
+      "id": "rubySlippers",
+      "name": "Ruby Slippers",
+      "isVisible": true
     },
     {
-      "id": "flashlight",
-      "name": "flashlight"
-    },
-    {
-      "id": "woodenSword",
-      "name": "wooden sword",
-      "isWeapon": true,
-      "attack": 1
-    },
-    {
-      "id": "balletShoes",
-      "name": "ballet shoes"
+      "id": "axe",
+      "name": "Axe",
+      "isVisible": true
     }
   ],
   "maps": [
     {
-      "id": "tutorialMap",
-      "name": "A Dark Place",
+      "id": "munchkinland",
+      "name": "Munchkinland",
+      "introText": "<audio src=\"{{ ASSETS_ROOT_URL }}/munchkinland.mp3\" />",
       "connectedTo": [
-        "corridor"
-      ],
-      "characters": [],
-      "items":[],
-      "requirements": [],
-      "searchText": "This is the search text for tutorial map"
-    },
-    {
-      "id": "corridor",
-      "name": "A Corridor",
-      "enterText": "Entering the corridor. It looks like there's a guard at the other end",
-      "requirements": [
-        {
-          "itemId": "tutorialKey",
-          "deniedText": "Good grief, it seems this door is locked!"
-        }
-      ],
-      "connectedTo": [
-        "ballroom"
+        { "id": "yellowBrickRoad" }
       ],
       "characters": [
         {
-          "id": "guard",
-          "conversation": {
-            "text": "Hey, whatchoo doing over there, lad?",
-            "playerResponses": [
-              {
-                "text": "I'm lost and trying to find the way out.",
-                "conversation": {
-                  "text": "Ah, well I could show you out through the ballet room, but it seems you don't have the appropriate footwear.",
-                  "playerResponses": [
-                    {
-                      "text": "What kind of footwear do I need?",
-                      "conversation": {
-                        "text": "Ballet slippers, of course!"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "text": "Blow it up your arse, Guard Barry!",
-                "conversation": "Why I oughta teach you some manners, you little monster!"
-              }
-            ]
-          }
+          "id": "glinda",
+          "items": [{ "id": "rubySlippers" }],
+          "responseText": "Hey girl. Know what you need? Some sweet-ass shoes! Take these ruby slippers and strut your stuff down the Yellow Brick Road."
         }
       ],
-      "items": [
+      "items": [],
+      "requirements": [],
+      "searchText": "<audio src=\"{{ ASSETS_ROOT_URL }}/munchkinland.mp3\" /> You are surrounded by an army of small people carrying lollipops. Everything is so colorful here. There is also witch, dead under a house, wearing a pair of ruby slippers. Oh, and over there is a friendly-looking witch. The munchkins call her Glinda. Maybe you should talk to her."
+    },
+    {
+      "id": "yellowBrickRoad",
+      "name": "The Yellow Brick Road",
+      "introText": "<audio src=\"{{ ASSETS_ROOT_URL }}/yellow_brick_road.mp3\" />",
+      "connectedTo": [
+        { "id": "hauntedForest" }
+      ],
+      "characters": [
         {
-          "id": "woodenSword"
-        },
-        {
-          "id": "balletShoes"
+          "id": "tinMan",
+          "responseText": "Hello. I am a man made of tin. Rust has rendered me immobile, making my axe useless to me. It's down there on the ground. Maybe you have a use for it? Try to pick up my axe."
         }
       ],
-      "searchText": "This is the search text for corridor"
+      "items": [{ "id": "axe" }],
+      "requirements": [{ "id": "rubySlippers" }],
+      "searchText": "You're standing on a road made of yellow bricks. Off in the distance is a strange-looking metal man. On the ground next to him is an axe."
     },
     {
-      "id": "ballroom",
-      "name": "The Grand Ballroom",
-      "requirements": [
-        {
-          "itemId": "balletShoes",
-          "deniedText": "Ballet shoes DENITED!"
-        }
-      ],
+      "id": "hauntedForest",
+      "name": "Haunted Forest",
+      "introText": "The sun is setting now, and the forest is getting dark.",
       "connectedTo": [
-        "masterBedroom",
-        "courtyard"
+        { "id": "yellowBrickRoad" }
       ],
       "characters": [],
-      "items":[],
+      "items": [],
       "requirements": [],
-      "searchText": "This is the search text for ballroom"
-    },
-    {
-      "id": "masterBedroom",
-      "name": "Master Bedroom",
-      "connectedTo": [
-        "ballroom"
-      ],
-      "characters": [],
-      "items":[],
-      "requirements": [],
-      "searchText": "This is the search text for master bedroom"
-    },
-    {
-      "id": "courtyard",
-      "name": "Courtyard",
-      "connectedTo": [
-        "ballroom"
-      ],
-      "characters": [],
-      "items":[],
-      "requirements": [],
-      "searchText": "This is the search text for courtyard"
+      "searchText": "You can't really see anything. Too damn dark."
     }
   ]
 }

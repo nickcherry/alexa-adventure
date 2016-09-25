@@ -50,7 +50,7 @@ describe('recognizedModel', () => {
     expect(subject([], schema, { type: 'map', key: 'initialMapId', schema: schema })).to.deep.equal([]);
   });
 
-  it('should generate errors when the map is not recognized', () => {
+  it('should generate errors when the model is not recognized', () => {
     const schema = SchemaFactory.default({
       id: 'dummyId',
       initialMapId: 'dungeon'
@@ -58,19 +58,5 @@ describe('recognizedModel', () => {
     expect(subject([], schema, { type: 'map', key: 'initialMapId', schema: schema })).to.include(
       '"dungeon" is not a recognized map for Schema with id "dummyId"'
     );
-  });
-
-  it('should generate errors when an item in an array of maps is not recognized', () => {
-    const schema = SchemaFactory.default({
-      maps: [ MapFactory.default({ id: 'dungeon' })]
-    });
-    const subjectMap = MapFactory.default({
-      id: 'dummyMapId',
-      connectedTo: ['dungeon', 'bathroom', 'closet']
-    });
-    expect(subject([], subjectMap, { type: 'map', key: 'connectedTo', schema: schema })).to.include.members([
-      '"bathroom" is not a recognized map for Map with id "dummyMapId"',
-      '"closet" is not a recognized map for Map with id "dummyMapId"'
-    ]);
   });
 });

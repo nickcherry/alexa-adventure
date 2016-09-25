@@ -7,7 +7,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const sinonChai = require("sinon-chai");
+const sinonChai = require('sinon-chai');
 const spy = require('sinon').spy;
 
 const CurrentMapCommand = require('../../../engine/commands/current_map');

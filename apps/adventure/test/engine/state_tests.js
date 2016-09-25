@@ -125,6 +125,14 @@ describe('State', () => {
     });
   });
 
+  describe('#addItems', () => {
+    it('should add the items to the inventory', () => {
+      const state = StateFactory.default({ items: ['boomerang'] });
+      expect(state.addItems(['plunger', 'mushroom'])).to.deep.eq(['boomerang', 'plunger', 'mushroom'])
+      expect(state.items).to.deep.eq(['boomerang', 'plunger', 'mushroom']);
+    });
+  });
+
   describe('#hasItem', () => {
     it('should return true/false depending on whether the item exists in the inventory', () => {
       const state = StateFactory.default({ items: ['boomerang'] });

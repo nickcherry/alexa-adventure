@@ -18,6 +18,7 @@ describe('Item', () => {
   require('./shared_behaviors').constructorAssignsProps(Item, [
     'id',
     'name',
+    'isVisible',
     [
       'requirements',
       [{ itemId: 'itemA' }],

@@ -12,8 +12,9 @@ const Requirement = require('./requirement');
 /***********************************************/
 
 module.exports = class Item extends ConfigurableModel {
-  constructor({ name, requirements } = {}) {
+  constructor({ isVisible, name, requirements } = {}) {
     super(...arguments);
+    this.isVisible = isVisible;
     this.name = name;
     this.requirements = (requirements || []).map((attrs) => {
       return new Requirement(attrs)
@@ -22,7 +23,8 @@ module.exports = class Item extends ConfigurableModel {
 
   get requiredProps() {
     return super.requiredProps.concat([
-      ['name', 'String']
+      ['name', 'String'],
+      ['isVisible', 'Boolean']
     ]);
   }
 };

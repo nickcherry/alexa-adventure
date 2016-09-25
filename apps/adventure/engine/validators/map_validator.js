@@ -6,7 +6,7 @@
 
 const arrayWithSize = require('./modules/array_with_size');
 const nestedHashValidator = require('./modules/nested_hash_validator');
-const recognizedModel = require('./modules/recognized_model');
+const recognizedArrayOfModels = require('./modules/recognized_array_of_models');
 const requiredProps = require('./modules/required_props');
 const RequirementValidator = require('./requirement_validator');
 const Validator = require('./validator');
@@ -19,14 +19,10 @@ module.exports = class MapValidator extends Validator {
   get validators() {
     return [
       [arrayWithSize, { key: 'connectedTo' }],
-      [recognizedModel, { type: 'map', key: 'connectedTo', schema: this.opts.schema }],
-      [
-        nestedHashValidator, {
-          key: 'requirements',
-          validator: RequirementValidator,
-          opts: this.opts
-        }
-      ],
+      [recognizedArrayOfModels, { arrayKey: 'characters', key: 'id', type: 'character', schema: this.opts.schema }],
+      [recognizedArrayOfModels, { arrayKey: 'items', key: 'id', type: 'item', schema: this.opts.schema }],
+      [recognizedArrayOfModels, { arrayKey: 'connectedTo', key: 'id', type: 'map', schema: this.opts.schema }],
+      [recognizedArrayOfModels, { arrayKey: 'requirements', key: 'id', type: 'item', schema: this.opts.schema }],
       requiredProps
     ];
   }

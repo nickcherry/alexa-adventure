@@ -11,7 +11,10 @@ const _ = require('lodash');
 /***********************************************/
 
 module.exports = class ItemHelper {
-  static getItemWithName(name, itemIds, schema) {
-    return _.find(schema.lookupArray('item', itemIds), { name: name });
+  static getItemWithName(name, items, schema) {
+    const itemIds = items.map((item) => item.id);
+    const schemaItem = _.find(schema.lookupArray('item', itemIds), { name: name });
+    if (!schemaItem) return;
+    return Object.assign(schemaItem, _.find(items, { id: schemaItem.id }));
   }
 };

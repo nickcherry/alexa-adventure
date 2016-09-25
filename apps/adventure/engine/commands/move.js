@@ -21,7 +21,7 @@ module.exports = class MoveCommand extends Command {
       const self = this;
       this.state.setMapId(destination.id, true);
       this.game.stateManager.setState(this.req.userId, this.state).then(() => {
-        self._say(`You are now entering ${ destinationName }`);
+        self._say(destination.introText);
       }).catch(this.game.onError);
     } else {
       this._say(`You can't get to ${ destinationName } from here`);

@@ -12,7 +12,11 @@ const _ = require('lodash');
 
 module.exports = class MapHelper {
   static getConnectedMaps(map, schema) {
-    return schema.lookupArray('map', map.connectedTo);
+    let schemaMap;
+    return map.connectedTo.map((map) => {
+      schemaMap = schema.lookup('map', map.id);
+      return schemaMap ? Object.assign(schemaMap, map) : undefined;
+    });
   }
 
   static getCurrentMap(state, schema) {

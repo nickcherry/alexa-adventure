@@ -21,25 +21,10 @@ describe('Map', () => {
     'characters',
     'connectedTo',
     'id',
+    'introText',
     'items',
     'name',
-    'searchText',
-    [
-      'requirements',
-      [{ itemId: 'itemA' }],
-      [new Requirement({ itemId: 'itemA' })]
-    ]
+    'requirements',
+    'searchText'
   ]);
-
-  describe('.constructor', () => {
-    it('should cast requirements', () => {
-      const map = new Map({
-        requirements: [{ itemId: 'itemA' }]
-      });
-      expect(map.requirements[0].constructor.name).to.eq('Requirement');
-      expect(map.requirements).to.deep.eq([
-        new Requirement({ itemId: 'itemA' })
-      ]);
-    });
-  });
 });
