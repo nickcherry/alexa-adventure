@@ -5,10 +5,6 @@
 /***********************************************/
 
 module.exports = class BaseModel {
-  constructor({ id } = {}) {
-    this.id = id;
-  }
-
   get identity() {
     const className = this.constructor.name;
     if (this.id) {

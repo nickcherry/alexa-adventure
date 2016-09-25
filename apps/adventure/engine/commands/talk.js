@@ -20,7 +20,6 @@ module.exports = class TalkCommand extends Command {
     if (character) {
       this._say(character.responseText);
       if (character.items && character.items.length) {
-        const self = this;
         this.state.addItems(character.items.map((item) => item.id));
         this.game.stateManager.setState(
           this.req.userId, this.state

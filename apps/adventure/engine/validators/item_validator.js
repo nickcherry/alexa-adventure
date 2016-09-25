@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const noUnrecognizedKeys = require('./modules/no_unrecognized_keys');
 const requiredProps = require('./modules/required_props');
 const nestedHashValidator = require('./modules/nested_hash_validator');
 const RequirementValidator = require('./requirement_validator');
@@ -16,6 +17,16 @@ const Validator = require('./validator');
 module.exports = class ItemValidator extends Validator {
   get validators() {
     return [
+      [
+        noUnrecognizedKeys, {
+          validKeys: [
+            'id',
+            'isVisible',
+            'name',
+            'requirements'
+          ]
+        }
+      ],
       [
         nestedHashValidator, {
           key: 'requirements',

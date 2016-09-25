@@ -12,6 +12,7 @@ const Validator = require('./validator');
 
 const keyPresence = require('./modules/key_presence');
 const keyValueInArrayPresence = require('./modules/key_value_in_array_presence');
+const noUnrecognizedKeys = require('./modules/no_unrecognized_keys');
 const nestedKeyUniqueness = require('./modules/nested_key_uniqueness');
 const nestedHashValidator = require('./modules/nested_hash_validator');
 const recognizedModel = require('./modules/recognized_model');
@@ -58,6 +59,22 @@ module.exports = class SchemaValidator extends Validator {
     /* Global Configuration */
       [keyPresence, { key: INITIAL_MAP_KEY }],
       [recognizedModel, { type: 'map', key: INITIAL_MAP_KEY, schema: this.object }],
+
+    /* Valid Keys */
+      [
+        noUnrecognizedKeys, {
+          validKeys: [
+            '_data',
+            '_intents',
+            '_maps',
+            CHARACTERS_KEY,
+            INITIAL_MAP_KEY,
+            INTENTS_KEY,
+            ITEMS_KEY,
+            MAPS_KEY
+          ]
+        }
+      ],
 
     /* Nested Models */
       [keyPresence, { key: CHARACTERS_KEY }],

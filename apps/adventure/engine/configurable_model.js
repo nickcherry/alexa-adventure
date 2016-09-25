@@ -11,9 +11,12 @@ const BaseModel = require('./base_model');
 /***********************************************/
 
 module.exports = class ConfigurableModel extends BaseModel {
-
-  constructor() {
+  constructor(attrs = {}) {
     super(...arguments);
+    const self = this;
+    Object.keys(attrs).forEach((key) => {
+      self[key] = attrs[key];
+    });
   }
 
   get requiredProps() {

@@ -14,17 +14,6 @@ const Requirement = require('./requirement');
 /***********************************************/
 
 module.exports = class Map extends ConfigurableModel {
-  constructor({ characters, connectedTo, introText, items, name, requirements, searchText } = {}) {
-    super(...arguments);
-    this.connectedTo = connectedTo;
-    this.characters = characters;
-    this.introText = introText;
-    this.items = items;
-    this.name = name;
-    this.requirements = requirements;
-    this.searchText = searchText;
-  }
-
   get requiredProps() {
     return super.requiredProps.concat([
       ['characters', 'Array'],

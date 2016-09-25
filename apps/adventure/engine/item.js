@@ -12,11 +12,9 @@ const Requirement = require('./requirement');
 /***********************************************/
 
 module.exports = class Item extends ConfigurableModel {
-  constructor({ isVisible, name, requirements } = {}) {
+  constructor() {
     super(...arguments);
-    this.isVisible = isVisible;
-    this.name = name;
-    this.requirements = (requirements || []).map((attrs) => {
+    this.requirements = (this.requirements || []).map((attrs) => {
       return new Requirement(attrs)
     });
   }

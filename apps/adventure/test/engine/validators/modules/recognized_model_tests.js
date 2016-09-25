@@ -51,10 +51,8 @@ describe('recognizedModel', () => {
   });
 
   it('should generate errors when the model is not recognized', () => {
-    const schema = SchemaFactory.default({
-      id: 'dummyId',
-      initialMapId: 'dungeon'
-    });
+    const schema = SchemaFactory.default({ initialMapId: 'dungeon' });
+    schema.id = 'dummyId';
     expect(subject([], schema, { type: 'map', key: 'initialMapId', schema: schema })).to.include(
       '"dungeon" is not a recognized map for Schema with id "dummyId"'
     );

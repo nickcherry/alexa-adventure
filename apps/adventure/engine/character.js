@@ -11,11 +11,6 @@ const ConfigurableModel = require('./configurable_model');
 /***********************************************/
 
 module.exports = class Character extends ConfigurableModel {
-  constructor({ name } = {}) {
-    super(...arguments);
-    this.name = name;
-  }
-
   get requiredProps() {
     return super.requiredProps.concat([
       ['name', 'String']
