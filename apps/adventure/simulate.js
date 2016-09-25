@@ -100,6 +100,12 @@ ensureTable.then(() => {
   _.each([{ id: 'launch' }].concat(script.intents), (intent, i) => {
     setTimeout(() => {
 
+      // Verify that intent is defined
+      const schemaIntent = _.find(schema.intents, { id: intent.id });
+      if (!schemaIntent) {
+        onError(new Error(`The schema does not define an intent with the id "${ intent.id }"`));
+      }
+
       // Mock Request
       const req = {
         slot: (id) => {
@@ -118,6 +124,15 @@ ensureTable.then(() => {
       // Print Intent
       const slots = intent.slots ? JSON.stringify(intent.slots).cyan : '';
       console.log('Intent =>'.cyan.bold, intent.id.cyan, slots);
+
+      // Verify that slots are defined
+      if (intent.slots) {
+        Object.keys(intent.slots).forEach((slot) => {
+          if (!schemaIntent.slots[slot]) {
+            onError(new Error(`The "${ slot }" slot is not defined in the "${ intent.id }" intent`));
+          }
+        });
+      }
 
       // Invoke Command
       intents[intent.id](req, res);
