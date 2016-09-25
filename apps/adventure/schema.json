@@ -5,7 +5,7 @@
       "id": "launch",
       "command": "launch",
       "commandArgs": {
-        "text": "Hello, Dorothy. <audio src=\"{{ ASSETS_ROOT_URL }}/launch.mp3\" />"
+        "text": "<audio src=\"{{ ASSETS_ROOT_URL }}/launch.mp3\" /> Hello Dorothy."
       }
     },
     {
@@ -59,7 +59,7 @@
       ],
       "command": "new_game",
       "commandArgs": {
-        "text": "Here's the deal. You were restless and discontent with life in Kansas. To be fair, who wouldn't be. A tornado came 'round, scooped up your house, and spat you out in this unfamiliar and fantastical land. To check out your surroundings, try saying 'search' or 'look around'."
+        "text": "Here's the deal. You were restless and discontent with life in Kansas. To be fair, who wouldn't be. A tornado came 'round, scooped up your house, and spat you out in this unfamiliar and fantastical land. To investigate your surroundings, try saying 'search' or 'look around'."
       }
     },
     {
@@ -67,8 +67,8 @@
       "command": "current_map",
       "slots": {},
       "utterances": [
-        "Where am I?",
-        "What is this place?"
+        "where am i",
+        "what is this place"
       ]
     },
     {
@@ -76,40 +76,42 @@
       "command": "list_connected_maps",
       "slots": {},
       "utterances": [
-        "Where can I go?",
-        "What's nearby?",
-        "What is nearby?"
+        "where can I go",
+        "what's nearby",
+        "what is nearby"
       ]
     },
     {
       "id": "move",
       "command": "move",
       "slots": {
-        "destination": "availableMaps"
+        "destination": "AVAILABLE_MAPS"
       },
       "utterances": [
-        "move to {destinations|availableMaps}"
+        "move to {-|AVAILABLE_MAPS}"
       ]
     },
     {
       "id": "pick_up",
       "command": "pick_up",
       "slots": {
-        "item": "availableItems"
+        "item": "AVAILABLE_ITEMS"
       },
       "utterances": [
-        "pick up {items|availableItems}"
+        "pick up {-|AVAILABLE_ITEMS}"
       ]
     },
     {
       "id": "talk",
       "command": "talk",
+      "slots": {
+        "character": "AVAILABLE_CHARACTERS"
+      },
       "utterances": [
-        "talk to",
-        "talk with",
-        "speak to",
-        "speak with",
-        "converse with"
+        "talk to {-|AVAILABLE_CHARACTERS}",
+        "talk with {-|AVAILABLE_CHARACTERS}",
+        "speak to {-|AVAILABLE_CHARACTERS}",
+        "speak with {-|AVAILABLE_CHARACTERS}"
       ]
     },
     {
@@ -186,7 +188,7 @@
     },
     {
       "id": "hauntedForest",
-      "name": "Haunted Forest",
+      "name": "The Haunted Forest",
       "introText": "The sun is setting now, and the forest is getting dark.",
       "connectedTo": [
         { "id": "yellowBrickRoad" }
