@@ -74,7 +74,10 @@ const schema = new Schema(
 );
 const stateManager = new StateManager({
   getState: db.getState,
-  setState: db.setState
+  setState: (userId, state) => {
+    console.log(' State Updated =>'.yellow.bold, state.serialize().yellow);
+    return db.setState(userId, state);
+  }
 });
 const onError = (err, meta = {}) => {
   console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);
