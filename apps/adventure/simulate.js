@@ -17,6 +17,12 @@ const Settings = require('./settings');
 const StateManager = require('./engine/state_manager');
 
 /***********************************************/
+/* Configuration */
+/***********************************************/
+
+const compactMode = process.env.npm_config_compact;
+
+/***********************************************/
 /* Load Script */
 /***********************************************/
 
@@ -75,7 +81,11 @@ const schema = new Schema(
 const stateManager = new StateManager({
   getState: db.getState,
   setState: (userId, state) => {
-    console.log(' State Updated =>'.yellow.bold, state.serialize().yellow);
+    if (compactMode) {
+      console.log(' State Updated'.yellow.bold);
+    } else {
+      console.log(' State Updated =>'.yellow.bold, state.serialize().yellow);
+    }
     return db.setState(userId, state);
   }
 });

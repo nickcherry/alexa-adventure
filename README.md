@@ -49,7 +49,8 @@ The alexa-app-server testing utility will be available at [http://localhost:8080
 To simulate a script from the commandline, first be sure that Dynamo is available (`npm run dynamo`), then run the following from the project root, where `hello.json` is a script file within the `apps/adventure/scripts` directory:
 
 ```shell
-npm run simulate --script=hello.json
+npm run simulate --script=wizard_of_oz.json
+npm run simulate --script=wizard_of_oz.json --compact # minimize State output
 ```
 
 ## Deployment
