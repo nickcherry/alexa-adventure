@@ -6,6 +6,7 @@
 
 const _ = require('lodash');
 const BaseModel = require('./base_model');
+const cast = require('./helpers/casting_helper').cast;
 const Character = require('./character');
 const Intent = require('./intent');
 const Item = require('./item');
@@ -15,13 +16,13 @@ const Map = require('./map');
 /* Private */
 /***********************************************/
 
-const cast = (obj, klass) => {
-  if (!obj) return obj;
-  if (!Array.isArray(obj)) return new klass(obj);
-  return obj.map((item) => new klass(item));
-}
-
 const hash = (array) => _.keyBy(array, 'id');
+
+const merge = (schemaModel, partialModel) => {
+  const mergeWith = _.isString(partialModel) ? undefined : partialModel;
+  if (!schemaModel && !mergeWith) return;
+  return Object.assign({}, schemaModel, mergeWith);
+};
 
 /***********************************************/
 /* Exports */
@@ -57,16 +58,20 @@ module.exports = class Schema extends BaseModel {
     return this._data.initialMapId = initialMapId;
   }
 
-  lookup(type, id) {
+  lookup(type, partialObject) {
+    const id = _.get(partialObject, 'id', partialObject);
     switch(type.toLowerCase()) {
-      case 'character': return this.characters[id];
-      case 'item': return this.items[id];
-      case 'map': return this.maps[id];
+      case 'character':
+        return cast(merge(this.characters[id], partialObject), Character);
+      case 'item':
+        return cast(merge(this.items[id], partialObject), Item);
+      case 'map':
+        return cast(merge(this.maps[id], partialObject), Map);
     }
   }
 
-  lookupArray(type, ids) {
-    return ids.map((id) => this.lookup(type, id));
+  lookupArray(type, partialObjects) {
+    return partialObjects.map((partialObject) => this.lookup(type, partialObject));
   }
 
   _castHashAndCache(key, klass) {

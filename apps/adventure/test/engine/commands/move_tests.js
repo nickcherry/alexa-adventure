@@ -95,7 +95,7 @@ describe('MoveCommand', () => {
 
     context('when the destination is connected to the current map', () => {
       context('and requirements are satisfied', () => {
-        xit('should move the player to the destination and update the history', () => {
+        it('should move the player to the destination and update the history', () => {
           let promise;
           const res = { say: spy() };
           const stateManager = StateManagerFactory.default();
@@ -118,7 +118,7 @@ describe('MoveCommand', () => {
         });
       });
       context('and requirements are not satsified', () => {
-        xit('should say the denied text and not move the player', () => {
+        it('should say the denied text and not move the player', () => {
           const res = { say: spy() };
           const stateManager = StateManagerFactory.default();
           const setState = stateManager.setState = spy();

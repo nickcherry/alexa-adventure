@@ -21,7 +21,7 @@ module.exports = class TalkCommand extends Command {
     if (character) {
       this._say(character.responseText);
       if (character.items && character.items.length) {
-        const items = ItemHelper.assembleItems(character.items, this.game.schema);
+        const items = this.game.schema.lookupArray('item', character.items);
         this.state.addItems(items);
         this.game.stateManager.setState(
           this.req.userId, this.state
@@ -33,7 +33,7 @@ module.exports = class TalkCommand extends Command {
   }
 
   static getRequiredSlots() {
-    return [];
+    return ['character'];
   }
 
   static getRequiredCommandArgs() {

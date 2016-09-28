@@ -61,7 +61,7 @@ describe('TalkCommand', () => {
               characters: [
                 {
                   id: 'glinda',
-                  items: [{ id: 'rubySlippers' }],
+                  items: [{ id: 'rubySlippers', isMagic: true }],
                   responseText: 'Hello, darling'
                 },
                 {
@@ -128,7 +128,10 @@ describe('TalkCommand', () => {
             expect(setState).to.have.been.calledWith(
               sinon.match((userId) => userId === 'TEST_USER'),
               sinon.match((state) => {
-                return _.isEqual(state.items, [toto, rubySlippers])
+                if (!state.items[0] === toto) return false;
+                return state.items[1].id === 'rubySlippers' &&
+                  state.items[1].name === 'Ruby Slippers' &&
+                  state.items[1].isMagic === true;
               })
             );
           });

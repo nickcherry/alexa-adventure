@@ -141,7 +141,7 @@ buildUploader.on('end', function() {
   });
 
   assetUploader.on('error', function(err) {
-    console.error(`Error uploading assets to S3: ${ err.stack }`);
+    error(`Error uploading assets to S3: ${ err.stack }`);
   });
 
   assetUploader.on('end', function() {
