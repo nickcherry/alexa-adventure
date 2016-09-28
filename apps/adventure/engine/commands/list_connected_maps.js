@@ -16,7 +16,7 @@ module.exports = class ListConnectedMapsCommand extends Command {
   perform() {
     const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
     const connectedMaps = MapHelper.getConnectedMaps(currentMap, this.game.schema);
-    this._say(`You are near ${
+    this.say(`You are near ${
       LanguageHelper.oxfordComma(connectedMaps.map((map) => map.name))
     }`);
   }

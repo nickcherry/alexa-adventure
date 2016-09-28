@@ -17,18 +17,27 @@ module.exports = class Command {
     throw new Error(`${ this.constructor.name } must implement a \`perform\` method.`);
   }
 
-  _slot(slot) {
+  getSlot(slot) {
     return this.req.slot(slot);
   }
 
-  _commandArg(key) {
+  getCommandArg(key) {
     if (!this.intent.commandArgs) return;
     return this.intent.commandArgs[key];
   }
 
-  _say(msg) {
+  say(msg) {
     const say = this.res.say(msg);
     if (say && say.send) say.send();
+  }
+
+  setState(state) {
+    if (!state || state.constructor.name !== 'State') {
+      throw new Error('State must be valid');
+    }
+    return this.game.stateManager.setState(
+      this.req.userId, state
+    ).catch(this.game.onError);
   }
 
   static getRequiredSlots() {

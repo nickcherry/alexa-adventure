@@ -12,7 +12,7 @@ const Command = require('./command');
 
 module.exports = class YesCommand extends Command {
   perform() {
-    this._say(this._commandArg('defaultText'));
+    this.say(this.getCommandArg('defaultText'));
   }
 
   static getRequiredSlots() {

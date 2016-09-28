@@ -14,7 +14,7 @@ const MapHelper = require('../helpers/map_helper');
 module.exports = class CurrentMapCommand extends Command {
   perform() {
     const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
-    this._say(`You are currently in ${ currentMap.name }`);
+    this.say(`You are currently in ${ currentMap.name }`);
   }
 
   static getRequiredSlots() {

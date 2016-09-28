@@ -14,17 +14,15 @@ const MapHelper = require('../helpers/map_helper');
 
 module.exports = class PickUpCommand extends Command {
   perform() {
-    const itemName = this._slot('item');
+    const itemName = this.getSlot('item');
     const map = MapHelper.getCurrentMap(this.state, this.game.schema);
     const item = ItemHelper.getItemWithName(itemName, map.items, this.game.schema);
     if (item) {
-      const self = this;
+      this.say(item.pickUpText);
       this.state.addItem(item);
-      this.game.stateManager.setState(this.req.userId, this.state).then(() => {
-        self._say(item.pickUpText);
-      }).catch(this.game.onError);
+      this.setState(this.state);
     } else {
-      this._say(`${ itemName } isn't here`);
+      this.say(`${ itemName } isn't here`);
     }
   }
 

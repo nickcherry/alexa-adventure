@@ -4,7 +4,7 @@
   "deschemaion": "Development server for Alexa Adventure",
   "main": "serve.js",
   "scripts": {
-    "custom-slots": "node ./apps/adventure/custom_slots",
+    "custom-slots": "node ./apps/adventure/customslots",
     "deploy": "node ./apps/adventure/deploy; exit 0",
     "dynamo": "mkdir ./.database; node ./apps/adventure/node_modules/local-dynamo/bin/launch_local_dynamo.js --database_dir=./.database --port=4567",
     "lint": "./apps/adventure/node_modules/jshint/bin/jshint apps/adventure/engine/**/* --config apps/adventure/.jshintrc --exclude-path apps/adventure/.jshintignore; exit 0;",

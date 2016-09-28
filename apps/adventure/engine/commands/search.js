@@ -13,7 +13,7 @@ const MapHelper = require('../helpers/map_helper');
 
 module.exports = class SearchCommand extends Command {
   perform() {
-    this._say(MapHelper.getCurrentMap(this.state, this.game.schema).searchText);
+    this.say(MapHelper.getCurrentMap(this.state, this.game.schema).searchText);
   }
 
   static getRequiredSlots() {

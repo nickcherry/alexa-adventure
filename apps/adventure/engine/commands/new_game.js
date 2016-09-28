@@ -13,11 +13,8 @@ const State = require('../state');
 
 module.exports = class NewGameCommand extends Command {
   perform() {
-    const state = new State({ mapId: this.game.schema.initialMapId });
-    const self = this;
-    this.game.stateManager.setState(this.req.userId, state).then(() => {
-      self._say(self._commandArg('text'));
-    }).catch(this.game.onError);
+    this.say(this.getCommandArg('text'));
+    this.setState(new State({ mapId: this.game.schema.initialMapId }));
   }
 
   static getRequiredSlots() {

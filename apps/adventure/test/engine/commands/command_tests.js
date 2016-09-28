@@ -7,11 +7,17 @@
 const chai = require('chai');
 const expect = chai.expect;
 const sinonChai = require('sinon-chai');
+const spy = require('sinon').spy;
 const stub = require('sinon').stub;
 
+const Command = require('../../../engine/commands/command');
 const CommandLoader = require('../../../engine/commands/command_loader');
 const CommandFactory = require('../../factories/command_factory');
+const GameFactory = require('../../factories/game_factory');
+const IntentFactory = require('../../factories/intent_factory');
 const RequestFactory = require('../../factories/request_factory');
+const StateFactory = require('../../factories/state_factory');
+const StateManagerFactory = require('../../factories/state_manager_factory');
 
 /***********************************************/
 /* Configuration */
@@ -24,12 +30,69 @@ chai.use(sinonChai);
 /***********************************************/
 
 describe('Command', () => {
-  describe('#_slot', () => {
-    describe('when the slot exists', () => {
-      const req = RequestFactory.default();
-      stub(req, 'slot', () => 'eureka');
-      const command = CommandFactory.default({ req });
-      expect(command._slot('yep')).to.eq('eureka');
+  describe('#getSlot', () => {
+    context('when the slot exists', () => {
+      it('should return the slot value', () => {
+        const req = RequestFactory.default();
+        stub(req, 'slot', () => 'eureka');
+        const command = CommandFactory.default({ req });
+        expect(command.getSlot('yep')).to.eq('eureka');
+      });
+    });
+  });
+
+  describe('#getCommandArg', () => {
+    context('when the slot exists', () => {
+      it('should return the command arg', () => {
+        const intent = IntentFactory.default({ commandArgs: { difficulty: 4 }});
+        const command = CommandFactory.default({ commandClass: Command, intent });
+        expect(command.getCommandArg('difficulty')).to.eq(4);
+      });
+    });
+  });
+
+  describe('#setState', () => {
+    context('when the state is undefined', () => {
+      it('should throw an error', () => {
+        const command = CommandFactory.default();
+        const invoke = () => command.setState();
+        expect(invoke).to.throw('State must be valid');
+      });
+    });
+
+    context('when the state is a plain object', () => {
+      it('should throw an error', () => {
+        const command = CommandFactory.default();
+        const invoke = () => command.setState({});
+        expect(invoke).to.throw('State must be valid');
+      });
+    });
+
+    context('when the state is valid', () => {
+      it('should save the provided state for the request user', () => {
+        const req = RequestFactory.default({ userId: 'Hodor' });
+        const stateManager = StateManagerFactory.default();
+        const setState = stub(stateManager, 'setState', () => Promise.resolve());
+        const game = GameFactory.default({ stateManager: stateManager });
+        const state = StateFactory.default();
+        const command = CommandFactory.default({ game, req });
+        command.setState(state);
+        expect(setState).to.have.callCount(1);
+        expect(setState).to.have.been.calledWithMatch('Hodor', state);
+      });
+
+      it('should invoke game.onError when save is rejected', () => {
+        const onError = spy(() => Promise.reject());
+        const stateManager = StateManagerFactory.default();
+        const setState = stub(stateManager, 'setState', () => Promise.reject('oops'));
+        const game = GameFactory.default({ onError, stateManager });
+        const state = StateFactory.default();
+        const command = CommandFactory.default({ game });
+        return command.setState(state).catch(() => {
+          expect(onError).to.have.callCount(1);
+          expect(onError).to.have.been.calledWithMatch('oops');
+        });
+      });
     });
   });
 
