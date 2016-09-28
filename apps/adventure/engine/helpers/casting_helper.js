@@ -13,7 +13,7 @@ const performCast = (item, klass) => {
 /* Exports */
 /***********************************************/
 
-const self = module.exports = class CastingHelper {
+module.exports = class CastingHelper {
   static cast(obj, klass) {
     if (Array.isArray(obj)) return obj.map((item) => performCast(item, klass));
     return performCast(obj, klass);

@@ -6,7 +6,6 @@
 
 const CharacterHelper = require('../helpers/character_helper');
 const Command = require('./command');
-const ItemHelper = require('../helpers/item_helper');
 const MapHelper = require('../helpers/map_helper');
 
 /***********************************************/

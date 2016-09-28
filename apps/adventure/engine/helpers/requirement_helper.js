@@ -12,7 +12,7 @@ module.exports = class RequirementHelper {
   static filterUnsatisfied(requirements, state) {
     const self = this;
     return requirements.filter((requirement) => {
-      return !self.isSatisfied(requirement, state)
+      return !self.isSatisfied(requirement, state);
     });
   }
 };
