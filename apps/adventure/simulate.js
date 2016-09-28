@@ -120,13 +120,13 @@ ensureTable.then(() => {
       // Mock Response
       const res = {
         say: (msg) => {
-          console.log(' Response =>'.green.bold, msg.green, '\n');
+          console.log(' Response =>'.green.bold, msg.green);
         }
       };
 
       // Print Intent
       const slots = intent.slots ? JSON.stringify(intent.slots).cyan : '';
-      console.log('Intent =>'.cyan.bold, intent.id.cyan, slots);
+      console.log('\nIntent =>'.cyan.bold, intent.id.cyan, slots);
 
       // Verify that slots are defined
       if (intent.slots) {
