@@ -23,6 +23,7 @@ module.exports = class PickUpCommand extends Command {
       this.setState(this.state);
     } else {
       this.say(`${ itemName } isn't here`);
+      this.game.onError(new Error(`PickUpCommand: Item "${ itemName }" not present in map`));
     }
   }
 

@@ -19,7 +19,9 @@ module.exports = class MoveCommand extends Command {
     const destination = MapHelper.getMapWithName(destinationName, currentMap, this.game.schema);
 
     if (!destination) {
-      return this.say(`You can't get to ${ destinationName } from here`);
+      this.say(`You can't get to ${ destinationName } from here`);
+      this.game.onError(new Error(`MoveCommand: Inaccessible destination "${ destinationName }"`));
+      return;
     }
 
     const deniedText = RequirementHelper.getDeniedText(destination.requirements, this.state);
