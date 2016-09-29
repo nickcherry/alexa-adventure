@@ -16,6 +16,7 @@ const COMMAND_KEYS = [
   'help',
   'launch',
   'list_connected_maps',
+  'list_inventory',
   'move',
   'new_game',
   'no',

@@ -82,6 +82,16 @@
       ]
     },
     {
+      "id": "listInventoryIntent",
+      "command": "list_inventory",
+      "slots": {},
+      "utterances": [
+        "what do i have",
+        "what items do i have",
+        "what's in my inventory"
+      ]
+    },
+    {
       "id": "moveIntent",
       "command": "move",
       "slots": {
@@ -142,13 +152,13 @@
     {
       "id": "rubySlippers",
       "isVisible": false,
-      "name": "Ruby Slippers",
+      "name": "a pair of ruby slippers",
       "pickUpText": "You picked up the ruby slippers. They look damn fine."
     },
     {
       "id": "axe",
       "isVisible": true,
-      "name": "Axe",
+      "name": "an axe",
       "pickUpText": "You picked up the axe. It's a heavy sucker."
     }
   ],
