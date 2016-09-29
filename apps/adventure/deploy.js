@@ -77,7 +77,7 @@ log('🎪', 'Transpiling javascript with Babel');
 const babel = (args) => {
   const result = exec(`cd ${ APP_ROOT }; babel ${ args }`);
   if (result.status !== 0) {
-    error(`There was a problem transpiling the javascript! ${ result.stdout }`);
+    error(`There was a problem transpiling the javascript! ${ result.stderr }`);
   }
 }
 babel(`*.js --out-dir ${ TEMP_APP_ROOT }`);
