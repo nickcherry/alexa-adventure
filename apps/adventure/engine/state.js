@@ -63,8 +63,8 @@ module.exports = class State {
     return this.items;
   }
 
-  hasItemWithId(itemId) {
-    return !!_.find(this.items, { id: itemId });
+  getItem(item) {
+    return _.find(this.items, item);
   }
 
   /***********************************************/

@@ -6,6 +6,7 @@
 
 const Command = require('./command');
 const MapHelper = require('../helpers/map_helper');
+const RequirementHelper = require('../helpers/requirement_helper');
 
 /***********************************************/
 /* Exports */
@@ -17,13 +18,18 @@ module.exports = class MoveCommand extends Command {
     const currentMap = MapHelper.getCurrentMap(this.state, this.game.schema);
     const destination = MapHelper.getMapWithName(destinationName, currentMap, this.game.schema);
 
-    if (destination) {
-      this.say(destination.introText);
-      this.state.setMapId(destination.id, true);
-      this.setState(this.state);
-    } else {
-      this.say(`You can't get to ${ destinationName } from here`);
+    if (!destination) {
+      return this.say(`You can't get to ${ destinationName } from here`);
     }
+
+    const deniedText = RequirementHelper.getDeniedText(destination.requirements, this.state);
+    if (deniedText) {
+      return this.say(deniedText);
+    }
+
+    this.say(destination.introText);
+    this.state.setMapId(destination.id, true);
+    this.setState(this.state);
   }
 
   static getRequiredSlots() {

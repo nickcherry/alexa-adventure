@@ -186,7 +186,7 @@
       ],
       "items": [{ "id": "axe" }],
       "requirements": [{
-        "itemId": "rubySlippers",
+        "item": { "id": "rubySlippers" },
         "deniedText": "You don't have the appropriate footwear for this road."
       }],
       "searchText": "You're standing on a road made of yellow bricks. Off in the distance is a strange-looking metal man. On the ground next to him is an axe."

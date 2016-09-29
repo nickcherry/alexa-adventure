@@ -48,13 +48,15 @@ describe('MoveCommand', () => {
               id: 'ballroom',
               name: 'The Ballroom',
               connectedTo: [
-                { id: 'masterBedroom' },
-                { id: 'bathroom' },
+                { id: 'masterBedroom', name: 'The Master Bedroom' },
+                { id: 'bathroom', name: 'The Bathroom' },
                 {
                   id: 'secretRoom',
+                  name: 'A Secret Room',
                   requirements: [
                     {
-                      "itemId": "key"
+                      deniedText: 'Looks like you need a key',
+                      item: { 'id': 'key' }
                     }
                   ]
                 }
@@ -78,7 +80,7 @@ describe('MoveCommand', () => {
       });
     };
 
-    const buildCommand = (destination, res, stateManager) => {
+    const buildCommand = (destination, res, stateManager, items) => {
       return CommandFactory.default({
         commandClass: MoveCommand,
         game: buildGame(stateManager),
@@ -87,6 +89,7 @@ describe('MoveCommand', () => {
         }),
         res: res,
         state: StateFactory.default({
+          items: items || [],
           mapId: 'ballroom',
           mapHistory: ['tutorial']
         })
@@ -94,7 +97,7 @@ describe('MoveCommand', () => {
     };
 
     context('when the destination is connected to the current map', () => {
-      context('and requirements are satisfied', () => {
+      context('and there are no requirements', () => {
         it('should move the player to the destination and update the history', () => {
           let promise;
           const res = { say: spy() };
@@ -117,14 +120,39 @@ describe('MoveCommand', () => {
           });
         });
       });
+
+      context('and requirements are satisfied', () => {
+        it('should move the player to the destination and update the history', () => {
+          let promise;
+          const res = { say: spy() };
+          const stateManager = StateManagerFactory.default();
+          const setState = stub(stateManager, 'setState', () => {
+            return promise = Promise.resolve();
+          });
+          buildCommand('A Secret Room', res, stateManager, [{ id: 'key' }]).perform();
+          return promise.then(() => {
+            expect(res.say).to.have.been.calledWithMatch(
+              'You are now entering the secret room'
+            );
+            expect(setState).to.have.been.calledWith(
+              sinon.match((userId) => userId === 'TEST_USER'),
+              sinon.match((state) => {
+                return state.mapId === 'secretRoom' &&
+                  _.isEqual(state.mapHistory, ['tutorial', 'ballroom'])
+              })
+            );
+          });
+        });
+      });
+
       context('and requirements are not satsified', () => {
         it('should say the denied text and not move the player', () => {
           const res = { say: spy() };
           const stateManager = StateManagerFactory.default();
           const setState = stateManager.setState = spy();
-          buildCommand('The Closet', res, stateManager).perform();
+          buildCommand('A Secret Room', res, stateManager).perform();
           expect(res.say).to.have.been.calledWithMatch(
-            "You can't get to The Closet from here"
+            "Looks like you need a key"
           );
           expect(setState).to.have.callCount(0);
         });

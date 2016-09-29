@@ -141,12 +141,12 @@ describe('State', () => {
     });
   });
 
-  describe('#hasItemWithId', () => {
-    it('should return true/false depending on whether the item exists in the inventory', () => {
+  describe('#getItem', () => {
+    it('should return the item if it exists in the inventory, otherwise undefined', () => {
       const sword = ItemFactory.default({ id: 'sword', name: 'Sword' });
       const state = StateFactory.default({ items: [sword] });
-      expect(state.hasItemWithId('sword')).to.be.true;
-      expect(state.hasItemWithId('slipper')).to.be.false;
+      expect(state.getItem({ id: 'sword' })).to.deep.eq(sword);
+      expect(state.getItem({ id: 'slipper' })).to.be.undefined;
     });
   });
 

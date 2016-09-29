@@ -6,13 +6,18 @@
 
 module.exports = class RequirementHelper {
   static isSatisfied(requirement, state) {
-    return state.hasItemWithId(requirement.itemId);
+    return !!state.getItem(requirement.item);
   }
 
-  static filterUnsatisfied(requirements, state) {
+  static getUnsatisfied(requirements, state) {
     const self = this;
     return requirements.filter((requirement) => {
       return !self.isSatisfied(requirement, state);
     });
+  }
+
+  static getDeniedText(requirements, state) {
+    const unsatisfied = this.getUnsatisfied(requirements, state);
+    return unsatisfied.length ? unsatisfied[0].deniedText : undefined;
   }
 };

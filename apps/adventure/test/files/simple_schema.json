@@ -100,7 +100,9 @@
       "name": "old dusty key",
       "requirements": [
         {
-          "itemId": "flashlight",
+          "item": {
+            "id:": "flashlight"
+          },
           "deniedText": "It's so dark down here. If only you could see better."
         }
       ]
@@ -134,7 +136,7 @@
       "enterText": "Entering the corridor. It looks like there's a guard at the other end",
       "requirements": [
         {
-          "itemId": "tutorialKey",
+          "item": { "id" : "tutorialKey" },
           "deniedText": "Good grief, it seems this door is locked!"
         }
       ],
@@ -183,7 +185,9 @@
       "name": "The Grand Ballroom",
       "requirements": [
         {
-          "itemId": "balletShoes",
+          "item": {
+            "id": "balletShoes"
+          },
           "deniedText": "Ballet shoes DENITED!"
         }
       ],

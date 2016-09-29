@@ -19,12 +19,12 @@ module.exports = class RequirementValidator extends Validator {
       [
         noUnrecognizedKeys, {
           validKeys: [
-            'itemId',
+            'item',
             'deniedText'
           ]
         }
       ],
-      [recognizedModel, { type: 'item', key: 'itemId', schema: this.opts.schema }],
+      [recognizedModel, { type: 'item', key: 'id', schema: this.opts.schema }],
       requiredProps
     ];
   }

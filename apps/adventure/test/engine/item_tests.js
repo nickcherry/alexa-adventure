@@ -21,19 +21,25 @@ describe('Item', () => {
     'isVisible',
     [
       'requirements',
-      [{ itemId: 'itemA' }],
-      [new Requirement({ itemId: 'itemA' })]
+      [{ item: { id: 'itemA' } }],
+      [new Requirement({
+        item: { id: 'itemA' }
+      })]
     ]
   ]);
 
   describe('.constructor', () => {
     it('should cast requirements', () => {
       const item = new Item({
-        requirements: [{ itemId: 'itemA' }]
+        requirements: [{
+          item: { id: 'itemA' }
+        }]
       });
       expect(item.requirements[0].constructor.name).to.eq('Requirement');
       expect(item.requirements).to.deep.eq([
-        new Requirement({ itemId: 'itemA' })
+        new Requirement({
+          item: { id: 'itemA' }
+        })
       ]);
     });
   });

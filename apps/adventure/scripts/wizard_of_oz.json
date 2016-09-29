@@ -2,6 +2,7 @@
   "intents": [
     { "id": "newGameIntent" },
     { "id": "searchIntent" },
+    { "id": "moveIntent", "slots": { "destination": "The Yellow Brick Road" }},
     { "id": "talkIntent", "slots": { "character": "Glinda" } },
     { "id": "listConnectedMapsIntent" },
     { "id": "moveIntent", "slots": { "destination": "The Yellow Brick Road" }},

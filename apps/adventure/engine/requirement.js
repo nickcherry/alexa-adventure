@@ -14,7 +14,7 @@ module.exports = class Requirement extends ConfigurableModel {
   get requiredProps() {
     return [
       ['deniedText', 'String'],
-      ['itemId', 'String']
+      ['item', 'Object']
     ];
   }
 };
