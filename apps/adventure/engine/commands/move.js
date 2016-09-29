@@ -20,7 +20,7 @@ module.exports = class MoveCommand extends Command {
 
     if (!destination) {
       this.say(`You can't get to ${ destinationName } from here`);
-      this.game.onError(new Error(`MoveCommand: Inaccessible destination "${ destinationName }"`));
+      this.game.onError(new Error(`MoveCommand: Inaccessible destination "${ destinationName }"`), { severity: 'info' });
       return;
     }
 
