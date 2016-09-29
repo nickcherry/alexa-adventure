@@ -59,6 +59,10 @@ describe('MoveCommand', () => {
                       item: { 'id': 'key' }
                     }
                   ]
+                },
+                {
+                  id: 'anotherSecretRoom',
+                  preIntroText: 'This is the first that'
                 }
               ]
             }),
@@ -73,6 +77,11 @@ describe('MoveCommand', () => {
               id: 'secretRoom',
               name: 'A Secret Room',
               introText: 'You are now entering the secret room.'
+            }),
+            MapFactory.default({
+              id: 'anotherSecretRoom',
+              name: 'Another Secret Room',
+              introText: "you're entering Another Secret Room"
             })
           ]
         }),
@@ -157,18 +166,30 @@ describe('MoveCommand', () => {
           expect(setState).to.have.callCount(0);
         });
       });
-    });
 
-    context('when the destination is not connected to the current map', () => {
-      it('should inform the player that the destination is inaccessible and not change state', () => {
-        const res = { say: spy() };
-        const stateManager = StateManagerFactory.default();
-        const setState = stateManager.setState = spy();
-        buildCommand('The Closet', res, stateManager).perform();
-        expect(res.say).to.have.been.calledWithMatch(
-          "You can't get to The Closet from here"
-        );
-        expect(setState).to.have.callCount(0);
+      context('when the destination is not connected to the current map', () => {
+        it.only('should inform the player that the destination is inaccessible and not change state', () => {
+          let promise;
+          const res = { say: spy() };
+          const stateManager = StateManagerFactory.default();
+          const setState = stub(stateManager, 'setState', () => {
+            return promise = Promise.resolve();
+          });
+          buildCommand('Another Secret Room', res, stateManager).perform();
+          expect(res.say).to.have.been.calledWithMatch(
+            "This is the first that you're entering Another Secret Room"
+          );
+          expect(setState).to.have.callCount(1);
+        });
+      });
+
+      context('and the destination has exit text', () => {
+        it('should say the exit text before the next room\'s intro text', () => {
+          const res = { say: spy() };
+          const stateManager = StateManagerFactory.default();
+          const setState = stateManager.setState = spy();
+          buildCommand('A')
+        });
       });
     });
   });

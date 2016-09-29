@@ -28,6 +28,7 @@ module.exports = class MapValidator extends Validator {
             'introText',
             'items',
             'name',
+            'preIntroText',
             'requirements',
             'searchText'
           ]

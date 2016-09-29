@@ -168,7 +168,10 @@
       "name": "Munchkin Land",
       "introText": "<audio src=\"{{ ASSETS_ROOT_URL }}/munchkinland.mp3\" />",
       "connectedTo": [
-        { "id": "yellowBrickRoad" }
+        {
+          "id": "yellowBrickRoad",
+          "preIntroText": "Farewell, Munchkinland."
+        }
       ],
       "characters": [
         {

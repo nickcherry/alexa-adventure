@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const Command = require('./command');
 const MapHelper = require('../helpers/map_helper');
 const RequirementHelper = require('../helpers/requirement_helper');
@@ -29,7 +30,9 @@ module.exports = class MoveCommand extends Command {
       return this.say(deniedText);
     }
 
-    this.say(destination.introText);
+    const text = _.compact([destination.preIntroText, destination.introText]).join(' ');
+
+    this.say(text);
     this.state.setMapId(destination.id, true);
     this.setState(this.state);
   }
