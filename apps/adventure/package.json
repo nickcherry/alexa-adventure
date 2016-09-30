@@ -10,6 +10,7 @@
     "aws-sdk": "^2.6.1",
     "bugsnag": "^1.8.0",
     "colors": "^1.1.2",
+    "fast-levenshtein": "^2.0.5",
     "lodash": "^4.3.0",
     "micromustache": "^4.1.1"
   },
