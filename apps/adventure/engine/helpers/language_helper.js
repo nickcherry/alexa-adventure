@@ -4,6 +4,7 @@
 /* Imports */
 /***********************************************/
 
+const _ = require('lodash');
 const levenshtein = require('fast-levenshtein');
 const string = require('string');
 
@@ -24,11 +25,12 @@ module.exports = class LanguageHelper {
     }
   }
 
-  static areEqualish(str1, str2, threshold = 3) {
-    if (undefined === str1 || undefined === str2) return false;
-    const norm1 = LanguageHelper.normalize(str1);
-    const norm2 = LanguageHelper.normalize(str2);
-    return norm1 === norm2 || levenshtein.get(norm1, norm2) <= threshold;
+  static areEqualish(str, others, threshold = 3) {
+    if (!str || !others) return false;
+    const normStr = LanguageHelper.normalize(str);
+    return !!_.castArray(others).find((other) => {
+      return levenshtein.get(normStr, LanguageHelper.normalize(other)) <= threshold;
+    });
   }
 
   static normalize(str) {

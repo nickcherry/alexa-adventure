@@ -38,14 +38,29 @@ describe('LanguageHelper', () => {
       expect(LanguageHelper.areEqualish(undefined, 'banana')).to.be.false;
       expect(LanguageHelper.areEqualish('apple', undefined)).to.be.false;
     });
-    it('should return true when the strings are equal (case-insensitive)', () => {
-      expect(LanguageHelper.areEqualish('Chuck Norris', 'CHUCK NORRIS')).to.be.true
+    context('when others is a string', () => {
+      it('should return true when both strings are equal (case-insensitive)', () => {
+        expect(LanguageHelper.areEqualish('Chuck Norris', 'CHUCK NORRIS')).to.be.true
+      });
+      it('should return true when the levenshtein distance is less than or equal to the threshold (case-insensitive)', () => {
+        expect(LanguageHelper.areEqualish('Chicken', 'CHIKHEN', 2)).to.be.true;
+        expect(LanguageHelper.areEqualish('Chicken', 'CHIKHAN',3)).to.be.true;
+      });
+      it('should return false when the levenshtein distance is greater than the threshold (case-insensitive', () => {
+        expect(LanguageHelper.areEqualish('Chicken', 'CHIKHAN', 2)).to.be.false;
+      });
     });
-    it('should return true when the levenshtein distance is less than or equal to the threshold (case-insensitive)', () => {
-      expect(LanguageHelper.areEqualish('Chicken', 'CHIKHEN', 2)).to.be.true;
-    });
-    it('should return false when the levenshtein distance is greater than the threshold (case-insensitive', () => {
-      expect(LanguageHelper.areEqualish('Chicken', 'CHIKHAN', 2)).to.be.false;
+    context('when others is an array', () => {
+      it('should return true when the string is equal to any member of the array (case-insensitive)', () => {
+        expect(LanguageHelper.areEqualish('Chuck Norris', ['Harry Potter', 'Chuck Norris', 'Ahnold'])).to.be.true
+      });
+      it('should return true when the levenshtein distance between the string and any of the array members is less than or equal to the threshold (case-insensitive)', () => {
+        expect(LanguageHelper.areEqualish('Chicken', ['cow', 'CHIKHEN'], 2)).to.be.true;
+        expect(LanguageHelper.areEqualish('Chicken', ['CHIKHAN', 'bear', 'pig'], 3)).to.be.true;
+      });
+      it('should return false when the levenshtein distance between the string and all of the array members is greater than the threshold (case-insensitive', () => {
+        expect(LanguageHelper.areEqualish('Chicken', ['CHIKHAN', 'bear', 'pig'], 2)).to.be.false;
+      });
     });
   });
 
