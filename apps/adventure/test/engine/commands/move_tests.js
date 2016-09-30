@@ -41,47 +41,56 @@ describe('MoveCommand', () => {
       return GameFactory.default({
         schema: SchemaFactory.default({
           items: [
-            ItemFactory.default({ id: 'key', name: 'The Key' })
+            ItemFactory.default({ id: 'key', name: 'the key' })
           ],
           maps: [
             MapFactory.default({
-              id: 'ballroom',
-              name: 'The Ballroom',
+              id: 'startingRoom',
+              name: 'the starting room',
               connectedTo: [
-                { id: 'masterBedroom', name: 'The Master Bedroom' },
-                { id: 'bathroom', name: 'The Bathroom' },
+                { id: 'nearbyRoom' },
+                { id: 'forbiddenRoom' },
+                { id: 'normallyForbiddenRoom', requirements: [] },
                 {
-                  id: 'secretRoom',
-                  name: 'A Secret Room',
+                  id: 'lockedRoom',
                   requirements: [
                     {
-                      deniedText: 'Looks like you need a key',
-                      item: { 'id': 'key' }
+                      deniedText: 'looks like you need a key',
+                      item: { 'id': 'key' },
+                      preIntroText: 'this is the first that'
                     }
                   ]
-                },
-                {
-                  id: 'anotherSecretRoom',
-                  preIntroText: 'This is the first that'
                 }
               ]
             }),
-            MapFactory.default({ id: 'masterBedroom', name: 'The Master Bedroom' }),
-            MapFactory.default({ id: 'closet', name: 'The Closet' }),
             MapFactory.default({
-              id: 'bathroom',
-              name: 'The Bathroom',
-              introText: 'You are now entering The Bathroom'
+              id: 'nearbyRoom',
+              name: 'the nearby room',
+              introText: 'you are now entering the nearby room'
             }),
             MapFactory.default({
-              id: 'secretRoom',
-              name: 'A Secret Room',
-              introText: 'You are now entering the secret room.'
+              id: 'lockedRoom',
+              name: 'the locked room',
+              introText: 'you are now entering the locked room'
             }),
             MapFactory.default({
-              id: 'anotherSecretRoom',
-              name: 'Another Secret Room',
-              introText: "you're entering Another Secret Room"
+              id: 'farAwayRoom',
+              name: 'the far away room'
+            }),
+            MapFactory.default({
+              id: 'forbiddenRoom',
+              name: 'the forbidden room',
+              requirements: [
+                { item: { id: 'fakeItem' }, deniedText: 'this is forbidden' }
+              ]
+            }),
+            MapFactory.default({
+              id: 'normallyForbiddenRoom',
+              name: 'the normally forbidden room',
+              introText: 'you are now entering the normally forbidden room',
+              requirements: [
+                { item: { id: 'fakeItem' }, deniedText: 'THIS IS NORMALLY FORBIDDEN' }
+              ]
             })
           ]
         }),
@@ -99,7 +108,7 @@ describe('MoveCommand', () => {
         res: res,
         state: StateFactory.default({
           items: items || [],
-          mapId: 'ballroom',
+          mapId: 'startingRoom',
           mapHistory: ['tutorial']
         })
       });
@@ -114,16 +123,16 @@ describe('MoveCommand', () => {
           const setState = stub(stateManager, 'setState', () => {
             return promise = Promise.resolve();
           });
-          buildCommand('The Bathroom', res, stateManager).perform();
+          buildCommand('the nearby room', res, stateManager).perform();
           return promise.then(() => {
             expect(res.say).to.have.been.calledWithMatch(
-              'You are now entering The Bathroom'
+              'you are now entering the nearby room'
             );
             expect(setState).to.have.been.calledWith(
               sinon.match((userId) => userId === 'TEST_USER'),
               sinon.match((state) => {
-                return state.mapId === 'bathroom' &&
-                  _.isEqual(state.mapHistory, ['tutorial', 'ballroom'])
+                return state.mapId === 'nearbyRoom' &&
+                  _.isEqual(state.mapHistory, ['tutorial', 'startingRoom'])
               })
             );
           });
@@ -138,16 +147,40 @@ describe('MoveCommand', () => {
           const setState = stub(stateManager, 'setState', () => {
             return promise = Promise.resolve();
           });
-          buildCommand('A Secret Room', res, stateManager, [{ id: 'key' }]).perform();
+          buildCommand('the locked room', res, stateManager, [{ id: 'key' }]).perform();
           return promise.then(() => {
             expect(res.say).to.have.been.calledWithMatch(
-              'You are now entering the secret room'
+              'you are now entering the locked room'
             );
             expect(setState).to.have.been.calledWith(
               sinon.match((userId) => userId === 'TEST_USER'),
               sinon.match((state) => {
-                return state.mapId === 'secretRoom' &&
-                  _.isEqual(state.mapHistory, ['tutorial', 'ballroom'])
+                return state.mapId === 'lockedRoom' &&
+                  _.isEqual(state.mapHistory, ['tutorial', 'startingRoom'])
+              })
+            );
+          });
+        });
+      });
+
+      context('and base requirements are not satisfied, but override requirements are', () => {
+        it('should move the player to the destination and update the history', () => {
+          let promise;
+          const res = { say: spy() };
+          const stateManager = StateManagerFactory.default();
+          const setState = stub(stateManager, 'setState', () => {
+            return promise = Promise.resolve();
+          });
+          buildCommand('the normally forbidden room', res, stateManager).perform();
+          return promise.then(() => {
+            expect(res.say).to.have.been.calledWithMatch(
+              'you are now entering the normally forbidden room'
+            );
+            expect(setState).to.have.been.calledWith(
+              sinon.match((userId) => userId === 'TEST_USER'),
+              sinon.match((state) => {
+                return state.mapId === 'normallyForbiddenRoom' &&
+                  _.isEqual(state.mapHistory, ['tutorial', 'startingRoom'])
               })
             );
           });
@@ -155,41 +188,47 @@ describe('MoveCommand', () => {
       });
 
       context('and requirements are not satsified', () => {
-        it('should say the denied text and not move the player', () => {
-          const res = { say: spy() };
-          const stateManager = StateManagerFactory.default();
-          const setState = stateManager.setState = spy();
-          buildCommand('A Secret Room', res, stateManager).perform();
-          expect(res.say).to.have.been.calledWithMatch(
-            "Looks like you need a key"
-          );
-          expect(setState).to.have.callCount(0);
-        });
-      });
-
-      context('when the destination is not connected to the current map', () => {
-        it.only('should inform the player that the destination is inaccessible and not change state', () => {
-          let promise;
-          const res = { say: spy() };
-          const stateManager = StateManagerFactory.default();
-          const setState = stub(stateManager, 'setState', () => {
-            return promise = Promise.resolve();
+        context('on the connectedTo map', () => {
+          it('should say the connected to map requirement\'s denied text and not move the player', () => {
+            const res = { say: spy() };
+            const stateManager = StateManagerFactory.default();
+            const setState = stateManager.setState = spy();
+            buildCommand('the locked room', res, stateManager).perform();
+            expect(res.say).to.have.been.calledWithMatch(
+              "looks like you need a key"
+            );
+            expect(setState).to.have.callCount(0);
           });
-          buildCommand('Another Secret Room', res, stateManager).perform();
-          expect(res.say).to.have.been.calledWithMatch(
-            "This is the first that you're entering Another Secret Room"
-          );
-          expect(setState).to.have.callCount(1);
+        });
+
+        context('on the base map', () => {
+          it('should say the base map requirement\'s denied text and not move the player', () => {
+            const res = { say: spy() };
+            const stateManager = StateManagerFactory.default();
+            const setState = stateManager.setState = spy();
+            buildCommand('the forbidden room', res, stateManager).perform();
+            expect(res.say).to.have.been.calledWithMatch(
+              "this is forbidden"
+            );
+            expect(setState).to.have.callCount(0);
+          });
         });
       });
+    });
 
-      context('and the destination has exit text', () => {
-        it('should say the exit text before the next room\'s intro text', () => {
-          const res = { say: spy() };
-          const stateManager = StateManagerFactory.default();
-          const setState = stateManager.setState = spy();
-          buildCommand('A')
+    context('when the destination is not connected to the current map', () => {
+      it('should inform the player that the destination is inaccessible and not move the player', () => {
+        let promise;
+        const res = { say: spy() };
+        const stateManager = StateManagerFactory.default();
+        const setState = stub(stateManager, 'setState', () => {
+          return promise = Promise.resolve();
         });
+        buildCommand('the far away room', res, stateManager).perform();
+        expect(res.say).to.have.been.calledWithMatch(
+          "You can't get to the far away room from here"
+        );
+        expect(setState).to.have.callCount(0);
       });
     });
   });

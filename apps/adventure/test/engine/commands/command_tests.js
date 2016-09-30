@@ -34,19 +34,35 @@ describe('Command', () => {
     context('when the slot exists', () => {
       it('should return the slot value', () => {
         const req = RequestFactory.default();
-        stub(req, 'slot', () => 'eureka');
+        stub(req, 'slot', (slot) => {
+          if (slot === 'yep') return 'eureka'
+        });
         const command = CommandFactory.default({ req });
         expect(command.getSlot('yep')).to.eq('eureka');
+      });
+    });
+    context('when the slot does not exist', () => {
+      it('should return undefined', () => {
+        const req = RequestFactory.default();
+        stub(req, 'slot', () => undefined);
+        const command = CommandFactory.default({ req });
+        expect(command.getSlot('nope')).to.be.undefined;
       });
     });
   });
 
   describe('#getCommandArg', () => {
-    context('when the slot exists', () => {
+    context('when the command arg exists', () => {
       it('should return the command arg', () => {
         const intent = IntentFactory.default({ commandArgs: { difficulty: 4 }});
         const command = CommandFactory.default({ commandClass: Command, intent });
         expect(command.getCommandArg('difficulty')).to.eq(4);
+      });
+      context('when the command arg does not exist', () => {
+        it('should return undefined', () => {
+          const command = CommandFactory.default({ commandClass: Command });
+          expect(command.getCommandArg('difficulty')).to.be.undefined;
+        });
       });
     });
   });

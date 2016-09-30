@@ -19,6 +19,7 @@ module.exports = class GameFactory extends Factory {
     app = app || AppFactory.default();
     schema = schema || SchemaFactory.default();
     stateManager = stateManager || StateManagerFactory.default();
+    onError = onError || function() {}
     return new Game(app, schema, stateManager, onError);
   }
 }

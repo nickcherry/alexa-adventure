@@ -27,6 +27,18 @@ chai.use(sinonChai);
 
 describe('ListInventoryCommand', () => {
   describe('#perform', () => {
+    context('when the inventory is empty', () => {
+      it('should say the inventory is empty', () => {
+        const res = { say: spy() };
+        CommandFactory.default({
+          commandClass: ListInventoryCommand,
+          res: res,
+        }).perform();
+        expect(res.say).to.have.been.calledWithMatch(
+          "There's nothing in your inventory"
+        );
+      });
+    });
     context('when the inventory has no visible items', () => {
       it('should say the inventory is empty', () => {
         const res = { say: spy() };

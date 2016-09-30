@@ -31,7 +31,6 @@ module.exports = class MoveCommand extends Command {
     }
 
     const text = _.compact([destination.preIntroText, destination.introText]).join(' ');
-
     this.say(text);
     this.state.setMapId(destination.id, true);
     this.setState(this.state);
