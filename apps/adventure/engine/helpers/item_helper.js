@@ -5,6 +5,7 @@
 /***********************************************/
 
 const _ = require('lodash');
+const LanguageHelper = require('./language_helper');
 
 /***********************************************/
 /* Exports */
@@ -12,6 +13,8 @@ const _ = require('lodash');
 
 module.exports = class ItemHelper {
   static getItemWithName(name, items, schema) {
-    return _.find(schema.lookupArray('item', items), { name: name });
+    return _.find(schema.lookupArray('item', items), (item) => {
+    	return LanguageHelper.areEqualish(name, item.name);
+    });
   }
 };

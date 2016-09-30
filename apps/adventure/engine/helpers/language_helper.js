@@ -24,7 +24,7 @@ module.exports = class LanguageHelper {
   }
 
   static areEqualish(str1, str2, threshold = 3) {
-    if (!str1 || !str2) return false;
+    if (undefined === str1 || undefined === str2) return false;
     const s1 = str1.toLowerCase();
     const s2 = str2.toLowerCase();
     return s1 === s2 || levenshtein.get(s1, s2) <= threshold;

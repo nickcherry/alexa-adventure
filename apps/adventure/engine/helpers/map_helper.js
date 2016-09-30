@@ -5,6 +5,7 @@
 /***********************************************/
 
 const _ = require('lodash');
+const LanguageHelper = require('./language_helper');
 
 /***********************************************/
 /* Exports */
@@ -24,6 +25,8 @@ module.exports = class MapHelper {
   }
 
   static getMapWithName(name, currentMap, schema) {
-    return _.find(this.getConnectedMaps(currentMap, schema), { name: name });
+    return _.find(this.getConnectedMaps(currentMap, schema), (map) => {
+      return LanguageHelper.areEqualish(name, map.name);
+    });
   }
 };
