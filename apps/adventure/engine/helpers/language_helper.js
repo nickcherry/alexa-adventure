@@ -5,6 +5,7 @@
 /***********************************************/
 
 const levenshtein = require('fast-levenshtein');
+const string = require('string');
 
 /***********************************************/
 /* Exports */
@@ -25,8 +26,13 @@ module.exports = class LanguageHelper {
 
   static areEqualish(str1, str2, threshold = 3) {
     if (undefined === str1 || undefined === str2) return false;
-    const s1 = str1.toLowerCase();
-    const s2 = str2.toLowerCase();
-    return s1 === s2 || levenshtein.get(s1, s2) <= threshold;
+    const norm1 = LanguageHelper.normalize(str1);
+    const norm2 = LanguageHelper.normalize(str2);
+    return norm1 === norm2 || levenshtein.get(norm1, norm2) <= threshold;
+  }
+
+  static normalize(str) {
+    if (!str) return str;
+    return string(str.toLowerCase()).stripPunctuation().trim().collapseWhitespace().s;
   }
 };

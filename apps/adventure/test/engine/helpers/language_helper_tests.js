@@ -48,4 +48,19 @@ describe('LanguageHelper', () => {
       expect(LanguageHelper.areEqualish('Chicken', 'CHIKHAN', 2)).to.be.false;
     });
   });
+
+  describe('.normalize', () => {
+    it('should return undefined when the string is undefined', () => {
+      expect(LanguageHelper.normalize()).to.be.undefined;
+    });
+    it('should downcase the string', () => {
+      expect(LanguageHelper.normalize('Why so LOUD')).to.eq('why so loud');
+    });
+    it('should remove punctuation', () => {
+      expect(LanguageHelper.normalize("well, isn't that nice!")).to.eq('well isnt that nice');
+    });
+    it('should trim and squeeze whitespace', () => {
+      expect(LanguageHelper.normalize('   this is    just   ridic  ')).to.eq('this is just ridic');
+    });
+  });
 });

@@ -12,7 +12,8 @@
     "colors": "^1.1.2",
     "fast-levenshtein": "^2.0.5",
     "lodash": "^4.3.0",
-    "micromustache": "^4.1.1"
+    "micromustache": "^4.1.1",
+    "string": "^3.3.1"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
