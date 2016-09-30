@@ -16,6 +16,7 @@ const Requirement = require('../../engine/requirement');
 
 describe('Item', () => {
   require('./shared_behaviors').constructorAssignsProps(Item, [
+    'aliases',
     'id',
     'name',
     'isVisible',

@@ -18,6 +18,7 @@ module.exports = class CharacterValidator extends Validator {
       [
         noUnrecognizedKeys, {
           validKeys: [
+            'aliases',
             'id',
             'name'
           ]

@@ -28,17 +28,29 @@ describe('ItemHelper', () => {
       expect(ItemHelper.getItemWithName('Sword', [], schema)).to.be.undefined;
     });
 
-    it('should return the correct item when it matches', () => {
+    it('should return the correct item when the name matches', () => {
       const flashlight = ItemFactory.default({ id: 'flashlight', name: 'Flashlight' });
       const ductTape = ItemFactory.default({ id: 'ductTape', name: 'Duct Tape' });
       const hammer = ItemFactory.default({ id: 'hammer', name: 'Hammer' });
-      const schema = SchemaFactory.default({ items: [ductTape, flashlight, hammer ] });
+      const schema = SchemaFactory.default({ items: [ductTape, flashlight, hammer] });
       expect(ItemHelper.getItemWithName(
         'Duct Tape', [
           { id: flashlight.id },
           { id: ductTape.id },
           { id: hammer.id }
         ], schema
+      )).to.deep.eq(ductTape);
+    });
+
+    it('should return the correct item when any of the alt names match', () => {
+      const flashlight = ItemFactory.default({ id: 'flashlight', name: 'Flashlight' });
+      const ductTape = ItemFactory.default({
+        id: 'ductTape', name: 'Duct Tape', aliases: ['The Greatest Stuff on Earth']
+      });
+      const hammer = ItemFactory.default({ id: 'hammer', name: 'Hammer' });
+      const schema = SchemaFactory.default({ items: [ductTape, flashlight, hammer] });
+      expect(ItemHelper.getItemWithName(
+        'the greatest stuff   on earths', [flashlight, ductTape, hammer], schema
       )).to.deep.eq(ductTape);
     });
 

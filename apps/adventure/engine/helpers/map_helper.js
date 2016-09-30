@@ -26,7 +26,7 @@ module.exports = class MapHelper {
 
   static getMapWithName(name, currentMap, schema) {
     return _.find(this.getConnectedMaps(currentMap, schema), (map) => {
-      const names = _.compact([map.name].concat(map.altNames || []));
+      const names = _.compact([map.name].concat(map.aliases || []));
       return LanguageHelper.areEqualish(name, names);
     });
   }

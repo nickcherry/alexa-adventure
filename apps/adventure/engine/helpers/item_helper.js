@@ -14,7 +14,7 @@ const LanguageHelper = require('./language_helper');
 module.exports = class ItemHelper {
   static getItemWithName(name, items, schema) {
     return _.find(schema.lookupArray('item', items), (item) => {
-    	const names = _.compact([item.name].concat(item.altNames));
+    	const names = _.compact([item.name].concat(item.aliases));
     	return LanguageHelper.areEqualish(name, names);
     });
   }

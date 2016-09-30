@@ -19,6 +19,7 @@ const shared = require('./shared_behaviors');
 
 describe('Map', () => {
   shared.constructorAssignsProps(Map, [
+    'aliases',
     'characters',
     'connectedTo',
     'id',

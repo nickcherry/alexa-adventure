@@ -67,6 +67,7 @@ describe('MapHelper', () => {
       const schema = SchemaFactory.default({ maps: [ ballroom, masterBedroom ] });
       expect(MapHelper.getMapWithName('A Dark Corridor', map, schema)).to.be.undefined;
     });
+
     it('should return the correct map when the name matches a connected map', () => {
       const map = MapFactory.default({
         connectedTo: [
@@ -79,6 +80,22 @@ describe('MapHelper', () => {
       const masterBedroom = MapFactory.default({ id: 'masterBedroom', name: 'Master Bedroom' });
       const schema = SchemaFactory.default({ maps: [ ballroom, masterBedroom ] });
       expect(MapHelper.getMapWithName('Master Bedroom', map, schema)).to.deep.eq(masterBedroom);
+    });
+
+    it('should return the correct map when any of the connected map\'s alt names match', () => {
+      const map = MapFactory.default({
+        connectedTo: [
+          { id: 'ballroom' },
+          { id: 'masterBedroom' }
+        ]
+      });
+      const ballroom = MapFactory.default({ id: 'ballroom', name: 'The Ballroom' });
+      const corridor = MapFactory.default({ id: 'corridor', name: 'A Dark Corridor' });
+      const masterBedroom = MapFactory.default({
+        id: 'masterBedroom', name: 'Master Bedroom', aliases: ['joey\'s   room']
+      });
+      const schema = SchemaFactory.default({ maps: [ ballroom, masterBedroom ] });
+      expect(MapHelper.getMapWithName('Joes Room', map, schema)).to.deep.eq(masterBedroom);
     });
 
     it('should merge arguments map attributes into schema map', () => {

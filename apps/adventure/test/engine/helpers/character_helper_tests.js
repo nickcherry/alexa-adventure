@@ -28,11 +28,21 @@ describe('CharacterHelper', () => {
       expect(CharacterHelper.getCharacterWithName('Hodor', [], schema)).to.be.undefined;
     });
 
-    it('should return the correct character when it matches', () => {
+    it('should return the correct character when the name matches', () => {
       const glinda = CharacterFactory.default({ id: 'glinda', name: 'Glinda' });
       const schema = SchemaFactory.default({ characters: [ glinda ] });
       expect(CharacterHelper.getCharacterWithName(
-        'Glinda', [{ id: 'tinMan' }, { id: 'glinda' }], schema
+        'glinda', [{ id: 'tinMan' }, { id: 'glinda' }], schema
+      )).to.deep.eq(glinda);
+    });
+
+    it('should return the correct character when any of the alt names match', () => {
+      const glinda = CharacterFactory.default({
+        id: 'glinda', name: 'Glinda', aliases: ['G-Unit', 'Glinny the Witch']
+      });
+      const schema = SchemaFactory.default({ characters: [ glinda ] });
+      expect(CharacterHelper.getCharacterWithName(
+        'g unit', [{ id: 'tinMan' }, glinda], schema
       )).to.deep.eq(glinda);
     });
 

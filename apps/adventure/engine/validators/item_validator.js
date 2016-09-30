@@ -20,6 +20,7 @@ module.exports = class ItemValidator extends Validator {
       [
         noUnrecognizedKeys, {
           validKeys: [
+            'aliases',
             'id',
             'isVisible',
             'name',

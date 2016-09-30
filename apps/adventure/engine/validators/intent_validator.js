@@ -22,9 +22,9 @@ module.exports = class IntentValidator extends Validator {
       [
         noUnrecognizedKeys, {
           validKeys: [
-            'id',
             'command',
             'commandArgs',
+            'id',
             'slots',
             'utterances'
           ]

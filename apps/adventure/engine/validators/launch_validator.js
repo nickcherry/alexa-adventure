@@ -18,9 +18,9 @@ module.exports = class LaunchValidator extends Validator {
       [
         noUnrecognizedKeys, {
           validKeys: [
-            'id',
             'command',
-            'commandArgs'
+            'commandArgs',
+            'id'
           ]
         }
       ],

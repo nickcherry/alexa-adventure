@@ -15,6 +15,7 @@ const Character = require('../../engine/character');
 
 describe('Character', () => {
   require('./shared_behaviors').constructorAssignsProps(Character, [
+  	'aliases',
     'id',
     'name'
   ]);

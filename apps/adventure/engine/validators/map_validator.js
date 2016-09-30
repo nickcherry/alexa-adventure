@@ -22,6 +22,7 @@ module.exports = class MapValidator extends Validator {
       [
         noUnrecognizedKeys, {
           validKeys: [
+            'aliases',
             'characters',
             'connectedTo',
             'id',
