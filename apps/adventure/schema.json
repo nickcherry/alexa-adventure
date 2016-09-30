@@ -153,12 +153,14 @@
       "id": "rubySlippers",
       "isVisible": false,
       "name": "a pair of ruby slippers",
+      "aliases": ["slippers", "ruby slippers", "red slippers"],
       "pickUpText": "You picked up the ruby slippers. They look damn fine."
     },
     {
       "id": "axe",
       "isVisible": true,
       "name": "an axe",
+      "aliases": ["axe", "the axe"],
       "pickUpText": "You picked up the axe. It's a heavy sucker."
     }
   ],
