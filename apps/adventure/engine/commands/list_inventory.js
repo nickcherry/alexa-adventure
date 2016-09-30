@@ -6,7 +6,6 @@
 
 const _ = require('lodash');
 const Command = require('./command');
-const ItemHelper = require('../helpers/item_helper');
 const oxfordComma = require('../helpers/language_helper').oxfordComma;
 
 /***********************************************/
@@ -19,7 +18,7 @@ module.exports = class ListInventoryCommand extends Command {
     if (visibleItems.length) {
       this.say(`You have ${ oxfordComma(_.map(visibleItems, 'name')) }`);
     } else {
-      this.say("There's nothing in your inventory");
+      this.say(`There's nothing in your inventory`);
     }
   }
 
