@@ -44,8 +44,9 @@ describe('PickUpCommand', () => {
       pickUpText: 'You picked up The Royal Plunger. This will go great with your throne.'
      });
 
-    const buildGame = (stateManager) => {
+    const buildGame = (stateManager, onError) => {
       return GameFactory.default({
+        onError: onError,
         schema: SchemaFactory.default({
           items: [sword, boomerang, plunger],
           maps: [
@@ -63,10 +64,10 @@ describe('PickUpCommand', () => {
       });
     };
 
-    const buildCommand = (item, res, stateManager) => {
+    const buildCommand = (item, res, stateManager, onError) => {
       return CommandFactory.default({
         commandClass: PickUpCommand,
-        game: buildGame(stateManager),
+        game: buildGame(stateManager, onError),
         req: RequestFactory.default({
           slot: (slot) => slot === 'item' ? item : undefined
         }),
@@ -81,13 +82,17 @@ describe('PickUpCommand', () => {
     context('when the item is not in the current map', () => {
       it('should not add it to the inventory', () => {
         const res = { say: spy() };
+        const onError = spy();
         const stateManager = StateManagerFactory.default();
         const setState = stateManager.setState = spy();
-        buildCommand('The Longsword', res, stateManager).perform();
+        buildCommand('The Longsword', res, stateManager, onError).perform();
         expect(res.say).to.have.been.calledWithMatch(
-          "The Longsword isn't here"
+          "The Longsword was not found"
         );
         expect(setState).to.have.callCount(0);
+        expect(onError).to.have.been.calledWithMatch(
+          new Error('item not found: The Longsword')
+        );
       });
     });
 

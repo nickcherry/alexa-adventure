@@ -26,7 +26,7 @@ module.exports = class TalkCommand extends Command {
       }
     } else {
       this.say(`${ characterName } isn't here`);
-      this.game.onError(new Error(`TalkCommand: Character "${ characterName }" not found`), { severity: 'info' });
+      this.warn(new Error(`character not found: ${ characterName }`));
     }
   }
 

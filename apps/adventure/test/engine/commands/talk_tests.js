@@ -40,7 +40,7 @@ describe('TalkCommand', () => {
     const toto = ItemFactory.default({ id: 'toto', name: 'Toto' });
     const rubySlippers = ItemFactory.default({ id: 'rubySlippers', name: 'Ruby Slippers' });
 
-    const buildGame = (stateManager) => {
+    const buildGame = (stateManager, onError) => {
       return GameFactory.default({
         schema: SchemaFactory.default({
           characters: [
@@ -72,14 +72,15 @@ describe('TalkCommand', () => {
             })
           ]
         }),
+        onError: onError,
         stateManager: stateManager
       });
     };
 
-    const buildCommand = (character, res, stateManager) => {
+    const buildCommand = (character, res, stateManager, onError) => {
       return CommandFactory.default({
         commandClass: TalkCommand,
-        game: buildGame(stateManager),
+        game: buildGame(stateManager, onError),
         req: RequestFactory.default({
           slot: (slot) => slot === 'character' ? character : undefined
         }),
@@ -94,10 +95,14 @@ describe('TalkCommand', () => {
     context('to a character not in the current map', () => {
       it('should say that the character is not present', () => {
         const res = { say: spy() };
-        buildCommand('Hodor', res).perform();
+        const onError = spy();
+        buildCommand('Hodor', res, undefined, onError).perform();
         expect(res.say).to.have.been.calledWithMatch(
           "Hodor isn't here"
         );
+        expect(onError).to.have.been.calledWithMatch(new Error(
+          'character not found: Hodor'
+        ));
       });
     });
 

@@ -37,7 +37,7 @@ chai.use(sinonChai);
 describe('MoveCommand', () => {
   describe('#perform', (destination) => {
 
-    const buildGame = (stateManager) => {
+    const buildGame = (stateManager, onError) => {
       return GameFactory.default({
         schema: SchemaFactory.default({
           items: [
@@ -94,14 +94,15 @@ describe('MoveCommand', () => {
             })
           ]
         }),
+        onError: onError,
         stateManager: stateManager
       });
     };
 
-    const buildCommand = (destination, res, stateManager, items) => {
+    const buildCommand = (destination, res, stateManager, items, onError) => {
       return CommandFactory.default({
         commandClass: MoveCommand,
-        game: buildGame(stateManager),
+        game: buildGame(stateManager, onError),
         req: RequestFactory.default({
           slot: (slot) => slot === 'destination' ? destination : undefined
         }),
@@ -220,15 +221,19 @@ describe('MoveCommand', () => {
       it('should inform the player that the destination is inaccessible and not move the player', () => {
         let promise;
         const res = { say: spy() };
+        const onError = spy();
         const stateManager = StateManagerFactory.default();
         const setState = stub(stateManager, 'setState', () => {
           return promise = Promise.resolve();
         });
-        buildCommand('the far away room', res, stateManager).perform();
+        buildCommand('the far away room', res, stateManager, undefined, onError).perform();
         expect(res.say).to.have.been.calledWithMatch(
           "You can't get to the far away room from here"
         );
         expect(setState).to.have.callCount(0);
+        expect(onError).to.have.been.calledWithMatch(
+          new Error('inaccessible destination: the far away room')
+        )
       });
     });
   });

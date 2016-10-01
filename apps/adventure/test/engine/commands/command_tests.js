@@ -127,4 +127,22 @@ describe('Command', () => {
       });
     });
   });
+
+  describe('#warn', () => {
+    it('should call onError with context and warning severity', () => {
+      const game = GameFactory.default();
+      const onError = stub(game, 'onError');
+      const command = CommandFactory.default({ game });
+      const err = new Error('boop!');
+      command.warn(err);
+      expect(onError).to.have.been.calledWithMatch(err, {
+        game: command.game,
+        intent: command.intent,
+        req: command.req,
+        res: command.res,
+        severity: 'warning',
+        state: command.state
+      });
+    });
+  });
 });

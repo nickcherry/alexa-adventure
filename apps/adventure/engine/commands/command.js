@@ -40,6 +40,17 @@ module.exports = class Command {
     ).catch(this.game.onError);
   }
 
+  warn(err, meta = {}) {
+    this.game.onError(err, Object.assign({
+      game: this.game,
+      intent: this.intent,
+      req: this.req,
+      res: this.res,
+      severity: 'warning',
+      state: this.state
+    }, meta));
+  }
+
   static getRequiredSlots() {
     throw new Error(`${ this.constructor.name } must implement a \`static getRequiredSlots\` method.`);
   }
