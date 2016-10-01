@@ -41,7 +41,6 @@ module.exports = class CommandFactory extends Factory {
 
     game = game || GameFactory.default({ app, schema, stateManager });
     intent = intent || _.values(schema.intents)[0];
-
     return new (commandClass || getCommandClass(intent))(req, res, intent, state, game);
   }
 }

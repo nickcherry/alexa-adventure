@@ -27,7 +27,7 @@ module.exports = class LanguageHelper {
 
   static areEqualish(str, others, threshold = 3) {
     if (!str || !others) return false;
-    const normStr = LanguageHelper.normalize(str);
+    const normStr = this.normalize(str);
     return !!_.castArray(others).find((other) => {
       return levenshtein.get(normStr, LanguageHelper.normalize(other)) <= threshold;
     });

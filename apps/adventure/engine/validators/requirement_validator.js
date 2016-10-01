@@ -19,6 +19,7 @@ module.exports = class RequirementValidator extends Validator {
       [
         noUnrecognizedKeys, {
           validKeys: [
+            'commandArgs',
             'item',
             'deniedText'
           ]

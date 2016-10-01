@@ -13,6 +13,9 @@
     { "id": "listInventoryIntent" },
     { "id": "talkIntent", "slots": { "character": "Hodor" } },
     { "id": "pickUpIntent", "slots": { "item": "the dragon egg" } },
-    { "id": "listConnectedMapsIntent" }
+    { "id": "listConnectedMapsIntent" },
+    { "id": "moveIntent", "slots": { "destination": "The Haunted Forest" }},
+    { "id": "moveIntent", "slots": { "destination": "The Terrible Tree" }},
+    { "id": "climbIntent", "slots": { "destination": "The Terrible Tree" }}
   ]
 }

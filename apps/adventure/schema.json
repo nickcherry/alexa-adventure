@@ -98,7 +98,23 @@
         "destination": "AVAILABLE_MAPS"
       },
       "utterances": [
-        "move to {-|AVAILABLE_MAPS}"
+        "move to {-|AVAILABLE_MAPS}",
+        "go to {-|AVAILABLE_MAPS}",
+        "walk to {-|AVAILABLE_MAPS}"
+      ]
+    },
+    {
+      "id": "climbIntent",
+      "command": "move",
+      "commandArgs": {
+        "isClimbing": true
+      },
+      "slots": {
+        "destination": "AVAILABLE_MAPS"
+      },
+      "utterances": [
+        "climb to {-AVAILABLE_MAPS}",
+        "climb up {-AVAILABLE_MAPS}"
       ]
     },
     {
@@ -167,7 +183,8 @@
   "maps": [
     {
       "id": "munchkinland",
-      "name": "Munchkin Land",
+      "name": "munchkin land",
+      "aliases": ["munchkinland"],
       "introText": "<audio src=\"{{ ASSETS_ROOT_URL }}/munchkinland.mp3\" />",
       "connectedTo": [
         {
@@ -188,7 +205,8 @@
     },
     {
       "id": "yellowBrickRoad",
-      "name": "The Yellow Brick Road",
+      "name": "the yellow brick road",
+      "aliases": ["yellow brick road"],
       "introText": "<audio src=\"{{ ASSETS_ROOT_URL }}/yellow_brick_road.mp3\" />",
       "connectedTo": [
         { "id": "hauntedForest" }
@@ -208,15 +226,39 @@
     },
     {
       "id": "hauntedForest",
-      "name": "The Haunted Forest",
+      "name": "the haunted forest",
+      "aliases": "haunted forest",
       "introText": "The sun is setting now, and the forest is getting dark.",
       "connectedTo": [
-        { "id": "yellowBrickRoad" }
+        { "id": "yellowBrickRoad" },
+        {
+          "id": "terribleTree",
+          "requirements": [
+            {
+              "commandArgs": [ "isClimbing" ],
+              "deniedText": "The only way to get there is to climb."
+            }
+          ],
+          "preIntroText": "Climbin' the terrible tree, you are."
+        }
       ],
       "characters": [],
       "items": [],
       "requirements": [],
-      "searchText": "You can't really see anything. Too damn dark."
+      "searchText": "It's pretty dark, but there's a spooky looking tree over there."
+    },
+    {
+      "id": "terribleTree",
+      "name": "the terrible tree",
+      "aliases": ["terrible tree", "the tree", "top of the tree"],
+      "introText": "You made it to the top. Nice.",
+      "connectedTo": [
+        { "id": "hauntedForest" }
+      ],
+      "characters": [],
+      "items": [],
+      "requirements": [],
+      "searchText": ""
     }
   ]
 }

@@ -7,6 +7,8 @@
 const chai = require('chai');
 const expect = require('chai').expect;
 
+const CommandFactory = require('../../factories/command_factory');
+const IntentFactory = require('../../factories/intent_factory');
 const ItemFactory = require('../../factories/item_factory');
 const RequirementHelper = require('../../../engine/helpers/requirement_helper');
 const RequirementFactory = require('../../factories/requirement_factory');
@@ -30,14 +32,61 @@ describe('RequirementHelper', () => {
         item: { id: 'plunger' }
       });
       const state = StateFactory.default({ items: [plunger] });
-      expect(RequirementHelper.isSatisfied(requirement, state)).to.be.true
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.isSatisfied(requirement, command)).to.be.true
     });
+
     it('should return false when requirement is not satisfied', () => {
       const requirement = RequirementFactory.default({
         item: { id: 'plunger' }
       });
       const state = StateFactory.default({ items: [] });
-      expect(RequirementHelper.isSatisfied(requirement, state)).to.be.false
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.isSatisfied(requirement, command)).to.be.false
+    });
+  });
+
+  describe('.isSatisfiedForItem', () => {
+    it('should return true when the item requirement is satisfied', () => {
+      const plunger = ItemFactory.default({ id: 'plunger', name: 'Plunger' })
+      const requirement = RequirementFactory.default({
+        item: { id: 'plunger' }
+      });
+      const state = StateFactory.default({ items: [plunger] });
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.isSatisfiedForItem(requirement, command)).to.be.true
+    });
+
+    it('should return false when the item requirement is not satisfied', () => {
+      const requirement = RequirementFactory.default({
+        item: { id: 'plunger' }
+      });
+      const state = StateFactory.default({ items: [] });
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.isSatisfiedForItem(requirement, command)).to.be.false
+    });
+  });
+
+  describe('.isSatisfiedForCommandArgs', () => {
+    it('should return true when the command arg requirement is satisfied', () => {
+      const requirement = RequirementFactory.default({
+        commandArgs: ['isClimbing']
+      });
+      const intent = IntentFactory.default({
+        command: 'move',
+        commandArgs: { isClimbing: true }
+      });
+      const command = CommandFactory.default({ intent });
+      expect(RequirementHelper.isSatisfiedForCommandArgs(requirement, command)).to.be.true
+    });
+
+    it('should return false when the command arg requirement is not satisfied', () => {
+      const requirement = RequirementFactory.default({
+        commandArgs: ['isClimbing']
+      });
+      const intent = IntentFactory.default({ command: 'move' });
+      const command = CommandFactory.default({ intent });
+      expect(RequirementHelper.isSatisfiedForCommandArgs(requirement, command)).to.be.false
     });
   });
 
@@ -49,7 +98,8 @@ describe('RequirementHelper', () => {
       const requirement2 = RequirementFactory.default({ item: { id: 'sword' }});
       const requirements = [requirement1, requirement2];
       const state = StateFactory.default({ items: [sword, plunger] });
-      expect(RequirementHelper.getUnsatisfied(requirements, state)).to.deep.eq([]);
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.getUnsatisfied(requirements, command)).to.deep.eq([]);
     });
 
     it('should return the unsatisfied requirements', () => {
@@ -59,7 +109,8 @@ describe('RequirementHelper', () => {
       const requirement2 = RequirementFactory.default({ item: { id: 'sword' }});
       const requirements = [requirement1, requirement2];
       const state = StateFactory.default({ items: [plunger] });
-      expect(RequirementHelper.getUnsatisfied(requirements, state)).to.deep.eq([requirement2]);
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.getUnsatisfied(requirements, command)).to.deep.eq([requirement2]);
     });
   });
 
@@ -71,7 +122,8 @@ describe('RequirementHelper', () => {
       const requirement2 = RequirementFactory.default({ item: { id: 'sword' }});
       const requirements = [requirement1, requirement2];
       const state = StateFactory.default({ items: [sword, plunger] });
-      expect(RequirementHelper.getDeniedText(requirements, state)).to.be.undefined;
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.getDeniedText(requirements, command)).to.be.undefined;
     });
 
     it('should return the first unsatisfied requirement\'s denied text', () => {
@@ -81,7 +133,8 @@ describe('RequirementHelper', () => {
       const requirement2 = RequirementFactory.default({ item: { id: 'sword' }, deniedText: 'Need a sword, dude' });
       const requirements = [requirement1, requirement2];
       const state = StateFactory.default({ items: [plunger] });
-      expect(RequirementHelper.getDeniedText(requirements, state)).to.deep.eq('Need a sword, dude');
+      const command = CommandFactory.default({ state });
+      expect(RequirementHelper.getDeniedText(requirements, command)).to.deep.eq('Need a sword, dude');
     });
   });
 });

@@ -25,7 +25,7 @@ module.exports = class MoveCommand extends Command {
       return;
     }
 
-    const deniedText = RequirementHelper.getDeniedText(destination.requirements, this.state);
+    const deniedText = RequirementHelper.getDeniedText(destination.requirements, this);
     if (deniedText) {
       return this.say(deniedText);
     }

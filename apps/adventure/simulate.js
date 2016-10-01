@@ -90,7 +90,7 @@ const stateManager = new StateManager({
   }
 });
 const onError = (err, meta = {}) => {
-  if (meta.severity === 'info') return;
+  if (_.includes(['info', 'warning'], meta.severity)) return;
   console.error("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".red);
   console.error("EGADS, AN ERROR OCCURRED!".red.bold);
   console.error((err.stack || err.message).red);
