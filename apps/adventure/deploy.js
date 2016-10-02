@@ -4,8 +4,10 @@
 /* Imports */
 /***********************************************/
 
+const async = require('async');
 const colors = require('colors');
 const exec = require('sync-exec');
+const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs-extra');
 const path = require('path');
 const s3 = require('s3');
@@ -94,11 +96,19 @@ log('🗜', 'Zipping target build file');
 let zip = exec(`cd ${ TEMP_APP_ROOT }; zip -r ${ TARGET_BUILD_FILE } .`);
 
 log('🎛', 'Converting assets to Amazon-friendly format')
-walkSync(ASSETS_DIR, {
+async.each(walkSync(ASSETS_DIR, {
   directories: false,
   globs: ['**/*.mp3', '**/*.mp4', '**/*.wav'],
-}).forEach((audioPath) => {
-  exec(`ffmpeg -i ${ ASSETS_DIR }/${ audioPath } -ac 2 -codec:a libmp3lame -b:a 48k -ar 16000 ${ TEMP_ASSETS_ROOT }/${ audioPath }`);
+}), (audioPath, callback) => {
+  ffmpeg(`${ ASSETS_DIR }/${ audioPath }`)
+    .audioBitrate(48)
+    .audioChannels(2)
+    .audioCodec('libmp3lame')
+    .audioFrequency(16000)
+    .output(`${ TEMP_ASSETS_ROOT }/${ audioPath }`)
+    .on('error', error)
+    .on('end', callback)
+    .run();
 });
 
 if (fs.existsSync(TEMP_APP_ROOT)) {
@@ -133,7 +143,7 @@ buildUploader.on('error', function(err) {
 buildUploader.on('end', function() {
   log('🎵', 'Syncing audio assets with S3');
   const assetUploader = s3Client.uploadDir({
-    localDir: ASSETS_DIR,
+    localDir: TEMP_ASSETS_ROOT,
     deleteRemoved: true,
     s3Params: {
       Bucket: Settings.aws.assetsBucket
@@ -145,7 +155,6 @@ buildUploader.on('end', function() {
   });
 
   assetUploader.on('end', function() {
-
     if (fs.existsSync(TEMP_ASSETS_ROOT)) {
       log('🚽', 'Removing temporary assets directory');
       fs.removeSync(TEMP_ASSETS_ROOT);
